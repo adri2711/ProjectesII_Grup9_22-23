@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
 using System.Linq;
 
 public class ParserManager : MonoBehaviour
@@ -10,7 +9,7 @@ public class ParserManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tm;
     private string parserText;
 
-    private Stack<KeyCode> keyCodeInput = new Stack<KeyCode>();
+    private Queue<KeyCode> keyCodeInput = new Queue<KeyCode>();
 
     void Start()
     {
@@ -30,7 +29,7 @@ public class ParserManager : MonoBehaviour
         {
             if (e.keyCode != KeyCode.None)
             {
-                keyCodeInput.Push(e.keyCode);
+                keyCodeInput.Enqueue(e.keyCode);
             }
         }
     }
@@ -39,7 +38,7 @@ public class ParserManager : MonoBehaviour
     {
         if (keyCodeInput.Any())
         {
-            KeyCode currInput = keyCodeInput.Pop();
+            KeyCode currInput = keyCodeInput.Dequeue();
             Debug.Log(currInput);
             /*foreach (KeyCode code in keyCodeInput)
             {
