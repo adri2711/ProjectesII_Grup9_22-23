@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using System.Reflection;
+using System;
 
 public class ParserManager : MonoBehaviour
 {
@@ -13,24 +15,39 @@ public class ParserManager : MonoBehaviour
 
     void Start()
     {
-        parserText = "I love mutant fish";
-        tm.text = parserText;
     }
 
     void Update()
     {
         ParserLoop(parserText);
+        tm.text = KeyCodesToString(keyCodeInput);
+    }
+
+    string KeyCodesToString(Queue<KeyCode> input)
+    {
+        string ret = "";
+        foreach (KeyCode code in input)
+        {
+            ret += code.ToString();
+            Debug.Log(code.ToString());
+        }
+        return ret;
     }
 
     void OnGUI()
     {
         Event e = Event.current;
-        if (e.isKey)
+        if (e.type == EventType.KeyDown)
         {
+            //Key pressed
             if (e.keyCode != KeyCode.None)
             {
                 keyCodeInput.Enqueue(e.keyCode);
             }
+        }
+        else if (e.type == EventType.KeyUp)
+        {
+            //Key released
         }
     }
 
@@ -38,7 +55,7 @@ public class ParserManager : MonoBehaviour
     {
         if (keyCodeInput.Any())
         {
-            KeyCode currInput = keyCodeInput.Dequeue();
+            KeyCode currInput = keyCodeInput.First();
             Debug.Log(currInput);
             /*foreach (KeyCode code in keyCodeInput)
             {
