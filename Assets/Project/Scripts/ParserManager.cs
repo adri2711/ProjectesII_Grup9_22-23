@@ -8,59 +8,42 @@ using System;
 
 public class ParserManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI tm;
-    private string parserText;
-
-    private Queue<KeyCode> keyCodeInput = new Queue<KeyCode>();
+    [SerializeField] private TextMeshProUGUI playerTM;
+    [SerializeField] private TextMeshProUGUI parserTM;
+    private string parserText = "I love mutant fish!!";
+    int currLetterIndex = 0;
+    private string playerInput;
 
     void Start()
     {
+        parserTM.text = parserText;
     }
 
     void Update()
     {
+        InputLoop();
         ParserLoop(parserText);
-        tm.text = KeyCodesToString(keyCodeInput);
+        playerTM.text = playerInput;
     }
 
-    string KeyCodesToString(Queue<KeyCode> input)
+    private void InputLoop()
     {
-        string ret = "";
-        foreach (KeyCode code in input)
+        foreach (char c in Input.inputString)
         {
-            ret += code.ToString();
-            Debug.Log(code.ToString());
-        }
-        return ret;
-    }
-
-    void OnGUI()
-    {
-        Event e = Event.current;
-        if (e.type == EventType.KeyDown)
-        {
-            //Key pressed
-            if (e.keyCode != KeyCode.None)
+            if (c == parserText[currLetterIndex])
             {
-                keyCodeInput.Enqueue(e.keyCode);
+                playerInput += c;
+                currLetterIndex++;
             }
-        }
-        else if (e.type == EventType.KeyUp)
-        {
-            //Key released
+            else
+            {
+                Debug.Log("Wrong!");
+            }
         }
     }
 
     private void ParserLoop(string currText)
     {
-        if (keyCodeInput.Any())
-        {
-            KeyCode currInput = keyCodeInput.First();
-            Debug.Log(currInput);
-            /*foreach (KeyCode code in keyCodeInput)
-            {
-                Debug.Log(code);
-            }*/
-        }
+       
     }
 }
