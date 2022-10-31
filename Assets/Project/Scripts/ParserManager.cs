@@ -5,17 +5,36 @@ using TMPro;
 using System.Linq;
 using System.Reflection;
 using System;
+using System.Runtime.ConstrainedExecution;
 
 public class ParserManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI playerTM;
+    public static ParserManager instance { get; private set; }
+
     [SerializeField] private TextMeshProUGUI parserTM;
+    private string levelText = "I love mutant fish!! It makes me hard as a deep sea rock.";
     private string parserText = "I love mutant fish!!";
-    int currLetterIndex = 0;
+    private string parserFormat = "<color=green><color=black>";
+    private int parserFormatLength;
+    private int currLetterIndex = 0;
     private string playerInput;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
+        parserFormatLength = parserFormat.Length;
+        parserText = parserFormat + parserText;
         parserTM.text = parserText;
     }
 
@@ -23,21 +42,27 @@ public class ParserManager : MonoBehaviour
     {
         InputLoop();
         ParserLoop(parserText);
-        playerTM.text = playerInput;
+        parserTM.text = parserText;
     }
 
     private void InputLoop()
     {
         foreach (char c in Input.inputString)
         {
-            if (c == parserText[currLetterIndex])
+            if (c == levelText[currLetterIndex])
             {
+                //Correct Input
                 playerInput += c;
+                string correctChar = "" + c;
+                parserText = parserText.Remove(parserFormatLength + currLetterIndex,1);
+                parserText = parserText.Insert(parserFormatLength / 2 + currLetterIndex, correctChar);
+
                 currLetterIndex++;
             }
             else
             {
-                Debug.Log("Wrong!");
+                //Wrong Input
+                //Debug.Log("Wrong!");
             }
         }
     }
@@ -45,5 +70,14 @@ public class ParserManager : MonoBehaviour
     private void ParserLoop(string currText)
     {
        
+    }
+
+    public bool VerifyKey(KeyCode key)
+    {
+        string temp = "";
+        temp += (parserText[currLetterIndex]);
+        Debug.Log(key.ToString());
+        Debug.Log(temp.ToUpper());
+        return key.ToString() == temp.ToUpper();
     }
 }

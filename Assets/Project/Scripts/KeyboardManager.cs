@@ -6,7 +6,6 @@ using UnityEngine;
 public class KeyboardManager : MonoBehaviour
 {
     [SerializeField] List<Key> keys;
-    private List<KeyCode> keyCodeInput = new List<KeyCode>();
 
     private enum Keys
     {
@@ -123,30 +122,26 @@ public class KeyboardManager : MonoBehaviour
     void OnGUI()
     {
         Event e = Event.current;
-        if (e.type == EventType.KeyDown)
+        if (e.isKey && KeyCodeToKeyboardPos(e.keyCode) >= 0)
         {
-            //Key pressed
-            if (e.keyCode != KeyCode.None)
+            if (e.type == EventType.KeyDown)
             {
-                //keyCodeInput.Enqueue(e.keyCode);
-                
+                //Key pressed
+                if (ParserManager.instance.VerifyKey(e.keyCode))
+                {
+                    keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
+                }
+                else
+                {
+                    keys[KeyCodeToKeyboardPos(e.keyCode)].PushWrongLetter();
+                }
             }
-            keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
-        }
-        else if (e.type == EventType.KeyUp)
-        {
-            //Key released
-            keys[KeyCodeToKeyboardPos(e.keyCode)].ResetLetter();
+            else if (e.type == EventType.KeyUp)
+            {
+                //Key released
+                keys[KeyCodeToKeyboardPos(e.keyCode)].ResetLetter();
+            }
         }
         
     }
-
-    //private void ParserLoop(string currText)
-    //{
-    //    if (keyCodeInput.Any())
-    //    {
-    //        KeyCode currInput = keyCodeInput.First();
-    //        Debug.Log(currInput);
-    //    }
-    //}
 }
