@@ -57,12 +57,14 @@ public class ParserManager : MonoBehaviour
                 parserText = parserText.Remove(parserFormatLength + currLetterIndex,1);
                 parserText = parserText.Insert(parserFormatLength / 2 + currLetterIndex, correctChar);
 
+                GameEvents.instance.EnterCorrectLetter(currLetterIndex);
+
                 currLetterIndex++;
             }
             else
             {
                 //Wrong Input
-                //Debug.Log("Wrong!");
+                GameEvents.instance.EnterWrongLetter(currLetterIndex);
             }
         }
     }
@@ -75,9 +77,12 @@ public class ParserManager : MonoBehaviour
     public bool VerifyKey(KeyCode key)
     {
         string temp = "";
-        temp += (parserText[currLetterIndex]);
-        Debug.Log(key.ToString());
-        Debug.Log(temp.ToUpper());
+        temp += (parserText[parserFormatLength + currLetterIndex]);
         return key.ToString() == temp.ToUpper();
+    }
+
+    public char GetChar(int pos)
+    {
+        return levelText[pos];
     }
 }
