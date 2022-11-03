@@ -2,49 +2,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
 using System.Linq;
+using System.Reflection;
+using System;
+using System.Runtime.ConstrainedExecution;
 
 public class ParserManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI tm;
-    private string parserText;
+    public static ParserManager instance { get; private set; }
 
-    private Stack<KeyCode> keyCodeInput = new Stack<KeyCode>();
+    [SerializeField] private TextMeshProUGUI parserTM;
+    private string levelText = "I love mutant fish!! It makes me hard as a deep sea rock.";
+    private string parserText = "I love mutant fish!!";
+    private string parserFormat = "<color=green><color=black>";
+    private int parserFormatLength;
+    private int currLetterIndex = 0;
+    private string playerInput;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
-        parserText = "I love mutant fish";
-        tm.text = parserText;
+        parserFormatLength = parserFormat.Length;
+        parserText = parserFormat + parserText;
+        parserTM.text = parserText;
     }
 
     void Update()
     {
+        InputLoop();
         ParserLoop(parserText);
+        parserTM.text = parserText;
     }
 
-    void OnGUI()
+    private void InputLoop()
     {
-        Event e = Event.current;
-        if (e.isKey)
+        foreach (char c in Input.inputString)
         {
-            if (e.keyCode != KeyCode.None)
+            if (c == levelText[currLetterIndex])
             {
-                keyCodeInput.Push(e.keyCode);
+                //Correct Input
+                playerInput += c;
+                string correctChar = "" + c;
+                parserText = parserText.Remove(parserFormatLength + currLetterIndex,1);
+                parserText = parserText.Insert(parserFormatLength / 2 + currLetterIndex, correctChar);
+
+                GameEvents.instance.EnterCorrectLetter(currLetterIndex);
+
+                currLetterIndex++;
+            }
+            else
+            {
+                //Wrong Input
+                GameEvents.instance.EnterWrongLetter(currLetterIndex);
             }
         }
     }
 
     private void ParserLoop(string currText)
     {
-        if (keyCodeInput.Any())
-        {
-            KeyCode currInput = keyCodeInput.Pop();
-            Debug.Log(currInput);
-            /*foreach (KeyCode code in keyCodeInput)
-            {
-                Debug.Log(code);
-            }*/
-        }
+       
+    }
+
+    public bool VerifyKey(KeyCode key)
+    {
+        string temp = "";
+        temp += (parserText[parserFormatLength + currLetterIndex]);
+        return key.ToString() == temp.ToUpper();
+    }
+
+    public char GetChar(int pos)
+    {
+        return levelText[pos];
     }
 }
