@@ -78,7 +78,14 @@ public class ParserManager : MonoBehaviour
     {
         string temp = "";
         temp += (parserText[parserFormatLength + currLetterIndex]);
-        return key.ToString() == temp.ToUpper();
+        if (key >= KeyCode.A && key <= KeyCode.Z)
+        {
+            return key.ToString() == temp.ToUpper();
+        }
+        else if (key == KeyCode.Space) {
+            return temp == " ";
+        }
+        return false;
     }
 
     public char GetChar(int pos)
