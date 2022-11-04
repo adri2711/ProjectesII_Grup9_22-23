@@ -31,18 +31,22 @@ public class ParserManager : MonoBehaviour
         }
     }
 
+    ParserMultipartText t = new ParserMultipartText();
+
     void Start()
     {
         parserFormatLength = parserFormat.Length;
         parserText = parserFormat + parserText;
         parserTM.text = parserText;
+
+        parserTM.text = t.GetFullFormattedText();
     }
 
     void Update()
     {
-        InputLoop();
-        ParserLoop(parserText);
-        parserTM.text = parserText;
+        //InputLoop();
+        //ParserLoop(parserText);
+        //parserTM.text = parserText;
     }
 
     private void InputLoop()
