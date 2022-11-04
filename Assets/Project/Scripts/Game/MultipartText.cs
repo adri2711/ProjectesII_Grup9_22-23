@@ -7,6 +7,8 @@ using UnityEngine;
 public class MultipartText : MonoBehaviour
 {
     protected List<TextPart> parts = new List<TextPart>();
+    string formattedText = "";
+    string unformattedText = "";
 
     public void SetPartText(string pid, string text)
     {
@@ -19,6 +21,7 @@ public class MultipartText : MonoBehaviour
     public void SetPartText(int p, string text)
     {
         parts[p].text = text;
+        UpdateText();
     }
     public string GetPartText(string pid)
     {
@@ -41,6 +44,7 @@ public class MultipartText : MonoBehaviour
     public virtual void AddPart(TextPart newPart, int index)
     {
         parts.Insert(index, newPart);
+        UpdateText();
     }
     public void SetPartPos(string pid, int index)
     {
@@ -55,6 +59,7 @@ public class MultipartText : MonoBehaviour
         TextPart temp = parts[p];
         parts.RemoveAt(p);
         parts.Insert(index, temp);
+        UpdateText();
     }
 
     protected int GetIndexFromId(string pid)
@@ -71,23 +76,28 @@ public class MultipartText : MonoBehaviour
         return p;
     }
 
-    public virtual string GetFullFormattedText()
+    protected void UpdateText()
     {
-        string ret = "";
+        formattedText = "";
         foreach (TextPart part in parts)
         {
-            ret += part.GetFormattedText();
+            formattedText += part.GetFormattedText();
         }
-        return ret;
+
+        unformattedText = "";
+        foreach (TextPart part in parts)
+        {
+            unformattedText += part.text;
+        }
     }
 
-    public virtual string GetFullUnformattedText()
+    public string GetFullFormattedText()
     {
-        string ret = "";
-        foreach (TextPart part in parts)
-        {
-            ret += part.text;
-        }
-        return ret;
+        return formattedText;
+    }
+
+    public string GetFullUnformattedText()
+    {
+        return unformattedText;
     }
 }

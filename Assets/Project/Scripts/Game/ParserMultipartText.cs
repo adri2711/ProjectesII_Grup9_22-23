@@ -10,7 +10,7 @@ public class ParserMultipartText : MultipartText
     private int wrongIndex;
     public ParserMultipartText()
     {
-        string t = "I love mutant fish!! It makes me hard as a deep sea rock.";
+        string t = "I love mutant fish!!";
         AddPart(new TextPart("wrong", "", new Color(0.6f, 0.1f, 0.1f)));
         AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)));
         AddPart(new TextPart("bodyDefault", t, new Color(0.1f, 0.1f, 0.1f)));

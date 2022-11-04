@@ -12,12 +12,8 @@ public class ParserManager : MonoBehaviour
     public static ParserManager instance { get; private set; }
 
     [SerializeField] private TextMeshProUGUI parserTM;
-    private string levelText = "I love mutant fish!! It makes me hard as a deep sea rock.";
-    private string parserText = "I love mutant fish!!";
-    private string parserFormat = "<color=green><color=black>";
-    private int parserFormatLength;
+    private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
-    private string playerInput;
 
     private void Awake()
     {
@@ -31,36 +27,23 @@ public class ParserManager : MonoBehaviour
         }
     }
 
-    ParserMultipartText t = new ParserMultipartText();
-
     void Start()
     {
-        parserFormatLength = parserFormat.Length;
-        parserText = parserFormat + parserText;
-        parserTM.text = parserText;
-
-        parserTM.text = t.GetFullFormattedText();
     }
 
     void Update()
     {
-        //InputLoop();
-        //ParserLoop(parserText);
-        //parserTM.text = parserText;
+        InputLoop();
+        parserTM.text = parserText.GetFullFormattedText();
     }
 
     private void InputLoop()
     {
         foreach (char c in Input.inputString)
         {
-            if (c == levelText[currLetterIndex])
+            if (c == parserText.GetFullUnformattedText()[currLetterIndex])
             {
                 //Correct Input
-                playerInput += c;
-                string correctChar = "" + c;
-                parserText = parserText.Remove(parserFormatLength + currLetterIndex,1);
-                parserText = parserText.Insert(parserFormatLength / 2 + currLetterIndex, correctChar);
-
                 GameEvents.instance.EnterCorrectLetter(currLetterIndex);
 
                 currLetterIndex++;
@@ -73,15 +56,10 @@ public class ParserManager : MonoBehaviour
         }
     }
 
-    private void ParserLoop(string currText)
-    {
-       
-    }
-
     public bool VerifyKey(KeyCode key)
     {
         string temp = "";
-        temp += (parserText[parserFormatLength + currLetterIndex]);
+        temp += (parserText.GetFullUnformattedText()[currLetterIndex]);
         if (key >= KeyCode.A && key <= KeyCode.Z)
         {
             return key.ToString() == temp.ToUpper();
@@ -94,6 +72,6 @@ public class ParserManager : MonoBehaviour
 
     public char GetChar(int pos)
     {
-        return levelText[pos];
+        return parserText.GetFullUnformattedText()[pos];
     }
 }
