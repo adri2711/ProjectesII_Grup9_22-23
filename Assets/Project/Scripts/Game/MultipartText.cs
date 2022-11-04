@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MultipartText : MonoBehaviour
+public class MultipartText
 {
     protected List<TextPart> parts = new List<TextPart>();
     string formattedText = "";
@@ -40,6 +40,7 @@ public class MultipartText : MonoBehaviour
     public void AddPart(TextPart newPart)
     {
         parts.Add(newPart);
+        UpdateText();
     }
     public virtual void AddPart(TextPart newPart, int index)
     {
@@ -91,11 +92,24 @@ public class MultipartText : MonoBehaviour
         }
     }
 
+    //public string GetTextSegment(int s, int l)
+    //{
+    //    int i = 0, j = 0;
+    //    bool end = false;
+    //    while (i < parts.Count && !end)
+    //    {
+    //        while (j < parts[i].text.Length)
+    //        {
+    //            end = j >= s + l;
+    //            j++;
+    //        }
+    //        i++;
+    //    }
+    //}
     public string GetFullFormattedText()
     {
         return formattedText;
     }
-
     public string GetFullUnformattedText()
     {
         return unformattedText;
