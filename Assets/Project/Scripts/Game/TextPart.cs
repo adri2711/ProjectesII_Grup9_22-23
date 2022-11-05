@@ -10,6 +10,7 @@ public enum Modifiers {
     STRIKETHROUGH = 4
 }
 
+[System.Serializable]
 public class TextPart
 {
     private string[] startMods = { "<b>", "<i>", "<s>" };

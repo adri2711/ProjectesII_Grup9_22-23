@@ -1,20 +1,20 @@
 {
-    "parts": [
+    "partArray": [
         {
             "id": "text1",
-            "color": "#000000",
+            "colorHex": "#000000",
             "flags": 0,
             "text": "I love mutant fish! "
         },
         {
             "id": "text2",
-            "color": "#2e224d",
+            "colorHex": "#2e224d",
             "flags": 0,
             "text": "It makes me hard as a deep sea rock. "
         },
         {
             "id": "text3",
-            "color": "#2d8778",
+            "colorHex": "#2d8778",
             "flags": 1,
             "text": "10/10 would recommend to everyone."
         }

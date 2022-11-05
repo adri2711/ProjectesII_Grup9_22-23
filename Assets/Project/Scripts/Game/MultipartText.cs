@@ -7,9 +7,16 @@ using System.Xml;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
+[System.Serializable]
+public class TextParts
+{
+    public TextPart[] partArray;
+    public List<TextPart> value = new List<TextPart>();
+}
+
 public class MultipartText
 {
-    protected List<TextPart> parts;
+    public TextParts parts = new TextParts();
     private string formattedText = "";
     private string unformattedText = "";
     private string formattedRenderedText = "";
@@ -28,7 +35,7 @@ public class MultipartText
     }
     public void SetPartText(int p, string text)
     {
-        parts[p].text = text;
+        parts.value[p].text = text;
         UpdateText();
     }
     public string GetPartText(string pid)
@@ -42,17 +49,17 @@ public class MultipartText
     }
     public string GetPartText(int p)
     {
-        return parts[p].text;
+        return parts.value[p].text;
     }
 
     public void AddPart(TextPart newPart)
     {
-        parts.Add(newPart);
+        parts.value.Add(newPart);
         UpdateText();
     }
     public virtual void AddPart(TextPart newPart, int index)
     {
-        parts.Insert(index, newPart);
+        parts.value.Insert(index, newPart);
         UpdateText();
     }
     public void SetPartPos(string pid, int index)
@@ -65,18 +72,18 @@ public class MultipartText
     }
     public virtual void SetPartPos(int p, int index)
     {
-        TextPart temp = parts[p];
-        parts.RemoveAt(p);
-        parts.Insert(index, temp);
+        TextPart temp = parts.value[p];
+        parts.value.RemoveAt(p);
+        parts.value.Insert(index, temp);
         UpdateText();
     }
 
     protected int GetIndexFromId(string pid)
     {
         int p = -1;
-        for (int i = 0; i < parts.Count; i++)
+        for (int i = 0; i < parts.value.Count; i++)
         {
-            if (parts[i].id == pid)
+            if (parts.value[i].id == pid)
             {
                 p = i;
                 break;
@@ -104,7 +111,7 @@ public class MultipartText
     private string UpdateFullText(bool format = true)
     {
         string ret = "";
-        foreach (TextPart part in parts)
+        foreach (TextPart part in parts.value)
         {
             if (format)
                 ret += part.GetFormattedText();
@@ -118,15 +125,15 @@ public class MultipartText
         string ret = "";
         int i = 0, j = 0;
         bool end = false, start = false;
-        //Loop thru parts
-        while (i < parts.Count && !end)
+        //Loop thru parts.value
+        while (i < parts.value.Count && !end)
         {
             //Loop thru part's text
             int k = 0;
-            while (k < parts[i].text.Length && !end)
+            while (k < parts.value[i].text.Length && !end)
             {
                 //exit if end of word is found or if loop goes over leniency
-                end = j >= s + l - wholeWordLeniency && (parts[i].text[k] == ' ' || j == l + s + wholeWordLeniency);
+                end = j >= s + l - wholeWordLeniency && (parts.value[i].text[k] == ' ' || j == l + s + wholeWordLeniency);
 
                 if (!end)
                 {
@@ -141,16 +148,16 @@ public class MultipartText
             {
                 start = true;
                 if (format)
-                    newPart = parts[i].GetFormattedText(s, k - s);
+                    newPart = parts.value[i].GetFormattedText(s, k - s);
                 else
-                    newPart = parts[i].text.Substring(s, k - s);
+                    newPart = parts.value[i].text.Substring(s, k - s);
             }
             else
             {
                 if (format)
-                    newPart = parts[i].GetFormattedText(0, k);
+                    newPart = parts.value[i].GetFormattedText(0, k);
                 else
-                    newPart = parts[i].text.Substring(0, k);
+                    newPart = parts.value[i].text.Substring(0, k);
             }
             ret += newPart;
 
