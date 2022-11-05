@@ -1,45 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class ParserMultipartText : MultipartText
 {
     private int correctIndex;
-    private int bodyIndex;
     private int wrongIndex;
+    private int bodyIndex;
+    private int currIndex;
+
     public ParserMultipartText()
     {
-        string t = "I love mutant fish!! It gets me harder than a deep sea rock.";
-        AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)));
-        AddPart(new TextPart("wrong", "", new Color(0.6f, 0.1f, 0.1f)));
-        AddPart(new TextPart("bodyDefault", t, new Color(0.1f, 0.1f, 0.1f)));
+    }
+    public void Setup(TextAsset jsonText)
+    {
+        parts = JsonUtility.FromJson<TextParts>(jsonText.text);
+        parts.value = parts.partArray.ToList();
+
+        AddPart(new TextPart("bodyDefault", "", new Color(0.1f, 0.1f, 0.1f)),0);
+        AddPart(new TextPart("wrong", "", new Color(0.6f, 0.1f, 0.1f)),0);
+        AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)),0);
+
+        UpdateText();
         UpdateIndexes();
     }
+
     public void AddCorrectLetter()
     {
         char correctChar;
-        if (parts[wrongIndex].text.Length > 0)
+        if (parts.value[wrongIndex].text.Length > 0)
         {
-            correctChar = parts[wrongIndex].text[0];
-            parts[wrongIndex].text = parts[wrongIndex].text.Remove(0, 1);
+            correctChar = parts.value[wrongIndex].text[0];
+            parts.value[wrongIndex].text = parts.value[wrongIndex].text.Remove(0, 1);
         }
         else
         {
-            
-            correctChar = parts[bodyIndex].text[0];
-            parts[bodyIndex].text = parts[bodyIndex].text.Remove(0, 1);
+            correctChar = parts.value[currIndex].text[0];
+            parts.value[currIndex].text = parts.value[currIndex].text.Remove(0, 1);
         }
-        parts[correctIndex].text += correctChar;
+        parts.value[correctIndex].text += correctChar;
         UpdateText();
+        UpdateIndexes();
     }
     public void WrongLetter()
     {
-        if (parts[wrongIndex].text.Length == 0)
+        if (parts.value[wrongIndex].text.Length == 0)
         {
-            parts[wrongIndex].text = parts[wrongIndex].text.Insert(0, parts[bodyIndex].text[0].ToString());
-            parts[bodyIndex].text = parts[bodyIndex].text.Remove(0, 1);
+            parts.value[wrongIndex].text = parts.value[wrongIndex].text.Insert(0, parts.value[currIndex].text[0].ToString());
+            parts.value[currIndex].text = parts.value[currIndex].text.Remove(0, 1);
             UpdateText();
+            UpdateIndexes();
         }
     }
     public override void AddPart(TextPart newPart, int index)
@@ -54,8 +67,18 @@ public class ParserMultipartText : MultipartText
     }
     private void UpdateIndexes()
     {
+        //find key part indexes
         correctIndex = GetIndexFromId("correct");
         wrongIndex = GetIndexFromId("wrong");
         bodyIndex = GetIndexFromId("bodyDefault");
+
+        //find first non-empty part in text body
+        int i = bodyIndex;
+        currIndex = bodyIndex;
+        while (i < parts.value.Count && parts.value[i].text.Length == 0)
+        {
+            i++;
+            currIndex = i;
+        }
     }
 }
