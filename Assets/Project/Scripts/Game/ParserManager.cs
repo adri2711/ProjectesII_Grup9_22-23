@@ -12,6 +12,7 @@ public class ParserManager : MonoBehaviour
     public static ParserManager instance { get; private set; }
 
     [SerializeField] private TextMeshProUGUI parserTM;
+    [SerializeField] private TextAsset TextJSON;
     private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
     private int currRenderIndex = 0;
@@ -34,6 +35,7 @@ public class ParserManager : MonoBehaviour
         GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
         parserLength = 25;
+        parserText.Setup(TextJSON);
     }
 
     void Update()

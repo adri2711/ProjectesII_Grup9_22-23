@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class MultipartText
 {
-    protected List<TextPart> parts = new List<TextPart>();
+    protected List<TextPart> parts;
     private string formattedText = "";
     private string unformattedText = "";
     private string formattedRenderedText = "";

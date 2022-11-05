@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parserTM: {fileID: 1253893087}
+  TextJSON: {fileID: 4900000, guid: dd037164c6091e243865cf8a2eda0ea8, type: 3}
 --- !u!224 &88084000 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8484721372150741934, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}

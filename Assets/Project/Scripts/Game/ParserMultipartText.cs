@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
@@ -8,14 +9,23 @@ public class ParserMultipartText : MultipartText
     private int correctIndex;
     private int bodyIndex;
     private int wrongIndex;
+
     public ParserMultipartText()
     {
-        string t = "I love mutant fish!! It gets me harder than a deep sea rock.";
+    }
+    public void Setup(TextAsset jsonText)
+    {
+        /*string t = "I love mutant fish!! It gets me harder than a deep sea rock.";
         AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)));
         AddPart(new TextPart("wrong", "", new Color(0.6f, 0.1f, 0.1f)));
-        AddPart(new TextPart("bodyDefault", t, new Color(0.1f, 0.1f, 0.1f)));
+        AddPart(new TextPart("bodyDefault", t, new Color(0.1f, 0.1f, 0.1f)));*/
+
+        //TextPart tp = JsonUtility.FromJson<TextPart>("{\"id\": \"bodyDefault\",\"colorHex\": \"#000000\",\"flags\": 1,\"text\": \"I love mutant fish! \"}");
+        //AddPart(tp);
+
         UpdateIndexes();
     }
+
     public void AddCorrectLetter()
     {
         char correctChar;
