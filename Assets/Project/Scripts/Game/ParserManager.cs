@@ -14,6 +14,7 @@ public class ParserManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI parserTM;
     private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
+    private int currRenderIndex = 0;
     private int parserLength;
 
     private void Awake()
@@ -37,12 +38,8 @@ public class ParserManager : MonoBehaviour
 
     void Update()
     {
+        ParserLoop();
         InputLoop();
-
-        if (currLetterIndex <= GetTextSize())
-        {
-            parserTM.text = parserText.GetTextSegment(currLetterIndex - (currLetterIndex % parserLength), parserLength);
-        }
     }
     private void AddCorrectLetter(int p)
     {
@@ -52,6 +49,22 @@ public class ParserManager : MonoBehaviour
     {
         parserText.WrongLetter();
     }
+
+    private void ParserLoop()
+    {
+        if (currLetterIndex <= GetTextSize())
+        {
+            //Update rendered text when all on-screen text has been completed
+            if (currLetterIndex >= currRenderIndex && currLetterIndex < GetTextSize())
+            {
+                parserText.SetRenderedSegment(currLetterIndex, parserLength);
+                currRenderIndex += parserText.GetRenderedSegmentLength();
+            }
+
+            parserTM.text = parserText.GetRenderedFormattedText();
+        }
+    }
+
     private void InputLoop()
     {
         foreach (char c in Input.inputString)

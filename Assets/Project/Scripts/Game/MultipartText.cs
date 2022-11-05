@@ -3,13 +3,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
 public class MultipartText
 {
     protected List<TextPart> parts = new List<TextPart>();
-    string formattedText = "";
-    string unformattedText = "";
+    private string formattedText = "";
+    private string unformattedText = "";
+    private string formattedRenderedText = "";
+    private string unformattedRenderedText = "";
+    private int wholeWordLeniency = 3;
+    private int renderedSegmentStart = 0;
+    private int renderedSegmentLength = 0;
 
     public void SetPartText(string pid, string text)
     {
@@ -77,33 +84,50 @@ public class MultipartText
         }
         return p;
     }
-
-    protected void UpdateText()
+    public void SetRenderedSegment(int start, int length)
     {
-        formattedText = "";
-        foreach (TextPart part in parts)
-        {
-            formattedText += part.GetFormattedText();
-        }
-
-        unformattedText = "";
-        foreach (TextPart part in parts)
-        {
-            unformattedText += part.text;
-        }
+        renderedSegmentStart = start;
+        renderedSegmentLength = length;
+        UpdateRenderedText();
     }
-
-    public string GetTextSegment(int s, int l)
+    protected virtual void UpdateRenderedText()
+    {
+        formattedRenderedText = UpdateRenderedText(renderedSegmentStart, renderedSegmentLength);
+        unformattedRenderedText = UpdateRenderedText(renderedSegmentStart, renderedSegmentLength, false);
+    }
+    protected virtual void UpdateText()
+    {
+        formattedText = UpdateFullText();
+        unformattedText = UpdateFullText(false);
+        UpdateRenderedText();
+    }
+    private string UpdateFullText(bool format = true)
+    {
+        string ret = "";
+        foreach (TextPart part in parts)
+        {
+            if (format)
+                ret += part.GetFormattedText();
+            else
+                ret += part.text;
+        }
+        return ret;
+    }
+    private string UpdateRenderedText(int s, int l, bool format = true)
     {
         string ret = "";
         int i = 0, j = 0;
         bool end = false, start = false;
+        //Loop thru parts
         while (i < parts.Count && !end)
         {
+            //Loop thru part's text
             int k = 0;
             while (k < parts[i].text.Length && !end)
             {
-                end = j >= s + l;
+                //exit if end of word is found or if loop goes over leniency
+                end = j >= s + l - wholeWordLeniency && (parts[i].text[k] == ' ' || j == l + s + wholeWordLeniency);
+
                 if (!end)
                 {
                     j++;
@@ -111,20 +135,30 @@ public class MultipartText
                 }
             }
 
+            //Add part to returned text
+            string newPart = "";
             if (j >= s && !start)
             {
                 start = true;
-                ret += parts[i].GetFormattedText(s, k-s);
+                if (format)
+                    newPart = parts[i].GetFormattedText(s, k - s);
+                else
+                    newPart = parts[i].text.Substring(s, k - s);
             }
             else
             {
-                ret += parts[i].GetFormattedText(0, k);
+                if (format)
+                    newPart = parts[i].GetFormattedText(0, k);
+                else
+                    newPart = parts[i].text.Substring(0, k);
             }
+            ret += newPart;
 
             i++;
         }
         return ret;
     }
+
     public string GetFullFormattedText()
     {
         return formattedText;
@@ -132,5 +166,13 @@ public class MultipartText
     public string GetFullUnformattedText()
     {
         return unformattedText;
+    }
+    public string GetRenderedFormattedText()
+    {
+        return formattedRenderedText;
+    }
+    public int GetRenderedSegmentLength()
+    {
+        return unformattedRenderedText.Length;
     }
 }
