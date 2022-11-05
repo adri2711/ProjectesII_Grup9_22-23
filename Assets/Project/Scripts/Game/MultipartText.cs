@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,20 +93,38 @@ public class MultipartText
         }
     }
 
-    //public string GetTextSegment(int s, int l)
-    //{
-    //    int i = 0, j = 0;
-    //    bool end = false;
-    //    while (i < parts.Count && !end)
-    //    {
-    //        while (j < parts[i].text.Length)
-    //        {
-    //            end = j >= s + l;
-    //            j++;
-    //        }
-    //        i++;
-    //    }
-    //}
+    public string GetTextSegment(int s, int l)
+    {
+        string ret = "";
+        int i = 0, j = 0;
+        bool end = false, start = false;
+        while (i < parts.Count && !end)
+        {
+            int k = 0;
+            while (k < parts[i].text.Length && !end)
+            {
+                end = j >= s + l;
+                if (!end)
+                {
+                    j++;
+                    k++;
+                }
+            }
+
+            if (j >= s && !start)
+            {
+                start = true;
+                ret += parts[i].GetFormattedText(s, k-s);
+            }
+            else
+            {
+                ret += parts[i].GetFormattedText(0, k);
+            }
+
+            i++;
+        }
+        return ret;
+    }
     public string GetFullFormattedText()
     {
         return formattedText;

@@ -59,4 +59,8 @@ public class TextPart
     {
         return preFormat + text + postFormat;
     }
+    public string GetFormattedText(int s, int l)
+    {
+        return preFormat + text.Substring(s ,l) + postFormat;
+    }
 }

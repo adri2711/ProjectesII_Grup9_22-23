@@ -32,15 +32,17 @@ public class ParserManager : MonoBehaviour
     {
         GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
-        parserLength = 20;
+        parserLength = 25;
     }
 
     void Update()
     {
         InputLoop();
 
-        //parserTM.text = parserText.GetTextSegment(parserLength * (int)(currLetterIndex / parserLength), parserLength);
-        parserTM.text = parserText.GetFullFormattedText();
+        if (currLetterIndex <= GetTextSize())
+        {
+            parserTM.text = parserText.GetTextSegment(currLetterIndex - (currLetterIndex % parserLength), parserLength);
+        }
     }
     private void AddCorrectLetter(int p)
     {
@@ -54,32 +56,44 @@ public class ParserManager : MonoBehaviour
     {
         foreach (char c in Input.inputString)
         {
-            if (c == parserText.GetFullUnformattedText()[currLetterIndex])
+            if (currLetterIndex < GetTextSize())
             {
-                //Correct Input
-                GameEvents.instance.EnterCorrectLetter(currLetterIndex);
+                if (c == parserText.GetFullUnformattedText()[currLetterIndex])
+                {
+                    //Correct Input
+                    GameEvents.instance.EnterCorrectLetter(currLetterIndex);
 
-                currLetterIndex++;
-            }
-            else
-            {
-                //Wrong Input
-                GameEvents.instance.EnterWrongLetter(currLetterIndex);
+                    currLetterIndex++;
+                    if (currLetterIndex == GetTextSize())
+                    {
+                        //Finish level
+                        Debug.Log("finished!");
+                        GameEvents.instance.FinishLevel();
+                    }
+                }
+                else
+                {
+                    //Wrong Input
+                    GameEvents.instance.EnterWrongLetter(currLetterIndex);
+                }
             }
         }
     }
 
     public bool VerifyKey(KeyCode key)
     {
-        string temp = "";
-        temp += (parserText.GetFullUnformattedText()[currLetterIndex]);
-        if (key >= KeyCode.A && key <= KeyCode.Z)
+        if (currLetterIndex < GetTextSize())
         {
-            return key.ToString() == temp.ToUpper();
-        }
-        else if (key == KeyCode.Space)
-        {
-            return temp == " ";
+            string temp = "";
+            temp += (parserText.GetFullUnformattedText()[currLetterIndex]);
+            if (key >= KeyCode.A && key <= KeyCode.Z)
+            {
+                return key.ToString() == temp.ToUpper();
+            }
+            else if (key == KeyCode.Space)
+            {
+                return temp == " ";
+            }
         }
         return false;
     }
@@ -87,5 +101,9 @@ public class ParserManager : MonoBehaviour
     public char GetChar(int pos)
     {
         return parserText.GetFullUnformattedText()[pos];
+    }
+    public int GetTextSize()
+    {
+        return parserText.GetFullUnformattedText().Length;
     }
 }
