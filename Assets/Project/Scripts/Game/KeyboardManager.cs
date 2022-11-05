@@ -76,18 +76,22 @@ public class KeyboardManager : MonoBehaviour
 
     void HighlightNextKey(int pos)
     {
-        string s = ParserManager.instance.GetChar(pos+1).ToString().ToUpper();
-        int index = -1;
-        if (s[0] >= 'A' && s[0] <= 'Z') {
-            index = s[0] - 'A';
-        }
-        else if (s[0] == ' ')
+        if (pos < ParserManager.instance.GetTextSize() - 1)
         {
-            index = 26;
-        }
-        if (index >= 0)
-        {
-            keys[index].NextLetter();
+            string s = ParserManager.instance.GetChar(pos + 1).ToString().ToUpper();
+            int index = -1;
+            if (s[0] >= 'A' && s[0] <= 'Z')
+            {
+                index = s[0] - 'A';
+            }
+            else if (s[0] == ' ')
+            {
+                index = 26;
+            }
+            if (index >= 0)
+            {
+                keys[index].NextLetter();
+            }
         }
     }
 
