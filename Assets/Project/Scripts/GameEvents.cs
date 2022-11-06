@@ -23,6 +23,8 @@ public class GameEvents : MonoBehaviour
     public event Action<int> enterWrongLetter;
     public event Action finishLevel;
     public event Action lose;
+    public event Action activateLevel;
+    public event Action<float> gainExtraTime;
 
     public void EnterCorrectLetter(int pos)
     {
@@ -51,5 +53,19 @@ public class GameEvents : MonoBehaviour
         {
             lose();
         }
-    } 
+    }
+    public void ActivateLevel()
+    {
+        if (activateLevel != null)
+        {
+            activateLevel();
+        }
+    }
+    public void GainExtraTime(float amount)
+    {
+        if (gainExtraTime != null)
+        {
+            gainExtraTime(amount);
+        }
+    }
 }
