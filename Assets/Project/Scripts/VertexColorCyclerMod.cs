@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 
 namespace TMPro.Examples
 {
 
-    public class VertexColorCycler : MonoBehaviour
+    public class VertexColorCyclerMod : MonoBehaviour
     {
 
         private TMP_Text m_TextComponent;
@@ -58,9 +58,12 @@ namespace TMPro.Examples
                 int vertexIndex = textInfo.characterInfo[currentCharacter].vertexIndex;
 
                 // Only change the vertex color if the text element is visible.
-                if (textInfo.characterInfo[currentCharacter].isVisible && c0 != Color.green)
+                if (textInfo.characterInfo[currentCharacter].isVisible && c0 != Color.green && c0 != Color.red)
                 {
-                    c0 = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
+                    do
+                    {
+                        c0 = new Color32((byte)Random.Range(70, 255), (byte)Random.Range(0, 200), (byte)Random.Range(0, 255), 255);
+                    } while (c0 == Color.green || c0 == Color.red);
 
                     newVertexColors[vertexIndex + 0] = c0;
                     newVertexColors[vertexIndex + 1] = c0;
