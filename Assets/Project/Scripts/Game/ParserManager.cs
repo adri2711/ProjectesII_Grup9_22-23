@@ -35,7 +35,7 @@ public class ParserManager : MonoBehaviour
         GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
         parserLength = 25;
-        parserText.Setup(TextJSON[0]);
+        parserText.Setup(TextJSON[GameManager.instance.GetCurrentLevel()]);
     }
 
     void Update()

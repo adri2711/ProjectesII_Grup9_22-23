@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
+        gameState = GameState.LEVEL;
+        LevelStart();
     }
 
     void Update()
