@@ -17,10 +17,10 @@ public class Key : MonoBehaviour
     private bool goBackToNext = false;
     
 
-    private Color neutral = new Color32(255,255,255,255);
-    private Color correct = new Color32(100,150,70,255);
-    private Color wrong = new Color32(150,70,70,255);
-    private Color next = new Color32(150,255,255,255);
+    private Color32 neutral = new Color32(255,255,255,255);
+    private Color32 correct = new Color32(100,150,70,255);
+    private Color32 wrong = new Color32(150,70,70,255);
+    private Color32 next = new Color32(150,255,255,255);
 
     [SerializeField] Image image;
 
