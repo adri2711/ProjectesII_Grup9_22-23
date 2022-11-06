@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     {
         MAINMENU,
         SELECT,
-        PARSER
+        LEVEL
     }
 
     private GameState gameState = GameState.MAINMENU;
@@ -43,20 +43,20 @@ public class GameManager : MonoBehaviour
             case GameState.SELECT:
                 
                 break;
-            case GameState.PARSER:
-                ParserUpdate();
+            case GameState.LEVEL:
+                LevelUpdate();
                 break;
         }
     }
 
-    private void ParserStart()
+    private void LevelStart()
     {
         if (currLevel < GetLevelCount())
         {
             levels[currLevel].LevelStart();
         }
     }
-    private void ParserUpdate()
+    private void LevelUpdate()
     {
         if (currLevel < GetLevelCount())
         {
