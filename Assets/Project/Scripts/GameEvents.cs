@@ -22,6 +22,7 @@ public class GameEvents : MonoBehaviour
     public event Action<int> enterCorrectLetter;
     public event Action<int> enterWrongLetter;
     public event Action finishLevel;
+    public event Action lose;
 
     public void EnterCorrectLetter(int pos)
     {
@@ -42,6 +43,13 @@ public class GameEvents : MonoBehaviour
         if (finishLevel != null)
         {
             finishLevel();
+        }
+    } 
+    public void Lose()
+    {
+        if (lose != null)
+        {
+            lose();
         }
     } 
 }
