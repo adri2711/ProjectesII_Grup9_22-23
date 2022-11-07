@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
+        GameEvents.instance.enterLetter += EnterLetterSound;
         GameEvents.instance.enterCorrectLetter += EnterCorrectLetterSound;
         GameEvents.instance.enterWrongLetter += EnterWrongLetterSound;
         GameEvents.instance.lose += LoseSound;
@@ -29,7 +30,11 @@ public class SoundManager : MonoBehaviour
         GameEvents.instance.gainExtraTime += GainExtraTimeSound;
         
     }
-    
+
+    public void EnterLetterSound()
+    {
+
+    }
     public void EnterCorrectLetterSound(int i)
     {
 
