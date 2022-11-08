@@ -6,6 +6,19 @@ using UnityEngine.UIElements;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
+
+    public AudioSource audioSource;
+
+    public List<AudioClip> enterLetterClips;
+    public AudioClip enterCorrectLetterClip;
+    public AudioClip enterWrongLetterClip;
+    public AudioClip loseClip;
+    public AudioClip finishLevelClip;
+    public AudioClip gainExtraTimeClip;
+
+    public AudioSource bgAudioSource;
+    public AudioClip backgroundMusic;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -21,7 +34,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-
+        
         GameEvents.instance.enterLetter += EnterLetterSound;
         GameEvents.instance.enterCorrectLetter += EnterCorrectLetterSound;
         GameEvents.instance.enterWrongLetter += EnterWrongLetterSound;
@@ -29,30 +42,34 @@ public class SoundManager : MonoBehaviour
         GameEvents.instance.finishLevel += FinishLevelSound;
         GameEvents.instance.gainExtraTime += GainExtraTimeSound;
         
+        bgAudioSource.clip = backgroundMusic;
+        bgAudioSource.loop = true;
+        bgAudioSource.Play();
     }
 
     public void EnterLetterSound()
     {
-
+        int position = Random.Range(0, enterLetterClips.Count);
+        audioSource.PlayOneShot(enterLetterClips[position]);
     }
     public void EnterCorrectLetterSound(int i)
     {
-
+        audioSource.PlayOneShot(enterCorrectLetterClip);
     }
     public void EnterWrongLetterSound(int i)
     {
-
+        audioSource.PlayOneShot(enterWrongLetterClip);
     }
     public void LoseSound()
     {
-
+        audioSource.PlayOneShot(loseClip);
     }
     public void FinishLevelSound()
     {
-
+        audioSource.PlayOneShot(finishLevelClip);
     }
     public void GainExtraTimeSound(float f)
     {
-
+        audioSource.PlayOneShot(gainExtraTimeClip);
     }
 }
