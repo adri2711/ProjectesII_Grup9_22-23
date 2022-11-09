@@ -8,7 +8,7 @@ public class TextTransformPosition : MonoBehaviour
     public float TranslationMultiplier = 1.0f;
     
     // (X) This has to change according to the letter the player has just correctly typed
-    public int letterIterator = 5;
+    public int letterIterator = 0;
     public int minLetter = 0;
 
     //Positive number (/10 or *10). TranslationMultiplier will increase according to the player's typing speed
@@ -16,13 +16,14 @@ public class TextTransformPosition : MonoBehaviour
     //so the previous one disappears and the new one can start moving
     private int typingSpeed = 1;
 
-    public TMP_Text m_TextComponent;
+    private TMP_Text m_TextComponent;
     private bool hasTextChanged;
 
     private bool mutex = false;
 
     private void Awake()
     {
+        GameEvents.instance.enterCorrectLetter += IncreaseIterator;
         m_TextComponent = GetComponent<TMP_Text>();
     }
 
@@ -47,24 +48,21 @@ public class TextTransformPosition : MonoBehaviour
             hasTextChanged = true;
     }
 
-    IEnumerator IncreaseIterator()
+    void IncreaseIterator(int p)
     {
-        mutex = true;
-        yield return new WaitForSeconds(0.1f);
-        mutex = false;
-
-        
-        // If the letters have not disappeared yet...
-        if (TranslationMultiplier < 80)
-        {
-            TranslationMultiplier += 10 * typingSpeed;
-        }
-        else
-        {
-            letterIterator++;
-            minLetter++;
-            TranslationMultiplier = 1;
-        }
+        //// If the letters have not disappeared yet...
+        //if (TranslationMultiplier < 80)
+        //{
+        //    TranslationMultiplier += 10 * typingSpeed;
+        //}
+        //else
+        //{
+        //    letterIterator++;
+        //    minLetter++;
+        //    TranslationMultiplier = 1;
+        //}
+        letterIterator++;
+        minLetter++;
     }
 
     IEnumerator TransformTextPosition()
@@ -90,10 +88,6 @@ public class TextTransformPosition : MonoBehaviour
 
         while(true)
         {
-            if(!mutex)
-            {
-                StartCoroutine(IncreaseIterator());
-            }
             
             // Allocate new vertices
             if(hasTextChanged)
