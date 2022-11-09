@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level0 : Level
 {
     public override void LevelStart()
     {
+        if (!SceneManager.GetSceneByName("Level0").isLoaded)
+        SceneManager.LoadScene("Level0", LoadSceneMode.Additive);
+
         base.LevelStart();
         GameEvents.instance.enterCorrectLetter += CorrectLetter;
-        TimerManager.instance.Setup(levelTime);
     }
     public override void LevelUpdate()
     {

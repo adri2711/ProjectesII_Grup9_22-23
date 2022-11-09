@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using UnityEditor.ProjectWindowCallback;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -75,6 +75,19 @@ public class MultipartText
         TextPart temp = parts.value[p];
         parts.value.RemoveAt(p);
         parts.value.Insert(index, temp);
+        UpdateText();
+    }
+    public virtual void MoveText(int destIndex, int sourceIndex, int destStart = 0, int sourceStart = 0, int length = -1)
+    {
+        if (length < 0)
+            length = parts.value[sourceIndex].text.Length;
+        string dest = "";
+        if (destStart > 0)
+            dest += parts.value[destIndex].text.Substring(0, destStart);
+        dest += parts.value[sourceIndex].text.Substring(sourceStart, length);
+        dest += parts.value[destIndex].text.Substring(destStart, parts.value[destIndex].text.Length - destStart);
+        parts.value[destIndex].text = dest;
+        parts.value[sourceIndex].text = parts.value[sourceIndex].text.Remove(sourceStart, length);
         UpdateText();
     }
 
