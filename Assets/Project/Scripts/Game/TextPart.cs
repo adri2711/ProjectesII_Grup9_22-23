@@ -18,18 +18,22 @@ public class TextPart
 
     public string id = "invalid";
     public string text = "";
-    public string preFormat;
-    public string postFormat;
+    protected string preFormat;
+    protected string postFormat;
     public string colorHex;
     public Color color;
     public uint flags;
+    public string font;
+    public string material;
 
-    public TextPart(string id, string text, Color color, Modifiers mods = 0)
+    public TextPart(string id, string text, Color color, Modifiers mods = 0, string font = null, string material = null)
     {
         this.id = id;
         this.text = text;
         this.color = color;
         this.flags = (uint)mods;
+        this.font = font;
+        this.material = material;
 
         GenerateFormat();
     }
@@ -48,6 +52,20 @@ public class TextPart
             colorHex = null;
         }
         preFormat += "<color=#" + color.ToHexString() + ">";
+
+        //Font
+        if (font != null)
+        {
+            preFormat += "<font=\"" + font + "\">";
+            postFormat += "</font>";
+        }
+
+        //Material
+        if (material != null)
+        {
+            preFormat += "<material=\"" + material + "\">";
+            postFormat += "</material>";
+        }
 
         //Modifiers
         uint mods = this.flags;

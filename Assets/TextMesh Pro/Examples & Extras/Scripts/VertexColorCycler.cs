@@ -58,7 +58,7 @@ namespace TMPro.Examples
                 int vertexIndex = textInfo.characterInfo[currentCharacter].vertexIndex;
 
                 // Only change the vertex color if the text element is visible.
-                if (textInfo.characterInfo[currentCharacter].isVisible)
+                if (textInfo.characterInfo[currentCharacter].isVisible && c0 != Color.green)
                 {
                     c0 = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
 

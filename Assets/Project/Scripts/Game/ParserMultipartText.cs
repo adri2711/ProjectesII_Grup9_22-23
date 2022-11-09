@@ -22,7 +22,8 @@ public class ParserMultipartText : MultipartText
 
         AddPart(new TextPart("bodyDefault", "", new Color(0.1f, 0.1f, 0.1f)),0);
         AddPart(new TextPart("wrong", "", new Color(0.6f, 0.1f, 0.1f)),0);
-        AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)),0);
+        //AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)),0);
+        AddPart(new TextPart("correct", "", new Color(1f, 1f, 1f), 0, "custom_psychedelic"),0);
 
         UpdateText();
         UpdateIndexes();
