@@ -34,7 +34,7 @@ public class TimerManager : MonoBehaviour
         GameEvents.instance.enterCorrectLetter += CorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
 
-        
+        Setup(8f);
     }
     public void Setup(float levelTime)
     {

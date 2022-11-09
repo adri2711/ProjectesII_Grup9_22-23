@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Linq;
-using System.Reflection;
 using System;
-using System.Runtime.ConstrainedExecution;
+using Unity.VisualScripting;
+using System.IO;
 
 public class ParserManager : MonoBehaviour
 {
     public static ParserManager instance { get; private set; }
 
     [SerializeField] private TextMeshProUGUI parserTM;
-    [SerializeField] private TextAsset[] TextJSON;
+    private string[] textJSON;
     private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
     private int currRenderIndex = 0;
@@ -32,10 +31,17 @@ public class ParserManager : MonoBehaviour
 
     void Start()
     {
+        parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
+
+        Array.Resize(ref textJSON, GameManager.instance.GetLevelCount());
+        string jsonPath = Application.streamingAssetsPath + "/Data/testText.json";
+        textJSON.SetValue(File.ReadAllText(jsonPath),0);
+
+
         GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
         parserLength = 25;
-        parserText.Setup(TextJSON[GameManager.instance.GetCurrentLevel()]);
+        parserText.Setup(textJSON[GameManager.instance.GetCurrentLevel()]);
     }
 
     void Update()

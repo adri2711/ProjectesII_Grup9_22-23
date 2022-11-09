@@ -15,9 +15,9 @@ public class ParserMultipartText : MultipartText
     public ParserMultipartText()
     {
     }
-    public void Setup(TextAsset jsonText)
+    public void Setup(string jsonText)
     {
-        parts = JsonUtility.FromJson<TextParts>(jsonText.text);
+        parts = JsonUtility.FromJson<TextParts>(jsonText);
         parts.value = parts.partArray.ToList();
 
         AddPart(new TextPart("bodyDefault", "", new Color(0.1f, 0.1f, 0.1f)),0);
@@ -30,28 +30,21 @@ public class ParserMultipartText : MultipartText
 
     public void AddCorrectLetter()
     {
-        char correctChar;
         if (parts.value[wrongIndex].text.Length > 0)
         {
-            correctChar = parts.value[wrongIndex].text[0];
-            parts.value[wrongIndex].text = parts.value[wrongIndex].text.Remove(0, 1);
+            MoveText(correctIndex, wrongIndex, parts.value[correctIndex].text.Length, 0, 1);
         }
         else
         {
-            correctChar = parts.value[currIndex].text[0];
-            parts.value[currIndex].text = parts.value[currIndex].text.Remove(0, 1);
+            MoveText(correctIndex, currIndex, parts.value[correctIndex].text.Length, 0, 1);
         }
-        parts.value[correctIndex].text += correctChar;
-        UpdateText();
         UpdateIndexes();
     }
     public void WrongLetter()
     {
         if (parts.value[wrongIndex].text.Length == 0)
         {
-            parts.value[wrongIndex].text = parts.value[wrongIndex].text.Insert(0, parts.value[currIndex].text[0].ToString());
-            parts.value[currIndex].text = parts.value[currIndex].text.Remove(0, 1);
-            UpdateText();
+            MoveText(wrongIndex, currIndex, 0, 0, 1);
             UpdateIndexes();
         }
     }
