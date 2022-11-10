@@ -34,13 +34,15 @@ public class ParserManager : MonoBehaviour
         parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
 
         Array.Resize(ref textJSON, GameManager.instance.GetLevelCount());
-        string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevel() + "Text.json";
-        textJSON.SetValue(File.ReadAllText(jsonPath),0);
-
-
+        for (int i = 0; i < GameManager.instance.GetLevelCount(); i++)
+        {
+            string jsonPath = Application.streamingAssetsPath + "/Data/level" + i + "Text.json";
+            textJSON[i] = File.ReadAllText(jsonPath);
+        }
+        
         GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
-        parserLength = 25;
+        parserLength = 27;
         parserText.Setup(textJSON[GameManager.instance.GetCurrentLevel()]);
     }
 

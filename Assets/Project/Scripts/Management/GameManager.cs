@@ -44,10 +44,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        //Level change
         if (currLevel != prevLevel)
         {
             LevelStart();
         }
+        prevLevel = currLevel;
+
         switch (gameState)
         {
             case GameState.MAINMENU:
@@ -89,7 +92,14 @@ public class GameManager : MonoBehaviour
         string sceneName = "Level" + currLevel;
         if (SceneManager.GetSceneByName(sceneName).isLoaded)
             SceneManager.UnloadSceneAsync(sceneName);
-        currLevel++;
+        if (currLevel < levels.Length)
+        {
+            currLevel++;
+        }
+        else
+        {
+            Debug.Log("U beat the game!");
+        }
     }
 
     public int GetCurrentLevel()

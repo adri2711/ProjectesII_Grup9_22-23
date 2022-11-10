@@ -18,4 +18,8 @@ public abstract class Level : MonoBehaviour
     {
     }
     protected abstract void ActivateLevel();
+    public float GetLevelTime()
+    {
+        return levelTime;
+    }
 }

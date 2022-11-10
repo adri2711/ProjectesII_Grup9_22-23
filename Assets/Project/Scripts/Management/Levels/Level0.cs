@@ -27,6 +27,6 @@ public class Level0 : Level
     protected override void ActivateLevel()
     {
         TimerManager.instance.Activate();
-        IntManager.instance.Activate();
+        //IntManager.instance.Activate();
     }
 }

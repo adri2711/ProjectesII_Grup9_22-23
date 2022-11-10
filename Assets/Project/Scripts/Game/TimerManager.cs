@@ -52,12 +52,12 @@ public class TimerManager : MonoBehaviour
     private void UpdateDisplay()
     {
         timerDisplay.fillAmount = currTime / maxTime;
-        float greenOffset = 255f - baseColor.g;
+        /*float greenOffset = 255f - baseColor.g;
         float blueOffset = 255f - baseColor.b;
         Color32 displayColor = baseColor;
         displayColor.g = (byte)(baseColor.g + (currTime / maxTime) * greenOffset);
         displayColor.b = (byte)(baseColor.b + (currTime / maxTime) * (blueOffset/4f));
-        timerDisplay.color = displayColor;
+        timerDisplay.color = displayColor;*/
     }
 
     public void Activate()

@@ -16,7 +16,7 @@ public class ScreenShake : MonoBehaviour
     }
     private void Update()
     {
-        if (TimerManager.instance.getCurrTime() < TimerManager.instance.getMaxTime() / 3)
+        if (TimerManager.instance != null && TimerManager.instance.getCurrTime() < TimerManager.instance.getMaxTime() / 3)
         {
             if (!active)
             {
