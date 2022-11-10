@@ -70,11 +70,17 @@ public class TimerManager : MonoBehaviour
     }
     private void CorrectLetter(int c)
     {
-        AddTime(correctLetterReward);
+        if (active)
+        {
+            AddTime(correctLetterReward);
+        }
     }
     private void WrongLetter(int c)
     {
-        SubtractTime(wrongLetterPenalty);
+        if (active)
+        {
+            SubtractTime(wrongLetterPenalty);
+        }
     }
     public void AddTime(float amount)
     {

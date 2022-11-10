@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class KeyboardManager : MonoBehaviour
 {
+    private bool caps;
+    private bool control;
     [SerializeField] List<Key> keys;
 
     private enum Keys
@@ -41,6 +43,8 @@ public class KeyboardManager : MonoBehaviour
 
     void Start()
     {
+        caps = (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift));
+
         GameEvents.instance.enterCorrectLetter += HighlightNextKey;
 
         HighlightNextKey(-1);
@@ -100,16 +104,21 @@ public class KeyboardManager : MonoBehaviour
         Event e = Event.current;
         if (e.isKey && KeyCodeToKeyboardPos(e.keyCode) >= 0)
         {
+            ProcessModifierKeys(e);
             if (e.type == EventType.KeyDown)
             {
                 //Key pressed
-                if (ParserManager.instance.VerifyKey(e.keyCode))
+                int keyInt = ProcessInputCode(e.keyCode);
+                if (keyInt >= 0)
                 {
-                    keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
-                }
-                else
-                {
-                    keys[KeyCodeToKeyboardPos(e.keyCode)].PushWrongLetter();
+                    if (ParserManager.instance.VerifyKey((char)keyInt))
+                    {
+                        keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
+                    }
+                    else
+                    {
+                        keys[KeyCodeToKeyboardPos(e.keyCode)].PushWrongLetter();
+                    }
                 }
             }
             else if (e.type == EventType.KeyUp)
@@ -119,5 +128,26 @@ public class KeyboardManager : MonoBehaviour
             }
         }
         
+    }
+
+    public int ProcessInputCode(KeyCode code)
+    {
+        char codeChar = (char)code;
+        string input = Input.inputString;
+        string inputLower = input.ToLower();
+        for (int i = 0; i < inputLower.Length; i++)
+        {
+            if (inputLower[i] == codeChar)
+                return (int)input[i];
+        }
+        return -1;
+    }
+
+    void ProcessModifierKeys(Event e)
+    {
+        if (e.keyCode == KeyCode.LeftShift || e.keyCode == KeyCode.RightShift)
+            caps = !caps;
+        else if (e.keyCode == KeyCode.LeftControl || e.keyCode == KeyCode.RightControl)
+            control = !control;
     }
 }
