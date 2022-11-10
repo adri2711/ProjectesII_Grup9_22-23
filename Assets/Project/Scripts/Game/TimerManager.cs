@@ -106,4 +106,12 @@ public class TimerManager : MonoBehaviour
     {
         maxTime = newMaxTime;
     }
+    public float getCurrTime()
+    {
+        return currTime;
+    }
+    public float getMaxTime()
+    {
+        return maxTime;
+    }
 }

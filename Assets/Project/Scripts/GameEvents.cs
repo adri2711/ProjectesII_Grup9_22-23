@@ -30,6 +30,8 @@ public class GameEvents : MonoBehaviour
     public event Action popupClose;
     public event Action popupBounce;
 
+    public event Action lowTimeEffect;
+
     public void EnterCorrectLetter(int pos)
     {
         if (enterCorrectLetter != null)
@@ -91,6 +93,13 @@ public class GameEvents : MonoBehaviour
         if (popupBounce != null)
         {
             popupBounce();
+        }
+    }
+    public void LowTimeEffect()
+    {
+        if (lowTimeEffect != null)
+        {
+            lowTimeEffect();
         }
     }
 }
