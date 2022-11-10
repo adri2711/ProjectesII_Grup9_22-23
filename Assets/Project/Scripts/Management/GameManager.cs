@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.instance.finishLevel += LevelFinish;
         gameState = GameState.LEVEL;
+
+        if (!SceneManager.GetSceneByName("Sound").isLoaded)
+            SceneManager.LoadScene("Sound", LoadSceneMode.Additive);
+
         LevelStart();
     }
 
