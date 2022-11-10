@@ -79,6 +79,7 @@ public class ParserManager : MonoBehaviour
         {
             if (currLetterIndex < GetTextSize())
             {
+                GameEvents.instance.EnterLetter();
                 if (c == parserText.GetFullUnformattedText()[currLetterIndex])
                 {
                     //Correct Input
