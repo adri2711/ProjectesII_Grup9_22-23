@@ -9,7 +9,7 @@ public class TimerManager : MonoBehaviour
     public static TimerManager instance { get; private set; }
 
     [SerializeField] Image timerDisplay;
-    private float correctLetterReward = 0.2f;
+    private float correctLetterReward = 0.3f;
     private float wrongLetterPenalty = 0.2f;
     private bool active = false;
     private float maxTime;
@@ -52,12 +52,12 @@ public class TimerManager : MonoBehaviour
     private void UpdateDisplay()
     {
         timerDisplay.fillAmount = currTime / maxTime;
-        float greenOffset = 255f - baseColor.g;
+        /*float greenOffset = 255f - baseColor.g;
         float blueOffset = 255f - baseColor.b;
         Color32 displayColor = baseColor;
         displayColor.g = (byte)(baseColor.g + (currTime / maxTime) * greenOffset);
         displayColor.b = (byte)(baseColor.b + (currTime / maxTime) * (blueOffset/4f));
-        timerDisplay.color = displayColor;
+        timerDisplay.color = displayColor;*/
     }
 
     public void Activate()

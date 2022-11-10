@@ -27,10 +27,15 @@ public class IntManager : MonoBehaviour
     void Start()
     {
         Array.Resize(ref spawners, 2);
-        IntSpawner staticPopupSpawner = new IntSpawner(staticPopup, 10, 15, new Vector2(0,0), 300);
+        IntSpawner staticPopupSpawner = new IntSpawner(staticPopup, 10, 15, new Vector2(0,0), 200);
         spawners.SetValue(staticPopupSpawner, 0);
         IntSpawner bouncingPopupSpawner = new IntSpawner(bouncingPopup, 20, 20, new Vector2(0, 0), 0);
         spawners.SetValue(bouncingPopupSpawner, 1);
+        if (GameManager.instance.GetCurrentLevel() == 1)
+        {
+            Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("IntManager").transform);
+            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector3(-70,90,0));
+        }
     }
     void Update()
     {

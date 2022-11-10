@@ -9,6 +9,7 @@ public class KeyboardManager : MonoBehaviour
     private bool caps;
     private bool control;
     [SerializeField] List<Key> keys;
+    [SerializeField] ParserManager pm;
 
     private enum Keys
     {
@@ -80,9 +81,9 @@ public class KeyboardManager : MonoBehaviour
 
     void HighlightNextKey(int pos)
     {
-        if (pos < ParserManager.instance.GetTextSize() - 1)
+        if (pos < pm.GetTextSize() - 1)
         {
-            string s = ParserManager.instance.GetChar(pos + 1).ToString().ToUpper();
+            string s = pm.GetChar(pos + 1).ToString().ToUpper();
             int index = -1;
             if (s[0] >= 'A' && s[0] <= 'Z')
             {
@@ -111,7 +112,7 @@ public class KeyboardManager : MonoBehaviour
                 int keyInt = ProcessInputCode(e.keyCode);
                 if (keyInt >= 0)
                 {
-                    if (ParserManager.instance.VerifyKey((char)keyInt))
+                    if (pm.VerifyKey((char)keyInt))
                     {
                         keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
                     }
