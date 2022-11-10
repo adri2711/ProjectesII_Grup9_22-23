@@ -50,3 +50,6 @@ TagManager:
   - name: Popup
     uniqueID: 2959148647
     locked: 0
+  - name: Fade
+    uniqueID: 978324899
+    locked: 0

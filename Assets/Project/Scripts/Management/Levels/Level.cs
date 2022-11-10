@@ -8,6 +8,7 @@ public abstract class Level : MonoBehaviour
     [SerializeField] protected float levelTime = 8f;
     public virtual void LevelStart()
     {
+        GameEvents.instance.lose += LevelFinish;
         GameEvents.instance.finishLevel += LevelFinish;
     }
     public virtual void LevelUpdate()

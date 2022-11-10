@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour
         LEVEL
     }
 
+    bool loadMutex = false;
     private GameState gameState = GameState.MAINMENU;
-    private int currLevel = 0;
-    private int prevLevel = 0;
+    private int currLevel = 1;
+    private int prevLevel = 1;
     private float levelFadeoutTime = 3f;
     [SerializeField] private Level[] levels;
 
@@ -34,10 +35,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameEvents.instance.finishLevel += LevelFinish;
+        GameEvents.instance.lose += LevelLose;
         gameState = GameState.LEVEL;
 
         if (!SceneManager.GetSceneByName("Sound").isLoaded)
             SceneManager.LoadScene("Sound", LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName("Fade").isLoaded)
+            SceneManager.LoadScene("Fade", LoadSceneMode.Additive);
 
         LevelStart();
     }
@@ -82,13 +86,31 @@ public class GameManager : MonoBehaviour
             levels[currLevel].LevelUpdate();
         }
     }
+
+    private void LevelLose()
+    {
+        StartCoroutine(ResetLevelThread(2f));
+    }
+
+    private IEnumerator ResetLevelThread(float t)
+    {
+        yield return new WaitForSeconds(t);
+        Application.Quit();
+    }
+
     private void LevelFinish()
     {
-        StartCoroutine(NextLevelThread(levelFadeoutTime));
+        if (!loadMutex)
+        {
+            StartCoroutine(NextLevelThread(levelFadeoutTime));
+        }
     }
     private IEnumerator NextLevelThread(float t)
     {
+        loadMutex = true;
         yield return new WaitForSeconds(t);
+        Fade.instance.FadeOutIn();
+        yield return new WaitForSeconds(1f);
         string sceneName = "Level" + currLevel;
         if (SceneManager.GetSceneByName(sceneName).isLoaded)
             SceneManager.UnloadSceneAsync(sceneName);
@@ -98,8 +120,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("U beat the game!");
+            Application.Quit();
         }
+        loadMutex = false;
     }
 
     public int GetCurrentLevel()

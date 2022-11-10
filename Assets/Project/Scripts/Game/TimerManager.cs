@@ -9,7 +9,7 @@ public class TimerManager : MonoBehaviour
     public static TimerManager instance { get; private set; }
 
     [SerializeField] Image timerDisplay;
-    private float correctLetterReward = 0.2f;
+    private float correctLetterReward = 0.3f;
     private float wrongLetterPenalty = 0.2f;
     private bool active = false;
     private float maxTime;

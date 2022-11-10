@@ -29,8 +29,18 @@ public class ParserMultipartText : MultipartText
         UpdateIndexes();
     }
 
+    public void DebugParts(string label)
+    {
+        Debug.Log(label);
+        Debug.Log(parts.value[0].text);
+        Debug.Log(parts.value[1].text);
+        Debug.Log(parts.value[2].text);
+        Debug.Log(parts.value[3].text);
+    }
+
     public void AddCorrectLetter()
     {
+
         if (parts.value[wrongIndex].text.Length > 0)
         {
             MoveText(correctIndex, wrongIndex, parts.value[correctIndex].text.Length, 0, 1);

@@ -8,26 +8,12 @@ using System.IO;
 
 public class ParserManager : MonoBehaviour
 {
-    public static ParserManager instance { get; private set; }
-
     [SerializeField] private TextMeshProUGUI parserTM;
     private string[] textJSON;
     private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
     private int currRenderIndex = 0;
     private int parserLength;
-
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
 
     void Start()
     {
@@ -48,6 +34,7 @@ public class ParserManager : MonoBehaviour
 
     void Update()
     {
+
         ParserLoop();
         InputLoop();
     }
