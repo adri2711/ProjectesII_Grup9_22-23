@@ -157,9 +157,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1630537253}
   enterLetterClips:
-  - {fileID: 8300000, guid: 8db0b9c52ee98c04c832c1de2fde3efd, type: 3}
-  - {fileID: 8300000, guid: 8db0b9c52ee98c04c832c1de2fde3efd, type: 3}
-  - {fileID: 8300000, guid: 007dda6b2ef32694abff52061e76481e, type: 3}
+  - {fileID: 8300000, guid: 7939066c589b46e42ada35196cb140a1, type: 3}
+  - {fileID: 8300000, guid: 5b5e42ac9f75b1649b163b60a89de17e, type: 3}
+  - {fileID: 8300000, guid: 397882bdcccbe8646b7ab0d2ae9f6b22, type: 3}
+  - {fileID: 8300000, guid: 8d61dc1a15e27b548b7750b9a617310c, type: 3}
+  - {fileID: 8300000, guid: 3281259a146961943b1b9db3f9c2c43c, type: 3}
+  - {fileID: 8300000, guid: f84388dc750161c4faecb47949e8349f, type: 3}
+  - {fileID: 8300000, guid: 2bdacd31c66deb34490e608c83e38c0c, type: 3}
   enterCorrectLetterClip: {fileID: 8300000, guid: 49784d3cd392c6943a522f34f20b858f, type: 3}
   enterWrongLetterClip: {fileID: 8300000, guid: 0ce56f0cf65d11146999f28e80d05968, type: 3}
   loseClip: {fileID: 8300000, guid: 2c726c31eb1022c4bbc0214666571185, type: 3}
