@@ -54,22 +54,22 @@ public class SoundManager : MonoBehaviour
     }
     public void EnterCorrectLetterSound(int i)
     {
-        audioSource.PlayOneShot(enterCorrectLetterClip);
+        audioSource.PlayOneShot(enterCorrectLetterClip, 1f);
     }
     public void EnterWrongLetterSound(int i)
     {
-        audioSource.PlayOneShot(enterWrongLetterClip);
+        audioSource.PlayOneShot(enterWrongLetterClip, 0.3f);
     }
     public void LoseSound()
     {
-        audioSource.PlayOneShot(loseClip);
+        audioSource.PlayOneShot(loseClip, 0.2f);
     }
     public void FinishLevelSound()
     {
-        audioSource.PlayOneShot(finishLevelClip);
+        audioSource.PlayOneShot(finishLevelClip, 0.5f);
     }
     public void GainExtraTimeSound(float f)
     {
-        audioSource.PlayOneShot(gainExtraTimeClip);
+        //audioSource.PlayOneShot(gainExtraTimeClip);
     }
 }
