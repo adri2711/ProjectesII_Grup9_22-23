@@ -161,9 +161,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8db0b9c52ee98c04c832c1de2fde3efd, type: 3}
   - {fileID: 8300000, guid: 007dda6b2ef32694abff52061e76481e, type: 3}
   enterCorrectLetterClip: {fileID: 8300000, guid: 49784d3cd392c6943a522f34f20b858f, type: 3}
-  enterWrongLetterClip: {fileID: 8300000, guid: 8db0b9c52ee98c04c832c1de2fde3efd, type: 3}
+  enterWrongLetterClip: {fileID: 8300000, guid: 0ce56f0cf65d11146999f28e80d05968, type: 3}
   loseClip: {fileID: 8300000, guid: 2c726c31eb1022c4bbc0214666571185, type: 3}
-  finishLevelClip: {fileID: 8300000, guid: 8db0b9c52ee98c04c832c1de2fde3efd, type: 3}
+  finishLevelClip: {fileID: 8300000, guid: 203007db9f45e2a428edbbe272928aa6, type: 3}
   gainExtraTimeClip: {fileID: 8300000, guid: 7fa92add243ae5d478f47deebf483afa, type: 3}
   bgAudioSource: {fileID: 1630537252}
   backgroundMusic: {fileID: 0}
@@ -192,7 +192,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 198bc02e91d609b48aadd4ef48cc6280, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7fefcede0c4ed0440bc4a45884192df8, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
