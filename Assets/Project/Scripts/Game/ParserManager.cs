@@ -34,7 +34,7 @@ public class ParserManager : MonoBehaviour
         parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
 
         Array.Resize(ref textJSON, GameManager.instance.GetLevelCount());
-        string jsonPath = Application.streamingAssetsPath + "/Data/testText.json";
+        string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevel() + "Text.json";
         textJSON.SetValue(File.ReadAllText(jsonPath),0);
 
 
