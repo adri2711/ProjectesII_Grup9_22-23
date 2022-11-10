@@ -64,7 +64,7 @@ public class TimerManager : MonoBehaviour
     {
         active = true;
     }
-    public void Pause()
+    public void Deactivate()
     {
         active = false;
     }

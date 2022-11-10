@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class IntManager : MonoBehaviour
 {
+    public static IntManager instance { get; private set; }
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
+    private bool active = false;
     [SerializeField] private Transform staticPopup;
     [SerializeField] private Transform bouncingPopup;
     private IntSpawner[] spawners = new IntSpawner[0];
@@ -19,12 +33,23 @@ public class IntManager : MonoBehaviour
     }
     void Update()
     {
-        foreach (IntSpawner intSpawner in spawners)
+        if (active)
         {
-            if (!intSpawner.running)
+            foreach (IntSpawner intSpawner in spawners)
             {
-                StartCoroutine(intSpawner.SpawnThread());
+                if (!intSpawner.running)
+                {
+                    StartCoroutine(intSpawner.SpawnThread());
+                }
             }
         }
+    }
+    public void Activate()
+    {
+        active = true;
+    }
+    public void Deactivate()
+    {
+        active = false;
     }
 }

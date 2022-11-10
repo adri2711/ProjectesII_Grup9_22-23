@@ -20,11 +20,13 @@ public class Popup : Interruption
         id = "Popup";
         base.Spawn();
         SetRandomDirection();
+        GameEvents.instance.PopupSpawn();
     }
 
     public override void Close()
     {
         animator.Play("close");
+        GameEvents.instance.PopupClose();
         base.Close();
     }
 
@@ -52,11 +54,13 @@ public class Popup : Interruption
         {
             dir.x = -dir.x;
             addSpeed += bounce;
+            GameEvents.instance.PopupBounce();
         }
         else if (Math.Abs(popupPos.y) + popupSize.y >= edges.y && Math.Ceiling(dir.normalized.y) == Math.Ceiling(popupPos.normalized.y))
         {
             dir.y = -dir.y;
             addSpeed += bounce;
+            GameEvents.instance.PopupBounce();
         }
 
         GetComponentInChildren<Image>().transform.localPosition += movement;
