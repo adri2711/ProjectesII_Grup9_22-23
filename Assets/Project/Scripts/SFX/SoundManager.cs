@@ -16,6 +16,10 @@ public class SoundManager : MonoBehaviour
     public AudioClip finishLevelClip;
     public AudioClip gainExtraTimeClip;
 
+    public AudioClip[] popupSpawnClip;
+    public AudioClip popupCloseClip;
+    public AudioClip popupBounceClip;
+
     public AudioSource bgAudioSource;
     public AudioClip backgroundMusic;
 
@@ -41,6 +45,11 @@ public class SoundManager : MonoBehaviour
         GameEvents.instance.lose += LoseSound;
         GameEvents.instance.finishLevel += FinishLevelSound;
         GameEvents.instance.gainExtraTime += GainExtraTimeSound;
+
+        GameEvents.instance.popupBounce += PopupBounceSound;
+        GameEvents.instance.popupClose += PopupCloseSound;
+        GameEvents.instance.popupSpawn += PopupSpawnSound;
+        GameEvents.instance.lowTimeEffect += LowTimeEffectSound;
         
         bgAudioSource.clip = backgroundMusic;
         bgAudioSource.loop = true;
@@ -71,5 +80,21 @@ public class SoundManager : MonoBehaviour
     public void GainExtraTimeSound(float f)
     {
         //audioSource.PlayOneShot(gainExtraTimeClip);
+    }
+    public void PopupBounceSound()
+    {
+        audioSource.PlayOneShot(popupBounceClip, 0.5f);
+    }
+    public void PopupCloseSound()
+    {
+        audioSource.PlayOneShot(popupCloseClip);
+    }
+    public void PopupSpawnSound()
+    {
+        audioSource.PlayOneShot(popupSpawnClip[Random.Range(0,popupSpawnClip.Length)], 0.8f);
+    }
+    public void LowTimeEffectSound()
+    {
+        
     }
 }
