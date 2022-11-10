@@ -26,6 +26,12 @@ public class GameEvents : MonoBehaviour
     public event Action activateLevel;
     public event Action<float> gainExtraTime;
 
+    public event Action popupSpawn;
+    public event Action popupClose;
+    public event Action popupBounce;
+
+    public event Action lowTimeEffect;
+
     public void EnterCorrectLetter(int pos)
     {
         if (enterCorrectLetter != null)
@@ -66,6 +72,34 @@ public class GameEvents : MonoBehaviour
         if (gainExtraTime != null)
         {
             gainExtraTime(amount);
+        }
+    }
+    public void PopupClose()
+    {
+        if (popupClose != null)
+        {
+            popupClose();
+        }
+    }
+    public void PopupSpawn()
+    {
+        if (popupSpawn != null)
+        {
+            popupSpawn();
+        }
+    }
+    public void PopupBounce()
+    {
+        if (popupBounce != null)
+        {
+            popupBounce();
+        }
+    }
+    public void LowTimeEffect()
+    {
+        if (lowTimeEffect != null)
+        {
+            lowTimeEffect();
         }
     }
 }

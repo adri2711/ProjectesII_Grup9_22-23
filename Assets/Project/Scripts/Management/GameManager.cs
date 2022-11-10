@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     private GameState gameState = GameState.MAINMENU;
     private int currLevel = 0;
+    private int prevLevel = 0;
+    private float levelFadeoutTime = 3f;
     [SerializeField] private Level[] levels;
 
     public static GameManager instance { get; private set; }
@@ -31,12 +33,17 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        GameEvents.instance.finishLevel += LevelFinish;
         gameState = GameState.LEVEL;
         LevelStart();
     }
 
     void Update()
     {
+        if (currLevel != prevLevel)
+        {
+            LevelStart();
+        }
         switch (gameState)
         {
             case GameState.MAINMENU:
@@ -55,6 +62,9 @@ public class GameManager : MonoBehaviour
     {
         if (currLevel < GetLevelCount())
         {
+            string sceneName = "Level" + currLevel;
+            if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
             levels[currLevel].LevelStart();
         }
     }
@@ -64,6 +74,18 @@ public class GameManager : MonoBehaviour
         {
             levels[currLevel].LevelUpdate();
         }
+    }
+    private void LevelFinish()
+    {
+        StartCoroutine(NextLevelThread(levelFadeoutTime));
+    }
+    private IEnumerator NextLevelThread(float t)
+    {
+        yield return new WaitForSeconds(t);
+        string sceneName = "Level" + currLevel;
+        if (SceneManager.GetSceneByName(sceneName).isLoaded)
+            SceneManager.UnloadSceneAsync(sceneName);
+        currLevel++;
     }
 
     public int GetCurrentLevel()

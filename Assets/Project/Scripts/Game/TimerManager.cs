@@ -64,7 +64,7 @@ public class TimerManager : MonoBehaviour
     {
         active = true;
     }
-    public void Pause()
+    public void Deactivate()
     {
         active = false;
     }
@@ -105,5 +105,13 @@ public class TimerManager : MonoBehaviour
     public void SetMaxTime(float newMaxTime)
     {
         maxTime = newMaxTime;
+    }
+    public float getCurrTime()
+    {
+        return currTime;
+    }
+    public float getMaxTime()
+    {
+        return maxTime;
     }
 }

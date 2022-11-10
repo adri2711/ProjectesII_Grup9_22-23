@@ -7,7 +7,8 @@ using UnityEngine;
 public enum Modifiers { 
     BOLD = 1,
     ITALIC = 2,
-    STRIKETHROUGH = 4
+    STRIKETHROUGH = 4,
+    VISIBLE_SPACES = 2048
 }
 
 [System.Serializable]
@@ -20,6 +21,7 @@ public class TextPart
     public string text = "";
     protected string preFormat;
     protected string postFormat;
+    private bool visibleSpaces = false;
     public string colorHex;
     public Color color;
     public uint flags;
@@ -74,10 +76,14 @@ public class TextPart
         {
             if (mods % 2 == 1)
             {
-                if (i < 10)
+                if (i < 11)
                 {
                     preFormat += startMods[i];
                     postFormat += endMods[i];
+                }
+                else if (i == 11)
+                {
+                    visibleSpaces = true;
                 }
             }
             mods >>= 1;
@@ -85,20 +91,40 @@ public class TextPart
         }
     }
 
-    public string GetFormattedText()
+    public string GetFormattedText(int s = 0, int l = -1)
     {
+        if (l < 0)
+            l = text.Length;
         if (preFormat == null)
-        {
             GenerateFormat();
-        }
-        return preFormat + text + postFormat;
+
+        string ret = preFormat + text.Substring(s, l) + postFormat;
+        ret = ProcessSpecialCharacters(ret);
+
+        return ret;
     }
-    public string GetFormattedText(int s, int l)
+
+    private string ProcessSpecialCharacters(string input)
     {
-        if (preFormat == null)
+        string ret = "";
+        foreach(char c in input)
         {
-            GenerateFormat();
+            if (c == ' ')
+            {
+                if (visibleSpaces)
+                {
+                    ret += "_";
+                }
+                else
+                {
+                    ret += "<color=#ffffff00>_" + "<color=#" + color.ToHexString() + ">";
+                }
+            }
+            else
+            {
+                ret += c;
+            }
         }
-        return preFormat + text.Substring(s ,l) + postFormat;
+        return ret;
     }
 }
