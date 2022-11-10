@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 584497543
+    locked: 0
+  - name: Parser
+    uniqueID: 1873572471
+    locked: 0
+  - name: Popup
+    uniqueID: 2959148647
+    locked: 0
+  - name: Fade
+    uniqueID: 978324899
+    locked: 0
