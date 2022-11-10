@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
     }
     public void LoseSound()
     {
-        audioSource.PlayOneShot(loseClip, 0.2f);
+        audioSource.PlayOneShot(loseClip, 0.1f);
     }
     public void FinishLevelSound()
     {

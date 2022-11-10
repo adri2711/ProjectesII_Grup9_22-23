@@ -169,6 +169,12 @@ MonoBehaviour:
   loseClip: {fileID: 8300000, guid: 2c726c31eb1022c4bbc0214666571185, type: 3}
   finishLevelClip: {fileID: 8300000, guid: 203007db9f45e2a428edbbe272928aa6, type: 3}
   gainExtraTimeClip: {fileID: 8300000, guid: 7fa92add243ae5d478f47deebf483afa, type: 3}
+  popupSpawnClip:
+  - {fileID: 8300000, guid: 24ad1e02f4e756945b1be41180fd4030, type: 3}
+  - {fileID: 8300000, guid: 20aa01f2c59b37346aefa9075b444ffa, type: 3}
+  - {fileID: 8300000, guid: 40ce21089f898e4488de2f1da902e9e2, type: 3}
+  popupCloseClip: {fileID: 8300000, guid: b0a50267d917dd4449d51e0fc2eeb821, type: 3}
+  popupBounceClip: {fileID: 8300000, guid: 71dc6d945ff14c243a5e3c834a931a0d, type: 3}
   bgAudioSource: {fileID: 1630537252}
   backgroundMusic: {fileID: 0}
 --- !u!4 &1630537251

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public abstract class Interruption : MonoBehaviour
@@ -11,6 +12,7 @@ public abstract class Interruption : MonoBehaviour
     public float closeTime = 0f;
     public virtual void Spawn()
     {
+        GetComponentInChildren<Canvas>().sortingOrder = IntManager.instance.GetIntCount();
         animator = this.GetComponentInChildren<Animator>();
         animator.Play("open");
     }
