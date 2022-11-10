@@ -72,7 +72,7 @@ public class ParserManager : MonoBehaviour
             parserTM.text = parserText.GetRenderedFormattedText();
         }
     }
-
+    
     private void InputLoop()
     {
         foreach (char c in Input.inputString)
@@ -101,19 +101,18 @@ public class ParserManager : MonoBehaviour
         }
     }
 
-    public bool VerifyKey(KeyCode key)
+    public bool VerifyKey(char key)
     {
         if (currLetterIndex < GetTextSize())
         {
-            string temp = "";
-            temp += (parserText.GetFullUnformattedText()[currLetterIndex]);
-            if (key >= KeyCode.A && key <= KeyCode.Z)
+            char temp = (parserText.GetFullUnformattedText()[currLetterIndex]);
+            if (key >= 'A' && key <= 'Z' || key >= 'a' && key <= 'z')
             {
-                return key.ToString() == temp.ToUpper();
+                return key == temp;
             }
-            else if (key == KeyCode.Space)
+            else if (key == ' ')
             {
-                return temp == " ";
+                return temp == ' ';
             }
         }
         return false;
