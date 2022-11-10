@@ -9,10 +9,10 @@ public class TimerManager : MonoBehaviour
     public static TimerManager instance { get; private set; }
 
     [SerializeField] Image timerDisplay;
-    private float correctLetterReward = 0.3f;
-    private float wrongLetterPenalty = 0.3f;
+    private float correctLetterReward = 0.2f;
+    private float wrongLetterPenalty = 0.2f;
     private bool active = false;
-    private float maxTime = 8f;
+    private float maxTime;
     private float currTime;
 
     private Color32 baseColor = new Color32(170, 90, 70, 255);
@@ -34,7 +34,7 @@ public class TimerManager : MonoBehaviour
         GameEvents.instance.enterCorrectLetter += CorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
 
-        Setup(8f);
+        Setup(6f);
     }
     public void Setup(float levelTime)
     {
