@@ -54,10 +54,18 @@ public class IntManager : MonoBehaviour
     public void Activate()
     {
         active = true;
+        foreach (IntSpawner intSpawner in spawners)
+        {
+            intSpawner.Activate();
+        }
     }
     public void Deactivate()
     {
         active = false;
+        foreach (IntSpawner intSpawner in spawners)
+        {
+            intSpawner.Deactivate();
+        }
     }
     public int GetIntCount()
     {
