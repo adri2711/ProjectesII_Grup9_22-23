@@ -18,13 +18,10 @@ public class ParserManager : MonoBehaviour
     void Start()
     {
         parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
-        //GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
-        //GameEvents.instance.enterWrongLetter += WrongLetter;
 
         string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Text.json";
         textJSON = File.ReadAllText(jsonPath);
         parserText = new ParserMultipartText();
-        Debug.Log(jsonPath);
         parserText.Setup(textJSON);
 
         parserLength = 27;
@@ -37,15 +34,6 @@ public class ParserManager : MonoBehaviour
         {
             InputLoop();
         }
-    }
-    private void AddCorrectLetter(int p)
-    {
-        parserText.DebugParts("addCorrectLetter");
-        parserText.AddCorrectLetter();
-    }
-    private void WrongLetter(int p)
-    {
-        parserText.WrongLetter();
     }
 
     private void ParserLoop()
@@ -73,10 +61,8 @@ public class ParserManager : MonoBehaviour
                 if (c == parserText.GetFullUnformattedText()[currLetterIndex])
                 {
                     //Correct Input
-                    parserText.DebugParts("before correct call");
+                    parserText.AddCorrectLetter();
                     GameEvents.instance.EnterCorrectLetter(currLetterIndex);
-                    AddCorrectLetter(0);
-                    parserText.DebugParts("after correct call");
 
                     currLetterIndex++;
                     if (currLetterIndex == GetTextSize())
@@ -88,6 +74,7 @@ public class ParserManager : MonoBehaviour
                 else
                 {
                     //Wrong Input
+                    parserText.WrongLetter();
                     GameEvents.instance.EnterWrongLetter(currLetterIndex);
                 }
             }

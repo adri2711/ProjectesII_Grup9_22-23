@@ -19,17 +19,13 @@ public class ParserMultipartText : MultipartText
     }
     public void Setup(string jsonText)
     {
-        Debug.Log(jsonText);
         parts = JsonUtility.FromJson<TextParts>(jsonText);
         parts.value = parts.partArray.ToList();
-        DebugParts("from json:");
 
         AddPart(new TextPart("bodyDefault", "", new Color(0.1f, 0.1f, 0.1f)),0);
         AddPart(new TextPart("wrong", "", new Color(1f, 1f, 1f), Modifiers.VISIBLE_SPACES, "bluescreen_flesh"),0);
         //AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)),0);
         AddPart(new TextPart("correct", "", new Color(1f, 1f, 1f), 0, "bluescreen_psych"),0);
-
-        DebugParts("add parts:");
 
         UpdateText();
         UpdateIndexes();
@@ -50,12 +46,6 @@ public class ParserMultipartText : MultipartText
 
     public void AddCorrectLetter()
     {
-        DebugParts("correct letter");
-        Debug.Log("L");
-        foreach (TextPart part in parts.value)
-        {
-            Debug.Log(part.text);
-        }
         if (parts.value[wrongIndex].text.Length > 0)
         {
             MoveText(correctIndex, wrongIndex, parts.value[correctIndex].text.Length, 0, 1);
