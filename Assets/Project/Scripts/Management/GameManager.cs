@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
 
     bool loadMutex = false;
     private GameState gameState = GameState.MAINMENU;
-    private int currLevel = 1;
-    private int prevLevel = 1;
+    private int currLevel = 0;
+    private int prevLevel = 0;
     private bool queueStartLevel = false;
     private float levelFadeoutTime = 3f;
     [SerializeField] private Level[] levels;
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
     {
         if (!loadMutex)
         {
-            StartCoroutine(ResetLevelThread(levelFadeoutTime));
+            StartCoroutine(NextLevelThread(levelFadeoutTime));
         }
     }
 

@@ -12,18 +12,24 @@ public class ParserMultipartText : MultipartText
     private int bodyIndex;
     private int currIndex;
 
+    private HashSet<string> debuggedLabels = new HashSet<string>();
+
     public ParserMultipartText()
     {
     }
     public void Setup(string jsonText)
     {
+        Debug.Log(jsonText);
         parts = JsonUtility.FromJson<TextParts>(jsonText);
         parts.value = parts.partArray.ToList();
+        DebugParts("from json:");
 
         AddPart(new TextPart("bodyDefault", "", new Color(0.1f, 0.1f, 0.1f)),0);
         AddPart(new TextPart("wrong", "", new Color(1f, 1f, 1f), Modifiers.VISIBLE_SPACES, "bluescreen_flesh"),0);
         //AddPart(new TextPart("correct", "", new Color(0.3f, 0.8f, 0.4f)),0);
         AddPart(new TextPart("correct", "", new Color(1f, 1f, 1f), 0, "bluescreen_psych"),0);
+
+        DebugParts("add parts:");
 
         UpdateText();
         UpdateIndexes();
@@ -31,16 +37,25 @@ public class ParserMultipartText : MultipartText
 
     public void DebugParts(string label)
     {
-        Debug.Log(label);
-        Debug.Log(parts.value[0].text);
-        Debug.Log(parts.value[1].text);
-        Debug.Log(parts.value[2].text);
-        Debug.Log(parts.value[3].text);
+        if (!debuggedLabels.Contains(label))
+        {
+            Debug.Log(label);
+            foreach (TextPart part in parts.value)
+            {
+                Debug.Log(part.text);
+            }
+            debuggedLabels.Add(label);
+        }
     }
 
     public void AddCorrectLetter()
     {
-
+        DebugParts("correct letter");
+        Debug.Log("L");
+        foreach (TextPart part in parts.value)
+        {
+            Debug.Log(part.text);
+        }
         if (parts.value[wrongIndex].text.Length > 0)
         {
             MoveText(correctIndex, wrongIndex, parts.value[correctIndex].text.Length, 0, 1);
