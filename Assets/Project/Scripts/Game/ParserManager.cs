@@ -29,14 +29,16 @@ public class ParserManager : MonoBehaviour
         GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
         parserLength = 27;
-        parserText.Setup(textJSON[GameManager.instance.GetCurrentLevel()]);
+        parserText.Setup(textJSON[GameManager.instance.GetCurrentLevelNum()]);
     }
 
     void Update()
     {
-
         ParserLoop();
-        InputLoop();
+        if (GameManager.instance.GetCurrentLevel().isParserActive())
+        {
+            InputLoop();
+        }
     }
     private void AddCorrectLetter(int p)
     {
@@ -78,7 +80,6 @@ public class ParserManager : MonoBehaviour
                     if (currLetterIndex == GetTextSize())
                     {
                         //Finish level
-                        Debug.Log("finished!");
                         GameEvents.instance.FinishLevel();
                     }
                 }

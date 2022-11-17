@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private GameState gameState = GameState.MAINMENU;
     private int currLevel = 1;
     private int prevLevel = 1;
+    private bool queueStartLevel = false;
     private float levelFadeoutTime = 3f;
     [SerializeField] private Level[] levels;
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {
@@ -43,14 +45,16 @@ public class GameManager : MonoBehaviour
         if (!SceneManager.GetSceneByName("Fade").isLoaded)
             SceneManager.LoadScene("Fade", LoadSceneMode.Additive);
 
-        LevelStart();
+        //TEMP
+        queueStartLevel = true;
     }
 
     void Update()
     {
         //Level change
-        if (currLevel != prevLevel)
+        if (currLevel != prevLevel || queueStartLevel)
         {
+            queueStartLevel = false;
             LevelStart();
         }
         prevLevel = currLevel;
@@ -73,9 +77,8 @@ public class GameManager : MonoBehaviour
     {
         if (currLevel < GetLevelCount())
         {
-            string sceneName = "Level" + currLevel;
-            if (!SceneManager.GetSceneByName(sceneName).isLoaded)
-                SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+            if (!SceneManager.GetSceneByName("Parser").isLoaded)
+                SceneManager.LoadScene("Parser", LoadSceneMode.Additive);
             levels[currLevel].LevelStart();
         }
     }
@@ -91,29 +94,23 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(ResetLevelThread(2f));
     }
-
-    private IEnumerator ResetLevelThread(float t)
-    {
-        yield return new WaitForSeconds(t);
-        Application.Quit();
-    }
-
     private void LevelFinish()
     {
         if (!loadMutex)
         {
-            StartCoroutine(NextLevelThread(levelFadeoutTime));
+            StartCoroutine(ResetLevelThread(levelFadeoutTime));
         }
     }
+
     private IEnumerator NextLevelThread(float t)
     {
         loadMutex = true;
         yield return new WaitForSeconds(t);
         Fade.instance.FadeOutIn();
-        yield return new WaitForSeconds(1f);
-        string sceneName = "Level" + currLevel;
-        if (SceneManager.GetSceneByName(sceneName).isLoaded)
-            SceneManager.UnloadSceneAsync(sceneName);
+        yield return new WaitForSeconds(0.4f);
+
+        UnloadLevel();
+
         if (currLevel < levels.Length)
         {
             currLevel++;
@@ -124,10 +121,34 @@ public class GameManager : MonoBehaviour
         }
         loadMutex = false;
     }
+    private IEnumerator ResetLevelThread(float t)
+    {
+        loadMutex = true;
+        yield return new WaitForSeconds(t);
+        Fade.instance.FadeOutIn();
+        yield return new WaitForSeconds(0.4f);
 
-    public int GetCurrentLevel()
+        UnloadLevel();
+        queueStartLevel = true;
+
+        loadMutex = false;
+    }
+
+    private void UnloadLevel()
+    {
+        if (SceneManager.GetSceneByName("Parser").isLoaded)
+            SceneManager.UnloadSceneAsync("Parser");
+
+        while (SceneManager.GetSceneByName("Parser").isLoaded) { }
+    }
+
+    public int GetCurrentLevelNum()
     {
         return currLevel;
+    }
+    public Level GetCurrentLevel()
+    {
+        return levels[currLevel];
     }
     public int GetLevelCount()
     {

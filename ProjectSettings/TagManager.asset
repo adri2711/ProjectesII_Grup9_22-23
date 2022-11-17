@@ -50,6 +50,9 @@ TagManager:
   - name: Popup
     uniqueID: 2959148647
     locked: 0
+  - name: Timer
+    uniqueID: 1782722241
+    locked: 0
   - name: Fade
     uniqueID: 978324899
     locked: 0

@@ -17,6 +17,7 @@ public class IntManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private bool active = false;
@@ -26,15 +27,28 @@ public class IntManager : MonoBehaviour
 
     void Start()
     {
+
+    }
+    public void Setup()
+    {
+        DestroyAllInterruptions();
+        spawners = new IntSpawner[0];
         Array.Resize(ref spawners, 2);
-        IntSpawner staticPopupSpawner = new IntSpawner(staticPopup, 10, 15, new Vector2(0,0), 200);
+        IntSpawner staticPopupSpawner = new IntSpawner(staticPopup, 10, 15, new Vector2(0, 0), 200);
         spawners.SetValue(staticPopupSpawner, 0);
         IntSpawner bouncingPopupSpawner = new IntSpawner(bouncingPopup, 20, 20, new Vector2(0, 0), 0);
         spawners.SetValue(bouncingPopupSpawner, 1);
-        if (GameManager.instance.GetCurrentLevel() == 1)
+        if (GameManager.instance.GetCurrentLevelNum() == 1)
         {
-            Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("IntManager").transform);
-            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector3(-70,90,0));
+            Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("popup").transform);
+            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector3(-70, 90, 0));
+        }
+    }
+    public void DestroyAllInterruptions()
+    {
+        foreach (Interruption obj in GetComponentsInChildren<Interruption>())
+        {
+            Destroy(obj.gameObject);
         }
     }
     void Update()
