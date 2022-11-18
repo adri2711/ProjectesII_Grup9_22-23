@@ -21,6 +21,7 @@ public class StreakCounter : MonoBehaviour
     private void End(int p)
     {
         streak = 0;
+        display.UpdateScore(streak);
     }
     public int GetCurrentStreak()
     {
