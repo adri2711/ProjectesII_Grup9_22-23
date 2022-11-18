@@ -27,5 +27,6 @@ public class Level3 : Level
         parserActive = true;
         TimerManager.instance.Activate();
         IntManager.instance.Activate();
+        GameEvents.instance.popupClose -= ActivateLevel;
     }
 }

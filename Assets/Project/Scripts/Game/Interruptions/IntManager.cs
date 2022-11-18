@@ -43,6 +43,7 @@ public class IntManager : MonoBehaviour
     {
         //Reset
         DestroyAllInterruptions();
+        intCount = 0;
         spawners.value = new IntSpawner[0];
 
         //Read spawners from json
@@ -87,7 +88,6 @@ public class IntManager : MonoBehaviour
     }
     void Update()
     {
-        intCount = this.transform.childCount;
         if (active)
         {
             foreach (IntSpawner intSpawner in spawners.value)
@@ -95,6 +95,7 @@ public class IntManager : MonoBehaviour
                 if (!intSpawner.running)
                 {
                     StartCoroutine(intSpawner.SpawnThread());
+                    intCount++;
                 }
             }
         }

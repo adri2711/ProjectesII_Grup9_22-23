@@ -31,5 +31,6 @@ public class Level4 : Level
     {
         TimerManager.instance.Activate();
         IntManager.instance.Activate();
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
     }
 }

@@ -26,5 +26,6 @@ public class Level0 : Level
     }
     protected override void ActivateLevel()
     {
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
     }
 }

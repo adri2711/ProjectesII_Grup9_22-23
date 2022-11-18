@@ -17,7 +17,7 @@ public class Popup : Interruption
     }
     public override void Spawn()
     {
-        id = "Popup";
+        id = "popup";
         base.Spawn();
         SetRandomDirection();
         GameEvents.instance.PopupSpawn();
