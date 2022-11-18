@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this.gameObject);
+
+        //TEMP
+        queueStartLevel = true;
     }
     void Start()
     {
@@ -44,18 +47,25 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Sound", LoadSceneMode.Additive);
         if (!SceneManager.GetSceneByName("Fade").isLoaded)
             SceneManager.LoadScene("Fade", LoadSceneMode.Additive);
-
-        //TEMP
-        queueStartLevel = true;
+        if (!SceneManager.GetSceneByName("Interruptions").isLoaded)
+            SceneManager.LoadScene("Interruptions", LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName("Timer").isLoaded)
+            SceneManager.LoadScene("Timer", LoadSceneMode.Additive);
     }
 
     void Update()
     {
-        //Level change
-        if (currLevel != prevLevel || queueStartLevel)
+        //Load level
+        if (queueStartLevel && TimerManager.instance != null)
         {
-            queueStartLevel = false;
             LevelStart();
+            queueStartLevel = false;
+        }
+
+        //Level change
+        if (currLevel != prevLevel)
+        {
+            LevelStart();   
         }
         prevLevel = currLevel;
 
