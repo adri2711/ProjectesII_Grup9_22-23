@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Interruptions", LoadSceneMode.Additive);
         if (!SceneManager.GetSceneByName("Timer").isLoaded)
             SceneManager.LoadScene("Timer", LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName("Pause").isLoaded)
+            SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
     }
 
     void Update()
