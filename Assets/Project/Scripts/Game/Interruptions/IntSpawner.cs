@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[System.Serializable]
 public class IntSpawner
 {
-    private Transform spawnedObject;
+    public Transform spawnedObject;
     public string objectName;
     public string objectGroup;
     public int minSpawnTime;
@@ -29,9 +30,11 @@ public class IntSpawner
     {
         running = true;
         yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-        if (active)
+        if (active && spawnedObject != null)
         {
             Transform intTransform = GameObject.Instantiate(spawnedObject, new Vector2(0, 0), Quaternion.identity, GameObject.Find(objectGroup).transform);
+            if (spawnPos == null)
+                spawnPos = new Vector2(0, 0);
             Vector2 intPos = new Vector2(spawnPos.x + Random.Range(-spawnVariance, spawnVariance), spawnPos.y + Random.Range(-spawnVariance, spawnVariance));
             intTransform.gameObject.GetComponent<Interruption>().SetPosition(intPos);
         }
