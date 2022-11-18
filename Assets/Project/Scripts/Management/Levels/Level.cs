@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 public abstract class Level : MonoBehaviour
 {
     [SerializeField] protected float levelTime = 8f;
+    [SerializeField] protected float correctLetterReward = 0.3f;
+    [SerializeField] protected float wrongLetterPenalty = 0.2f;
+    [SerializeField] protected float closePopupReward = 1f;
     protected bool parserActive = false;
     public virtual void LevelStart()
     {
         GameEvents.instance.lose += LevelFinish;
         GameEvents.instance.finishLevel += LevelFinish;
 
-        TimerManager.instance.Setup(levelTime);
+        TimerManager.instance.Setup(levelTime, correctLetterReward, wrongLetterPenalty, closePopupReward);
         IntManager.instance.Setup();
     }
     public virtual void LevelUpdate()

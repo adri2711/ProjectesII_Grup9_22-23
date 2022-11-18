@@ -6,7 +6,6 @@ public class ScreenShake : MonoBehaviour
 {
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private float dur = 0.3f;
-    [SerializeField] private float cooldown = 0.2f;
     private bool active = false;
     Vector3 startPos;
     private void Start()

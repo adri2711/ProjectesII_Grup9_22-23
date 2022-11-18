@@ -4,7 +4,7 @@
             "objectName": "BouncingPopup",
             "objectGroup": "popup",
             "minSpawnTime": 2,
-            "maxSpawnTime": 5,
+            "maxSpawnTime": 8,
             "spawnPos": {"x": 0, "y": 0},
             "spawnVariance": 100
         }
