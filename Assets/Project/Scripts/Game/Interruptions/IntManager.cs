@@ -1,7 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using System.IO;
+
+[System.Serializable]
+public class IntSpawnerArray
+{
+    public IntSpawner[] value;
+}
 
 public class IntManager : MonoBehaviour
 {
@@ -23,7 +31,9 @@ public class IntManager : MonoBehaviour
     private bool active = false;
     [SerializeField] private Transform staticPopup;
     [SerializeField] private Transform bouncingPopup;
-    private IntSpawner[] spawners = new IntSpawner[0];
+
+    [SerializeField] private List<Transform> interruptions = new List<Transform>();
+    private IntSpawnerArray spawners = new IntSpawnerArray();
 
     void Start()
     {
@@ -31,18 +41,42 @@ public class IntManager : MonoBehaviour
     }
     public void Setup()
     {
+        //Reset
         DestroyAllInterruptions();
-        spawners = new IntSpawner[0];
-        Array.Resize(ref spawners, 2);
-        IntSpawner staticPopupSpawner = new IntSpawner(staticPopup, 10, 15, new Vector2(0, 0), 200);
-        spawners.SetValue(staticPopupSpawner, 0);
-        IntSpawner bouncingPopupSpawner = new IntSpawner(bouncingPopup, 20, 20, new Vector2(0, 0), 0);
-        spawners.SetValue(bouncingPopupSpawner, 1);
+        spawners.value = new IntSpawner[0];
+
+        //Read spawners from json
+        string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Interruptions.json";
+        string jsonText = File.ReadAllText(jsonPath);
+        spawners = JsonUtility.FromJson<IntSpawnerArray>(jsonText);
+
+        //Set up read spawners
+        foreach (IntSpawner readSpawner in spawners.value)
+        {
+            Transform intTransform = GetSpawnObject(readSpawner.objectName);
+            if (intTransform != null)
+            {
+                readSpawner.spawnedObject = intTransform;
+            }
+        }
+
+        //Special cases
         if (GameManager.instance.GetCurrentLevelNum() == 1)
         {
             Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("popup").transform);
             intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector3(-70, 90, 0));
         }
+    }
+    private Transform GetSpawnObject(string name)
+    {
+        foreach (Transform intTransform in interruptions)
+        {
+            if (intTransform.gameObject.name == name)
+            {
+                return intTransform;
+            }
+        }
+        return null;
     }
     public void DestroyAllInterruptions()
     {
@@ -56,7 +90,7 @@ public class IntManager : MonoBehaviour
         intCount = this.transform.childCount;
         if (active)
         {
-            foreach (IntSpawner intSpawner in spawners)
+            foreach (IntSpawner intSpawner in spawners.value)
             {
                 if (!intSpawner.running)
                 {
@@ -68,7 +102,7 @@ public class IntManager : MonoBehaviour
     public void Activate()
     {
         active = true;
-        foreach (IntSpawner intSpawner in spawners)
+        foreach (IntSpawner intSpawner in spawners.value)
         {
             intSpawner.Activate();
         }
@@ -76,7 +110,7 @@ public class IntManager : MonoBehaviour
     public void Deactivate()
     {
         active = false;
-        foreach (IntSpawner intSpawner in spawners)
+        foreach (IntSpawner intSpawner in spawners.value)
         {
             intSpawner.Deactivate();
         }
