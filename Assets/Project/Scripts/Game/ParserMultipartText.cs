@@ -12,6 +12,8 @@ public class ParserMultipartText : MultipartText
     private int bodyIndex;
     private int currIndex;
 
+    private HashSet<string> debuggedLabels = new HashSet<string>();
+
     public ParserMultipartText()
     {
     }
@@ -31,16 +33,19 @@ public class ParserMultipartText : MultipartText
 
     public void DebugParts(string label)
     {
-        Debug.Log(label);
-        Debug.Log(parts.value[0].text);
-        Debug.Log(parts.value[1].text);
-        Debug.Log(parts.value[2].text);
-        Debug.Log(parts.value[3].text);
+        if (!debuggedLabels.Contains(label))
+        {
+            Debug.Log(label);
+            foreach (TextPart part in parts.value)
+            {
+                Debug.Log(part.text);
+            }
+            debuggedLabels.Add(label);
+        }
     }
 
     public void AddCorrectLetter()
     {
-
         if (parts.value[wrongIndex].text.Length > 0)
         {
             MoveText(correctIndex, wrongIndex, parts.value[correctIndex].text.Length, 0, 1);

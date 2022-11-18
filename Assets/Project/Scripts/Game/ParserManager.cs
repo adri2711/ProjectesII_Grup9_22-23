@@ -9,7 +9,7 @@ using System.IO;
 public class ParserManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI parserTM;
-    private string[] textJSON;
+    private string textJSON;
     private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
     private int currRenderIndex = 0;
@@ -19,32 +19,21 @@ public class ParserManager : MonoBehaviour
     {
         parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
 
-        Array.Resize(ref textJSON, GameManager.instance.GetLevelCount());
-        for (int i = 0; i < GameManager.instance.GetLevelCount(); i++)
-        {
-            string jsonPath = Application.streamingAssetsPath + "/Data/level" + i + "Text.json";
-            textJSON[i] = File.ReadAllText(jsonPath);
-        }
-        
-        GameEvents.instance.enterCorrectLetter += AddCorrectLetter;
-        GameEvents.instance.enterWrongLetter += WrongLetter;
+        string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Text.json";
+        textJSON = File.ReadAllText(jsonPath);
+        parserText = new ParserMultipartText();
+        parserText.Setup(textJSON);
+
         parserLength = 27;
-        parserText.Setup(textJSON[GameManager.instance.GetCurrentLevel()]);
     }
 
     void Update()
     {
-
         ParserLoop();
-        InputLoop();
-    }
-    private void AddCorrectLetter(int p)
-    {
-        parserText.AddCorrectLetter();
-    }
-    private void WrongLetter(int p)
-    {
-        parserText.WrongLetter();
+        if (GameManager.instance.GetCurrentLevel().isParserActive())
+        {
+            InputLoop();
+        }
     }
 
     private void ParserLoop()
@@ -72,19 +61,20 @@ public class ParserManager : MonoBehaviour
                 if (c == parserText.GetFullUnformattedText()[currLetterIndex])
                 {
                     //Correct Input
+                    parserText.AddCorrectLetter();
                     GameEvents.instance.EnterCorrectLetter(currLetterIndex);
 
                     currLetterIndex++;
                     if (currLetterIndex == GetTextSize())
                     {
                         //Finish level
-                        Debug.Log("finished!");
                         GameEvents.instance.FinishLevel();
                     }
                 }
                 else
                 {
                     //Wrong Input
+                    parserText.WrongLetter();
                     GameEvents.instance.EnterWrongLetter(currLetterIndex);
                 }
             }

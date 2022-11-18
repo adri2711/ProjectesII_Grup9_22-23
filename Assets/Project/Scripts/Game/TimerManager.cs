@@ -8,7 +8,7 @@ public class TimerManager : MonoBehaviour
 {
     public static TimerManager instance { get; private set; }
 
-    [SerializeField] Image timerDisplay;
+    private Image timerDisplay;
     private float correctLetterReward = 0.3f;
     private float wrongLetterPenalty = 0.2f;
     private bool active = false;
@@ -27,14 +27,15 @@ public class TimerManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {
+        timerDisplay = GetComponentInChildren<Image>();
+
         GameEvents.instance.activateLevel += Activate;
         GameEvents.instance.enterCorrectLetter += CorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
-
-        Setup(6f);
     }
     public void Setup(float levelTime)
     {
@@ -63,8 +64,18 @@ public class TimerManager : MonoBehaviour
     public void Activate()
     {
         active = true;
+        timerDisplay.enabled = true;
+    }
+    public void MakeVisible()
+    {
+        timerDisplay.enabled = true;
     }
     public void Deactivate()
+    {
+        active = false;
+        timerDisplay.enabled = false;
+    }
+    public void Pause()
     {
         active = false;
     }
@@ -106,12 +117,16 @@ public class TimerManager : MonoBehaviour
     {
         maxTime = newMaxTime;
     }
-    public float getCurrTime()
+    public float GetCurrTime()
     {
         return currTime;
     }
-    public float getMaxTime()
+    public float GetMaxTime()
     {
         return maxTime;
+    }
+    public bool IsActive()
+    {
+        return active;
     }
 }

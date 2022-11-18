@@ -16,14 +16,15 @@ public class ScreenShake : MonoBehaviour
     }
     private void Update()
     {
-        if (TimerManager.instance != null && TimerManager.instance.getCurrTime() < TimerManager.instance.getMaxTime() / 3)
+        if (TimerManager.instance != null && TimerManager.instance.IsActive() && TimerManager.instance.GetCurrTime() < TimerManager.instance.GetMaxTime() / 3)
         {
             if (!active)
             {
-                StartCoroutine(ShakeCoroutine(Random.Range(2f,3f), 0.1f));
+                StartCoroutine(ShakeCoroutine(1f, 0.2f));
                 if (Random.Range(0,9) < 2)
                 {
                     GameEvents.instance.LowTimeEffect();
+                    StartCoroutine(ShakeCoroutine(0.4f, 2f));
                 }
             }
         }

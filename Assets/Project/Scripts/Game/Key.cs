@@ -61,21 +61,24 @@ public class Key : MonoBehaviour
 
     public void UpdateKey()
     {
-        switch (state)
+        if (image != null) // Fake af
         {
-            case KeyState.NEUTRAL:
-                image.color = neutral;
-                break;
-            case KeyState.WRONG:
-                image.color = wrong;
-                break;
-            case KeyState.CORRECT:
-                image.color = correct;
-                break;
-            case KeyState.NEXT:
-                image.color = next;
-                break;
-            
+            switch (state)
+            {
+                case KeyState.NEUTRAL:
+                    image.color = neutral;
+                    break;
+                case KeyState.WRONG:
+                    image.color = wrong;
+                    break;
+                case KeyState.CORRECT:
+                    image.color = correct;
+                    break;
+                case KeyState.NEXT:
+                    image.color = next;
+                    break;
+
+            }
         }
     }
 }
