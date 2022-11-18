@@ -4,11 +4,45 @@ using UnityEngine;
 
 public class PausePopUp : MonoBehaviour
 {
-    public GameObject pauseScreeen;
-    public Animation animation;
+    public GameObject pauseMenuUI;
+    public static bool gameIsPaused;
 
-    public void Appear()
+    void Start()
     {
-        //animation.SetTrigger("appear");
+        InitialSetup();
+    }
+
+     void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameIsPaused)
+            {
+                Resume();
+            } else
+            {
+                Pause();
+            }
+        }
+    }
+
+    void InitialSetup()
+    {
+            gameIsPaused = false;
+            pauseMenuUI.SetActive(false);
+}
+
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+    }
+
+    public void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
     }
 }
