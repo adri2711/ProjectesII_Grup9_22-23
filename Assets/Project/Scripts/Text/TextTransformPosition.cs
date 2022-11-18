@@ -14,12 +14,12 @@ public class TextTransformPosition : MonoBehaviour
     //Positive number (/10 or *10). TranslationMultiplier will increase according to the player's typing speed
     //As only one letter can move at the same time, this movement will speed up if the player types another letter
     //so the previous one disappears and the new one can start moving
-    private int typingSpeed = 1;
+    //private int typingSpeed = 1;
 
     private TMP_Text m_TextComponent;
     private bool hasTextChanged;
 
-    private bool mutex = false;
+    //private bool mutex = false;
 
     private void Awake()
     {

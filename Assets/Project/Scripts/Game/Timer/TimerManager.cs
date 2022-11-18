@@ -9,8 +9,9 @@ public class TimerManager : MonoBehaviour
     public static TimerManager instance { get; private set; }
 
     private Image timerDisplay;
-    private float correctLetterReward = 0.3f;
-    private float wrongLetterPenalty = 0.2f;
+    private float correctLetterReward;
+    private float wrongLetterPenalty;
+    private float closePopupReward;
     private bool active = false;
     private float maxTime;
     private float currTime;
@@ -36,10 +37,14 @@ public class TimerManager : MonoBehaviour
         GameEvents.instance.activateLevel += Activate;
         GameEvents.instance.enterCorrectLetter += CorrectLetter;
         GameEvents.instance.enterWrongLetter += WrongLetter;
+        GameEvents.instance.popupClose += ClosePopup;
     }
-    public void Setup(float levelTime)
+    public void Setup(float levelTime = 8f, float correctLetterReward = 0.3f, float wrongLetterPenalty = 0.2f, float closePopupReward = 0.5f)
     {
         currTime = maxTime = levelTime;
+        this.correctLetterReward = correctLetterReward;
+        this.wrongLetterPenalty = wrongLetterPenalty;
+        this.closePopupReward = closePopupReward;
         UpdateDisplay();
     }
     void Update()
@@ -91,6 +96,13 @@ public class TimerManager : MonoBehaviour
         if (active)
         {
             SubtractTime(wrongLetterPenalty);
+        }
+    }
+    private void ClosePopup()
+    {
+        if (active)
+        {
+            AddTime(closePopupReward);
         }
     }
     public void AddTime(float amount)

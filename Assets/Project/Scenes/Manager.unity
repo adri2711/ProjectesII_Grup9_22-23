@@ -168,6 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 8
+  correctLetterReward: 0.4
+  wrongLetterPenalty: 0.2
+  closePopupReward: 0.5
 --- !u!1 &416944009
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +352,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dur: 0.15
-  cooldown: 0.1
 --- !u!1 &540509274
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,37 +477,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 8
---- !u!1 &718472964
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 718472965}
-  m_Layer: 0
-  m_Name: Level5
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &718472965
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718472964}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1041934608}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  correctLetterReward: 0.3
+  wrongLetterPenalty: 0.2
+  closePopupReward: 1
 --- !u!1 &783613803
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e235c867ba19f94d8725f3586c7c0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 5
+  levelTime: 6
+  correctLetterReward: 5
+  wrongLetterPenalty: 0.5
+  closePopupReward: 1
 --- !u!1 &927153577
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +573,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 8
+  correctLetterReward: 0.3
+  wrongLetterPenalty: 0.2
+  closePopupReward: 0.5
 --- !u!1 &1041934607
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,7 +609,6 @@ Transform:
   - {fileID: 293622512}
   - {fileID: 640010210}
   - {fileID: 783613804}
-  - {fileID: 718472965}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -678,3 +657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 5
+  correctLetterReward: 0.3
+  wrongLetterPenalty: 0.2
+  closePopupReward: 0.5
