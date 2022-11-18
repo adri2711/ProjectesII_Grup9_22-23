@@ -1,21 +1,5 @@
 {
     "value": [
-        {
-            "objectName": "StaticPopup",
-            "objectGroup": "popup",
-            "minSpawnTime": 8,
-            "maxSpawnTime": 13,
-            "spawnPos": {"x": 0, "y": 0},
-            "spawnVariance": 200
-        },
-        {
-            "objectName": "BouncingPopup",
-            "objectGroup": "popup",
-            "minSpawnTime": 15,
-            "maxSpawnTime": 15,
-            "spawnPos": {"x": 0, "y": -50},
-            "spawnVariance": 100
-        }
     ]
 }
 

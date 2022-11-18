@@ -1,0 +1,14 @@
+{
+    "value": [
+        {
+            "objectName": "BouncingPopup",
+            "objectGroup": "popup",
+            "minSpawnTime": 2,
+            "maxSpawnTime": 5,
+            "spawnPos": {"x": 0, "y": 0},
+            "spawnVariance": 100
+        }
+    ]
+}
+
+

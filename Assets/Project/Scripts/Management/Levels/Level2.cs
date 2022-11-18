@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Level0 : Level
+public class Level2 : Level
 {
     public override void LevelStart()
     {
         base.LevelStart();
-        GameEvents.instance.enterCorrectLetter += CorrectLetter;
+        GameEvents.instance.popupClose += ActivateLevel;
         TimerManager.instance.Deactivate();
-        parserActive = true;
     }
     public override void LevelUpdate()
     {
@@ -18,13 +17,13 @@ public class Level0 : Level
     }
     public override void LevelFinish()
     {
+        IntManager.instance.Deactivate();
+        IntManager.instance.DestroyAllInterruptions();
         base.LevelFinish();
-    }
-    private void CorrectLetter(int p)
-    {
-        ActivateLevel();
     }
     protected override void ActivateLevel()
     {
+        parserActive = true;
+        IntManager.instance.Activate();
     }
 }
