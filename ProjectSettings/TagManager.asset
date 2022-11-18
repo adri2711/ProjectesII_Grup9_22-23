@@ -47,6 +47,9 @@ TagManager:
   - name: Parser
     uniqueID: 1873572471
     locked: 0
+  - name: Streak
+    uniqueID: 1859016287
+    locked: 0
   - name: Popup
     uniqueID: 2959148647
     locked: 0

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class StreakCounter : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class StreakCounter : MonoBehaviour
         display = GetComponent<StreakDisplay>();
         GameEvents.instance.enterCorrectLetter += Add;
         GameEvents.instance.enterWrongLetter += End;
+        display.UpdateScore(streak);
     }
     private void Add(int p)
     {
