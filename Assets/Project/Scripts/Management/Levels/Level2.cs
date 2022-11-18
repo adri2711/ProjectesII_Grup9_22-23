@@ -25,5 +25,6 @@ public class Level2 : Level
     {
         parserActive = true;
         IntManager.instance.Activate();
+        GameEvents.instance.popupClose -= ActivateLevel;
     }
 }

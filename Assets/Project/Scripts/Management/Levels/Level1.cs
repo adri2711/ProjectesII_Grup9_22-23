@@ -28,5 +28,6 @@ public class Level1 : Level
     protected override void ActivateLevel()
     {
         TimerManager.instance.Activate();
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
     }
 }
