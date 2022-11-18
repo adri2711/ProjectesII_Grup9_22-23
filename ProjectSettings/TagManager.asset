@@ -59,3 +59,6 @@ TagManager:
   - name: Fade
     uniqueID: 978324899
     locked: 0
+  - name: PauseMenu
+    uniqueID: 1897871639
+    locked: 0
