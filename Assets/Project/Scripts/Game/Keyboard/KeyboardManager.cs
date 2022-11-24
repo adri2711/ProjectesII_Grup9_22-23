@@ -102,33 +102,35 @@ public class KeyboardManager : MonoBehaviour
 
     void OnGUI()
     {
-        Event e = Event.current;
-        if (e.isKey && KeyCodeToKeyboardPos(e.keyCode) >= 0)
+        if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
         {
-            ProcessModifierKeys(e);
-            if (e.type == EventType.KeyDown)
+            Event e = Event.current;
+            if (e.isKey && KeyCodeToKeyboardPos(e.keyCode) >= 0)
             {
-                //Key pressed
-                int keyInt = ProcessInputCode(e.keyCode);
-                if (keyInt >= 0)
+                ProcessModifierKeys(e);
+                if (e.type == EventType.KeyDown)
                 {
-                    if (pm.VerifyKey((char)keyInt))
+                    //Key pressed
+                    int keyInt = ProcessInputCode(e.keyCode);
+                    if (keyInt >= 0)
                     {
-                        keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
-                    }
-                    else
-                    {
-                        keys[KeyCodeToKeyboardPos(e.keyCode)].PushWrongLetter();
+                        if (pm.VerifyKey((char)keyInt))
+                        {
+                            keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
+                        }
+                        else
+                        {
+                            keys[KeyCodeToKeyboardPos(e.keyCode)].PushWrongLetter();
+                        }
                     }
                 }
-            }
-            else if (e.type == EventType.KeyUp)
-            {
-                //Key released
-                keys[KeyCodeToKeyboardPos(e.keyCode)].ResetLetter();
+                else if (e.type == EventType.KeyUp)
+                {
+                    //Key released
+                    keys[KeyCodeToKeyboardPos(e.keyCode)].ResetLetter();
+                }
             }
         }
-        
     }
 
     public int ProcessInputCode(KeyCode code)

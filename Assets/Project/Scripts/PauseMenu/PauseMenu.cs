@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PausePopUp : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public static bool gameIsPaused;
@@ -19,7 +19,8 @@ public class PausePopUp : MonoBehaviour
             if (gameIsPaused)
             {
                 Resume();
-            } else
+            }
+            else
             {
                 Pause();
             }
@@ -28,9 +29,9 @@ public class PausePopUp : MonoBehaviour
 
     void InitialSetup()
     {
-            gameIsPaused = false;
-            pauseMenuUI.SetActive(false);
-}
+        gameIsPaused = false;
+        pauseMenuUI.SetActive(false);
+    }
 
     public void Resume()
     {
