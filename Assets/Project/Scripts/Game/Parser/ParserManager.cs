@@ -30,7 +30,7 @@ public class ParserManager : MonoBehaviour
     void Update()
     {
         ParserLoop();
-        if (GameManager.instance.GetCurrentLevel().isParserActive())
+        if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
         {
             InputLoop();
         }

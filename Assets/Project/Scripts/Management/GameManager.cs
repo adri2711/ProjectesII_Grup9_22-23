@@ -13,11 +13,11 @@ public class GameManager : MonoBehaviour
         LEVEL
     }
 
-    bool loadMutex = false;
     private GameState gameState = GameState.MAINMENU;
     private int currLevel = 0;
     private int prevLevel = 0;
-    private bool queueStartLevel = false;
+    private bool queueLoadLevel = false;
+    private bool loading = false;
     private float levelFadeoutTime = 3f;
     [SerializeField] private Level[] levels;
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         //TEMP
-        queueStartLevel = true;
+        queueLoadLevel = true;
     }
     void Start()
     {
@@ -44,32 +44,28 @@ public class GameManager : MonoBehaviour
         gameState = GameState.LEVEL;
 
         if (!SceneManager.GetSceneByName("Sound").isLoaded)
-            SceneManager.LoadScene("Sound", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Sound", LoadSceneMode.Additive);
         if (!SceneManager.GetSceneByName("Fade").isLoaded)
-            SceneManager.LoadScene("Fade", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Fade", LoadSceneMode.Additive);
         if (!SceneManager.GetSceneByName("Interruptions").isLoaded)
-            SceneManager.LoadScene("Interruptions", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Interruptions", LoadSceneMode.Additive);
         if (!SceneManager.GetSceneByName("Timer").isLoaded)
-            SceneManager.LoadScene("Timer", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Timer", LoadSceneMode.Additive);
         if (!SceneManager.GetSceneByName("Pause").isLoaded)
-            SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Pause", LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName("PostProcessing").isLoaded)
+            SceneManager.LoadSceneAsync("PostProcessing", LoadSceneMode.Additive);
     }
 
     void Update()
     {
-        //Load level
-        if (queueStartLevel && TimerManager.instance != null)
-        {
-            LevelStart();
-            queueStartLevel = false;
-        }
-
         //Level change
-        if (currLevel != prevLevel)
+        if (!loading && (currLevel != prevLevel || queueLoadLevel))
         {
-            LevelStart();   
+            StartCoroutine(LoadLevelThread(levelFadeoutTime));
+            queueLoadLevel = false;
+            prevLevel = currLevel;
         }
-        prevLevel = currLevel;
 
         switch (gameState)
         {
@@ -84,7 +80,20 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if (e.isKey && e.type == EventType.KeyDown)
+        {
+            if (e.keyCode == KeyCode.F1)
+            {
+                currLevel = (GetLevelCount() + currLevel - 1) % GetLevelCount();
+            }
+            else if (e.keyCode == KeyCode.F2) {
+                currLevel = (GetLevelCount() + currLevel + 1) % GetLevelCount();
+            }
+        }
+    }
     private void LevelStart()
     {
         if (currLevel < GetLevelCount())
@@ -94,6 +103,10 @@ public class GameManager : MonoBehaviour
             if (!SceneManager.GetSceneByName("Parser").isLoaded)
                 SceneManager.LoadScene("Parser", LoadSceneMode.Additive);
             levels[currLevel].LevelStart();
+        }
+        else
+        {
+            Application.Quit();
         }
     }
     private void LevelUpdate()
@@ -106,46 +119,28 @@ public class GameManager : MonoBehaviour
 
     private void LevelLose()
     {
-        StartCoroutine(ResetLevelThread(2f));
+        queueLoadLevel = true;
+        GlitchEffect.instance.Run(levelFadeoutTime);
     }
     private void LevelFinish()
     {
-        if (!loadMutex)
-        {
-            StartCoroutine(NextLevelThread(levelFadeoutTime));
-        }
+        currLevel++;
     }
 
-    private IEnumerator NextLevelThread(float t)
+    private IEnumerator LoadLevelThread(float t)
     {
-        loadMutex = true;
+        loading = true;
         yield return new WaitForSeconds(t);
         Fade.instance.FadeOutIn();
         yield return new WaitForSeconds(0.4f);
 
-        UnloadLevel();
-
-        if (currLevel < levels.Length)
-        {
-            currLevel++;
-        }
-        else
-        {
-            Application.Quit();
-        }
-        loadMutex = false;
-    }
-    private IEnumerator ResetLevelThread(float t)
-    {
-        loadMutex = true;
-        yield return new WaitForSeconds(t);
-        Fade.instance.FadeOutIn();
-        yield return new WaitForSeconds(0.4f);
+        while (TimerManager.instance == null || IntManager.instance == null) { }
 
         UnloadLevel();
-        queueStartLevel = true;
 
-        loadMutex = false;
+        LevelStart();
+
+        loading = false;
     }
 
     private void UnloadLevel()
@@ -155,7 +150,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetSceneByName("Streak").isLoaded)
             SceneManager.UnloadSceneAsync("Streak");
 
-        while (SceneManager.GetSceneByName("Parser").isLoaded) { }
+        while (SceneManager.GetSceneByName("Parser").isLoaded || SceneManager.GetSceneByName("Streak").isLoaded) { }
     }
 
     public int GetCurrentLevelNum()

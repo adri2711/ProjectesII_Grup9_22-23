@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceTex:
-        m_Texture: {fileID: 2800000, guid: 674155c3e1d25654181818b0bf0f4543, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3a84566686f44fa4dbb41c0110bc33f8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -117,9 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: lib_flesh
   m_EditorClassIdentifier: 
-  hashCode: -1708835171
+  hashCode: 96117484
   material: {fileID: 2180264}
-  materialHashCode: 647764509
+  materialHashCode: 1063955660
   m_Version: 1.1.0
   m_SourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}

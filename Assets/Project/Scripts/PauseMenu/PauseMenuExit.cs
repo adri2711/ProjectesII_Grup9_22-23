@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneLoader : MonoBehaviour
+public class PauseMenuExit : MonoBehaviour
 {
  public void QuitGame()
     {
