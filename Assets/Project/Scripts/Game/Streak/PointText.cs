@@ -15,7 +15,7 @@ public class PointText : MonoBehaviour
     private float time;
     public void Setup(int points, float size = 1f, float lifeTime = 4f)
     {
-        pointTMP = GetComponent<TextMeshProUGUI>();
+        pointTMP = GetComponentInChildren<TextMeshProUGUI>();
         pointText = new MultipartText();
         pointText.AddPart(new TextPart("number", points.ToString(), numberColor, 0, "jbm"),0);
         pointText.AddPart(new TextPart("text", "+", textColor, 0, "jbm"), 0);

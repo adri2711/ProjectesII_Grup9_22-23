@@ -81,6 +81,7 @@ public class KeyboardManager : MonoBehaviour
 
     void HighlightNextKey(int pos)
     {
+        ResetKeyHighlight();
         if (pos < pm.GetTextSize() - 1)
         {
             string s = pm.GetChar(pos + 1).ToString().ToUpper();
@@ -97,6 +98,13 @@ public class KeyboardManager : MonoBehaviour
             {
                 keys[index].NextLetter();
             }
+        }
+    }
+    private void ResetKeyHighlight()
+    {
+        foreach (Key key in keys)
+        {
+            key.UnhighlightKey();
         }
     }
 

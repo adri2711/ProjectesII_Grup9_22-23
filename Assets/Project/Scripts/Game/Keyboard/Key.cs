@@ -58,7 +58,14 @@ public class Key : MonoBehaviour
             UpdateKey();
         }
     }
-
+    public void UnhighlightKey()
+    {
+        if (state == KeyState.NEXT)
+        {
+            state = KeyState.NEUTRAL;
+            UpdateKey();
+        }
+    }
     public void UpdateKey()
     {
         if (image != null) // Fake af
