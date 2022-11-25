@@ -17,6 +17,7 @@ public class StreakCounter : MonoBehaviour
     {
         streak++;
         display.UpdateScore(streak);
+        display.ScoreIncreaseDisplay(1);
     }
     private void End(int p)
     {
