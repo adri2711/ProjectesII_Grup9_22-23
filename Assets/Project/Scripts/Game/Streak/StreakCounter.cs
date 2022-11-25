@@ -5,6 +5,9 @@ using UnityEngine;
 public class StreakCounter : MonoBehaviour
 {
     private int streak = 0;
+    private int score = 0;
+    private int increaseAmount = 1;
+    [SerializeField] private AnimationCurve incraseCurve;
     private StreakDisplay display;
     private void Start()
     {
@@ -13,18 +16,33 @@ public class StreakCounter : MonoBehaviour
         GameEvents.instance.enterWrongLetter += End;
         display.UpdateScore(streak);
     }
+    private void OnDestroy()
+    {
+        GameEvents.instance.enterCorrectLetter -= Add;
+        GameEvents.instance.enterWrongLetter -= End;
+    }
     private void Add(int p)
     {
         streak++;
-        display.UpdateScore(streak);
+        score += increaseAmount;
+        display.UpdateScore(score);
+        display.ScoreIncreaseDisplay(increaseAmount);
+
+        if (streak > 0)
+        {
+            if (streak % 4 == 0)
+            {
+                increaseAmount = (int)incraseCurve.Evaluate(score);
+            }
+            if (streak % 50 == 0)
+            {
+                GameEvents.instance.StreakFreeKeys(10);
+            }
+        }
     }
     private void End(int p)
     {
-        streak = 0;
-        display.UpdateScore(streak);
-    }
-    public int GetCurrentStreak()
-    {
-        return streak;
+        streak = score = 0;
+        display.UpdateScore(score);
     }
 }

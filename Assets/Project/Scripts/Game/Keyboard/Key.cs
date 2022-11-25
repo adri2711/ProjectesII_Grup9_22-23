@@ -13,72 +13,84 @@ public class Key : MonoBehaviour
         NEXT
     }
 
-    KeyState state = KeyState.NEUTRAL;
-    private bool goBackToNext = false;
-    
+    KeyState currState = KeyState.NEUTRAL;
+    KeyState prevState = KeyState.NEUTRAL;
+    public bool freeKey = false;
 
     private Color32 neutral = new Color32(255,255,255,255);
     private Color32 correct = new Color32(100,150,70,255);
     private Color32 wrong = new Color32(150,70,70,255);
     private Color32 next = new Color32(150,255,255,255);
+    private Color32 free = new Color32(250, 210, 30, 255);
 
     [SerializeField] Image image;
 
     public void PushCorrectLetter()
     {
-        state = KeyState.CORRECT;
+        UpdateState();
+        currState = KeyState.CORRECT;
         UpdateKey();
     }
     public void PushWrongLetter()
     {
-        if (state == KeyState.NEXT)
-        {
-            goBackToNext = true;
-        }
-        state = KeyState.WRONG;
-        UpdateKey();
-    }
-    public void ResetLetter()
-    {
-        state = KeyState.NEUTRAL;
-
-        if (goBackToNext)
-        {  
-            state = KeyState.NEXT;
-        }
-        goBackToNext = false;
-
+        UpdateState();
+        currState = KeyState.WRONG;
         UpdateKey();
     }
     public void NextLetter()
     {
-        if (state == KeyState.NEUTRAL)
+        UpdateState();
+        if (currState == KeyState.NEUTRAL)
         {
-            state = KeyState.NEXT;
+            currState = KeyState.NEXT;
             UpdateKey();
         }
     }
+    public void UnhighlightKey()
+    {
+        if (currState == KeyState.NEXT)
+        {
+            currState = KeyState.NEUTRAL;
+            UpdateKey();
+        }
+    }
+    public void ResetLetter()
+    {
+        if (prevState == KeyState.WRONG || prevState == KeyState.CORRECT || (prevState == KeyState.NEXT && currState == KeyState.CORRECT))
+        {
+            prevState = KeyState.NEUTRAL;
+        }
+        currState = prevState;
+        UpdateKey();
+    }
 
+    private void UpdateState()
+    {
+        if (prevState != currState)
+        {
+            prevState = currState;
+        }
+    }
     public void UpdateKey()
     {
-        if (image != null) // Fake af
+        switch (currState)
         {
-            switch (state)
-            {
-                case KeyState.NEUTRAL:
+            case KeyState.NEUTRAL:
+                if (freeKey)
+                    image.color = free;
+                else
                     image.color = neutral;
-                    break;
-                case KeyState.WRONG:
-                    image.color = wrong;
-                    break;
-                case KeyState.CORRECT:
-                    image.color = correct;
-                    break;
-                case KeyState.NEXT:
-                    image.color = next;
-                    break;
-
-            }
+                break;
+            case KeyState.WRONG:
+                image.color = wrong;
+                break;
+            case KeyState.CORRECT:
+                image.color = correct;
+                break;
+            case KeyState.NEXT:
+                image.color = next;
+                break;
         }
+        
     }
 }

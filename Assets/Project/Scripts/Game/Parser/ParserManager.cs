@@ -5,9 +5,11 @@ using TMPro;
 using System;
 using Unity.VisualScripting;
 using System.IO;
+using DG.Tweening;
 
 public class ParserManager : MonoBehaviour
 {
+    private InputChecker inputChecker;
     [SerializeField] private TextMeshProUGUI parserTM;
     private string textJSON;
     private ParserMultipartText parserText = new ParserMultipartText();
@@ -18,6 +20,7 @@ public class ParserManager : MonoBehaviour
     void Start()
     {
         parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
+        inputChecker = GetComponent<InputChecker>();
 
         string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Text.json";
         textJSON = File.ReadAllText(jsonPath);
@@ -36,6 +39,7 @@ public class ParserManager : MonoBehaviour
         }
     }
 
+    ///////////////////  Parser functions  ////////////////////////
     private void ParserLoop()
     {
         if (currLetterIndex <= GetTextSize())
@@ -49,8 +53,7 @@ public class ParserManager : MonoBehaviour
 
             parserTM.text = parserText.GetRenderedFormattedText();
         }
-    }
-    
+    }  
     private void InputLoop()
     {
         foreach (char c in Input.inputString)
@@ -58,11 +61,14 @@ public class ParserManager : MonoBehaviour
             if (currLetterIndex < GetTextSize())
             {
                 GameEvents.instance.EnterLetter();
-                if (c == parserText.GetFullUnformattedText()[currLetterIndex])
+                if (inputChecker.Do(c, parserText.GetFullUnformattedText(), currLetterIndex))
                 {
                     //Correct Input
                     parserText.AddCorrectLetter();
+
+                    inputChecker.EnterCorrectLetter();
                     GameEvents.instance.EnterCorrectLetter(currLetterIndex);
+                    
 
                     currLetterIndex++;
                     if (currLetterIndex == GetTextSize())
@@ -81,23 +87,17 @@ public class ParserManager : MonoBehaviour
         }
     }
 
+    ///////////////////  Hooks  ////////////////////////
     public bool VerifyKey(char key)
     {
-        if (currLetterIndex < GetTextSize())
-        {
-            char temp = (parserText.GetFullUnformattedText()[currLetterIndex]);
-            if (key >= 'A' && key <= 'Z' || key >= 'a' && key <= 'z')
-            {
-                return key == temp;
-            }
-            else if (key == ' ')
-            {
-                return temp == ' ';
-            }
-        }
-        return false;
+        return inputChecker.Do(key, parserText.GetFullUnformattedText(), currLetterIndex);
+    }
+    public void AddFreeKeys(int amount, bool overwrite = false)
+    {
+        inputChecker.AddFreeKeys(amount, overwrite);
     }
 
+    ///////////////////  Getters  ////////////////////////
     public char GetChar(int pos)
     {
         return parserText.GetFullUnformattedText()[pos];

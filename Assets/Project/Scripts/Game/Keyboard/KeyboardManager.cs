@@ -9,7 +9,7 @@ public class KeyboardManager : MonoBehaviour
     private bool caps;
     private bool control;
     [SerializeField] List<Key> keys;
-    [SerializeField] ParserManager pm;
+    ParserManager pm;
 
     private enum Keys
     {
@@ -44,16 +44,20 @@ public class KeyboardManager : MonoBehaviour
 
     void Start()
     {
+        pm = transform.parent.parent.gameObject.GetComponentInChildren<ParserManager>();
+
         caps = (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift));
 
         GameEvents.instance.enterCorrectLetter += HighlightNextKey;
+        GameEvents.instance.streakFreeKeys += FreeKeys;
 
         HighlightNextKey(-1);
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        
+        GameEvents.instance.enterCorrectLetter -= HighlightNextKey;
+        GameEvents.instance.streakFreeKeys -= FreeKeys;
     }
 
     int KeyCodeToKeyboardPos(KeyCode code)
@@ -81,6 +85,11 @@ public class KeyboardManager : MonoBehaviour
 
     void HighlightNextKey(int pos)
     {
+        if (InputChecker.freeKeys == 0)
+        {
+            ResetFreeKeys();
+        }
+        ResetKeyHighlight();
         if (pos < pm.GetTextSize() - 1)
         {
             string s = pm.GetChar(pos + 1).ToString().ToUpper();
@@ -97,6 +106,29 @@ public class KeyboardManager : MonoBehaviour
             {
                 keys[index].NextLetter();
             }
+        }
+    }
+    private void ResetKeyHighlight()
+    {
+        foreach (Key key in keys)
+        {
+            key.UnhighlightKey();
+        }
+    }
+    public void FreeKeys(int amount)
+    {
+        foreach (Key key in keys)
+        {
+            key.freeKey = true;
+            key.UpdateKey();
+        }
+    }
+    private void ResetFreeKeys()
+    {
+        foreach (Key key in keys)
+        {
+            key.freeKey = false;
+            key.UpdateKey();
         }
     }
 

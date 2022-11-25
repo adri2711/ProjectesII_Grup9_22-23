@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class StreakMultipartText : MultipartText
 {
-    private Color textColor = new Color(0.6f, 0.7f, 0.4f);
-    private Color numberColor = new Color(0.8f, 0.8f, 0.5f);
+    private Color textColor = new Color(0.9f, 0.8f, 0.3f);
+    private Color numberColor = new Color(0.9f, 0.9f, 0.3f);
     public void Setup()
     {
-        AddPart(new TextPart("numberBody", "", numberColor), 0);
-        AddPart(new TextPart("textBody", "Streak: ", textColor), 0);
+        AddPart(new TextPart("numberBody", "", numberColor, 0, "jbm"), 0);
+        AddPart(new TextPart("textBody", "Streak: ", textColor, 0, "jbm"), 0);
 
     }
 
