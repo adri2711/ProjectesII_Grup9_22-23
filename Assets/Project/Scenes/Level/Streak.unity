@@ -233,8 +233,9 @@ MonoBehaviour:
   - {fileID: 1115036266}
   - {fileID: 867200056}
   sizeVariance: 0.3
-  spawnVariance: {x: 70, y: 120}
+  spawnVariance: {x: 60, y: 120}
   rotationVariance: 15
+  lifeTimeVariance: 0.5
 --- !u!114 &1544855023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +490,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -53.122253, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
