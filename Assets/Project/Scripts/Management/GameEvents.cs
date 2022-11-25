@@ -26,12 +26,21 @@ public class GameEvents : MonoBehaviour
     public event Action finishLevel;
     public event Action lose;
     public event Action activateLevel;
-    
+
+    public event Action<int> streakFreeKeys;    
+
     public event Action popupSpawn;
     public event Action popupClose;
     public event Action popupBounce;
     public event Action lowTimeEffect;
 
+    public void StreakFreeKeys(int amount)
+    {
+        if (streakFreeKeys != null)
+        {
+            streakFreeKeys(amount);
+        }
+    }
     public void EnterCorrectLetter(int pos)
     {
         if (enterCorrectLetter != null)

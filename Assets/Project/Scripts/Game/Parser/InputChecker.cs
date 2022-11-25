@@ -6,11 +6,10 @@ using UnityEngine.UIElements;
 public class InputChecker : MonoBehaviour
 {
     Dictionary<char, HashSet<char>> overrides;
-    int freeKeys = 0;
+    public static int freeKeys = 0;
     private void Start()
     {
         overrides = new Dictionary<char, HashSet<char>>();
-        AddOverride('e', 'r');
     }
     public bool Do(char c, string text, int currLetterIndex)
     {
@@ -18,7 +17,6 @@ public class InputChecker : MonoBehaviour
         {
             if (freeKeys > 0)
             {
-                freeKeys--;
                 return true;
             }
             else if (overrides.ContainsKey(text[currLetterIndex]))
@@ -31,6 +29,13 @@ public class InputChecker : MonoBehaviour
             }
         }
         return false;
+    }
+    public void EnterCorrectLetter()
+    {
+        if (freeKeys > 0)
+        {
+            freeKeys--;
+        }
     }
     public void AddOverride(char target, char newOverride, bool additive = true)
     {

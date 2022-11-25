@@ -39,6 +39,7 @@ public class ParserManager : MonoBehaviour
         }
     }
 
+    ///////////////////  Parser functions  ////////////////////////
     private void ParserLoop()
     {
         if (currLetterIndex <= GetTextSize())
@@ -52,8 +53,7 @@ public class ParserManager : MonoBehaviour
 
             parserTM.text = parserText.GetRenderedFormattedText();
         }
-    }
-    
+    }  
     private void InputLoop()
     {
         foreach (char c in Input.inputString)
@@ -65,7 +65,10 @@ public class ParserManager : MonoBehaviour
                 {
                     //Correct Input
                     parserText.AddCorrectLetter();
+
+                    inputChecker.EnterCorrectLetter();
                     GameEvents.instance.EnterCorrectLetter(currLetterIndex);
+                    
 
                     currLetterIndex++;
                     if (currLetterIndex == GetTextSize())
@@ -84,11 +87,17 @@ public class ParserManager : MonoBehaviour
         }
     }
 
+    ///////////////////  Hooks  ////////////////////////
     public bool VerifyKey(char key)
     {
         return inputChecker.Do(key, parserText.GetFullUnformattedText(), currLetterIndex);
     }
+    public void AddFreeKeys(int amount, bool overwrite = false)
+    {
+        inputChecker.AddFreeKeys(amount, overwrite);
+    }
 
+    ///////////////////  Getters  ////////////////////////
     public char GetChar(int pos)
     {
         return parserText.GetFullUnformattedText()[pos];
