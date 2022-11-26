@@ -9,12 +9,15 @@ public class StreakCounter : MonoBehaviour
     private int increaseAmount = 1;
     [SerializeField] private AnimationCurve incraseCurve;
     private StreakDisplay display;
+    private SpriteChanger spriteChanger;
     private void Start()
     {
+        spriteChanger = GetComponent<SpriteChanger>();
         display = GetComponent<StreakDisplay>();
         GameEvents.instance.enterCorrectLetter += Add;
         GameEvents.instance.enterWrongLetter += End;
         display.UpdateScore(streak);
+        spriteChanger.None();
     }
     private void OnDestroy()
     {
@@ -39,10 +42,29 @@ public class StreakCounter : MonoBehaviour
                 GameEvents.instance.StreakFreeKeys(10);
             }
         }
+
+        switch (streak)
+        {
+            case 10:
+                spriteChanger.Quarter();
+                break;
+            case 20:
+                spriteChanger.Half();
+                break;
+            case 30:
+                spriteChanger.ThreeQuarters();
+                break;
+            case 40:
+                spriteChanger.Whole();
+                break ;
+            default:
+                break;
+        }
     }
     private void End(int p)
     {
         streak = score = 0;
         display.UpdateScore(score);
+        spriteChanger.None();
     }
 }
