@@ -17,6 +17,12 @@ public class ParserEvents : MonoBehaviour
     }
     public void FreeKeys(int amount)
     {
-        parserManager.AddFreeKeys(amount, true);
+        StartCoroutine(FreeKeysThread((float)amount));
+    }
+    private IEnumerator FreeKeysThread(float t)
+    {
+        parserManager.AddFreeKeys(99999, true);
+        yield return new WaitForSeconds(t);
+        parserManager.AddFreeKeys(1, true);
     }
 }

@@ -17,6 +17,7 @@ public class Key : MonoBehaviour
     KeyState prevState = KeyState.NEUTRAL;
     public bool freeKey = false;
 
+    [SerializeField] private Material freeKeyMaterial;
     private Color32 neutral = new Color32(255,255,255,255);
     private Color32 correct = new Color32(100,150,70,255);
     private Color32 wrong = new Color32(150,70,70,255);
@@ -76,10 +77,15 @@ public class Key : MonoBehaviour
         switch (currState)
         {
             case KeyState.NEUTRAL:
+                image.color = neutral;
                 if (freeKey)
-                    image.color = free;
+                {
+                    image.material = freeKeyMaterial;
+                }
                 else
-                    image.color = neutral;
+                {
+                    image.material = null;
+                }
                 break;
             case KeyState.WRONG:
                 image.color = wrong;

@@ -36,13 +36,15 @@ public class StreakCounter : MonoBehaviour
             }
             if (streak % 50 == 0)
             {
-                GameEvents.instance.StreakFreeKeys(10);
+                GameEvents.instance.StreakFreeKeys(3);
             }
         }
     }
     private void End(int p)
     {
-        streak = score = 0;
+        streak = 0;
+        score = 0;
+        increaseAmount = 1;
         display.UpdateScore(score);
     }
 }
