@@ -92,6 +92,13 @@ public class GameManager : MonoBehaviour
             else if (e.keyCode == KeyCode.F2) {
                 currLevel = (GetLevelCount() + currLevel + 1) % GetLevelCount();
             }
+            else if (e.keyCode == KeyCode.F3)
+            {
+                if (TimerManager.instance != null)
+                {
+                    TimerManager.instance.Deactivate();
+                }
+            }
         }
     }
     private void LevelStart()

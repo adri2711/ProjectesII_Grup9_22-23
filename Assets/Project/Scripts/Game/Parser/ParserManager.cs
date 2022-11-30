@@ -49,6 +49,10 @@ public class ParserManager : MonoBehaviour
             {
                 parserText.SetRenderedSegment(currLetterIndex, parserLength);
                 currRenderIndex += parserText.GetRenderedSegmentLength();
+                if (IntManager.instance != null && currLetterIndex > 0)
+                {
+                    IntManager.instance.DestroyAllInterruptions();
+                }
             }
 
             parserTM.text = parserText.GetRenderedFormattedText();
