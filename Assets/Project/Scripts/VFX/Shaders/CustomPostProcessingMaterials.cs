@@ -4,7 +4,7 @@ using UnityEngine;
 public class CustomPostProcessingMaterials : UnityEngine.ScriptableObject
 {
     //---Your Materials---
-    public Material customEffect;
+    public Material[] customEffects;
 
     //---Accessing the data from the Pass---
     static CustomPostProcessingMaterials _instance;

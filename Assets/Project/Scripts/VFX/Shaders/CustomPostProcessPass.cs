@@ -80,20 +80,32 @@ public class CustomPostProcessPass : ScriptableRenderPass
         latestDest = source;
 
         //---Custom effect here---
-        var customEffect = stack.GetComponent<CustomEffectComponent>();
+        var glitchEffect = stack.GetComponent<GlitchComponent>();
         // Only process if the effect is active
-        if (customEffect.IsActive())
+        if (glitchEffect.IsActive())
         {
-            var material = materials.customEffect;
+            var material = materials.customEffects[0];
             // P.s. optimize by caching the property ID somewhere else
-            material.SetFloat(Shader.PropertyToID("_Intensity"), customEffect.intensity.value);
-            material.SetColor(Shader.PropertyToID("_OverlayColor"), customEffect.overlayColor.value);
+            material.SetFloat(Shader.PropertyToID("_Intensity"), glitchEffect.intensity.value);
+            material.SetColor(Shader.PropertyToID("_OverlayColor"), glitchEffect.overlayColor.value);
 
             BlitTo(material);
         }
 
         // Add any other custom effect/component you want, in your preferred order
         // Custom effect 2, 3 , ...
+        //---Custom effect here---
+        var wrongEffect = stack.GetComponent<WrongComponent>();
+        // Only process if the effect is active
+        if (wrongEffect.IsActive())
+        {
+            var material = materials.customEffects[1];
+            // P.s. optimize by caching the property ID somewhere else
+            material.SetFloat(Shader.PropertyToID("_Intensity"), wrongEffect.intensity.value);
+            material.SetColor(Shader.PropertyToID("_OverlayColor"), wrongEffect.overlayColor.value);
+
+            BlitTo(material);
+        }
 
 
         // DONE! Now that we have processed all our custom effects, applies the final result to camera

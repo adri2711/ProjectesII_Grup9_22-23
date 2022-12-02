@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 793833891}
   - component: {fileID: 793833890}
   - component: {fileID: 793833892}
+  - component: {fileID: 793833894}
   - component: {fileID: 793833893}
   m_Layer: 0
   m_Name: Global Volume
@@ -186,8 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be441fcd56635d498619ac5a45a2949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchOn: {fileID: 11400000, guid: b80ef0e9e7dd6ee45980481823a9b54a, type: 2}
-  glitchOff: {fileID: 11400000, guid: e9d06b4ae62754b4393beaa788236446, type: 2}
+  on: {fileID: 11400000, guid: b80ef0e9e7dd6ee45980481823a9b54a, type: 2}
+  off: {fileID: 11400000, guid: e9d06b4ae62754b4393beaa788236446, type: 2}
 --- !u!95 &793833893
 Animator:
   serializedVersion: 4
@@ -208,3 +209,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &793833894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793833889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8a6f63b7dd8024aa5bfb4d9f81e09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on: {fileID: 11400000, guid: 55b8664cb9e9c9441a9e342982060031, type: 2}
+  off: {fileID: 11400000, guid: 4c762dd86de38754fa1e11585b02a04b, type: 2}
