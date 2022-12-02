@@ -10,7 +10,8 @@ using DG.Tweening;
 public class ParserManager : MonoBehaviour
 {
     private InputChecker inputChecker;
-    [SerializeField] private TextMeshProUGUI parserTM;
+    private ParserEffects parserEffects;
+    private TextMeshProUGUI parserTM;
     private string textJSON;
     private ParserMultipartText parserText = new ParserMultipartText();
     private int currLetterIndex = 0;
@@ -21,6 +22,7 @@ public class ParserManager : MonoBehaviour
     {
         parserTM = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
         inputChecker = GetComponent<InputChecker>();
+        parserEffects = GetComponent<ParserEffects>();
 
         string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Text.json";
         textJSON = File.ReadAllText(jsonPath);
@@ -49,6 +51,11 @@ public class ParserManager : MonoBehaviour
             {
                 parserText.SetRenderedSegment(currLetterIndex, parserLength);
                 currRenderIndex += parserText.GetRenderedSegmentLength();
+                parserEffects.ChangeRenderSegment();
+                if (IntManager.instance != null && currLetterIndex > 0)
+                {
+                    IntManager.instance.DestroyAllInterruptions();
+                }
             }
 
             parserTM.text = parserText.GetRenderedFormattedText();
@@ -65,12 +72,12 @@ public class ParserManager : MonoBehaviour
                 {
                     //Correct Input
                     parserText.AddCorrectLetter();
-
                     inputChecker.EnterCorrectLetter();
                     GameEvents.instance.EnterCorrectLetter(currLetterIndex);
-                    
+                    parserEffects.CorrectLetterEffect(currLetterIndex);
 
                     currLetterIndex++;
+
                     if (currLetterIndex == GetTextSize())
                     {
                         //Finish level

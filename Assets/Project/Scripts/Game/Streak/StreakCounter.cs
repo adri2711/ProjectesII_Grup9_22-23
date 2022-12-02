@@ -28,6 +28,12 @@ public class StreakCounter : MonoBehaviour
         display.UpdateScore(score);
         display.ScoreIncreaseDisplay(increaseAmount);
 
+        if (streak > 20)
+        {
+            float percentage = Mathf.Min(((float)streak - 20f) / 40f, 1f);
+            SpeedEffect.instance.Run(percentage);
+        }
+
         if (streak > 0)
         {
             if (streak % 4 == 0)
@@ -46,5 +52,7 @@ public class StreakCounter : MonoBehaviour
         score = 0;
         increaseAmount = 1;
         display.UpdateScore(score);
+
+        SpeedEffect.instance.End();
     }
 }

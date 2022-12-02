@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ public class TimerManager : MonoBehaviour
     private bool active = false;
     private float maxTime;
     private float currTime;
+    private int lives;
+    private bool regenerating;
+    private float regenerationSteps = 800;
 
     private Color32 baseColor = new Color32(170, 90, 70, 255);
 
@@ -39,19 +43,28 @@ public class TimerManager : MonoBehaviour
         GameEvents.instance.enterWrongLetter += WrongLetter;
         GameEvents.instance.popupClose += ClosePopup;
     }
-    public void Setup(float levelTime = 8f, float correctLetterReward = 0.3f, float wrongLetterPenalty = 0.2f, float closePopupReward = 0.5f)
+    public void Setup(float levelTime = 8f, float correctLetterReward = 0.3f, float wrongLetterPenalty = 0.2f, float closePopupReward = 0.5f, int lives = 1)
     {
         currTime = maxTime = levelTime;
         this.correctLetterReward = correctLetterReward;
         this.wrongLetterPenalty = wrongLetterPenalty;
         this.closePopupReward = closePopupReward;
+        this.lives = lives;
+        regenerating = false;
         UpdateDisplay();
     }
     void Update()
     { 
         if (active)
         {
-            SubtractTime(Time.deltaTime);
+            if (regenerating)
+            {
+                AddTime(maxTime / regenerationSteps);
+            }
+            else
+            {
+                SubtractTime(Time.deltaTime);
+            }
         }
     }
     
@@ -110,7 +123,11 @@ public class TimerManager : MonoBehaviour
         currTime += amount;
         if (currTime > maxTime)
         {
-            GameEvents.instance.GainExtraTime(currTime - maxTime);
+            if (!regenerating) {
+                GameEvents.instance.GainExtraTime(currTime - maxTime);
+            }
+            regenerating = false;
+
             currTime = maxTime;
         }
         UpdateDisplay();
@@ -121,7 +138,15 @@ public class TimerManager : MonoBehaviour
         if (currTime <= 0)
         {
             currTime = 0;
-            GameEvents.instance.Lose();
+            if (lives > 0)
+            {
+                regenerating = true;
+                lives--;
+            }
+            else
+            {
+                GameEvents.instance.Lose();
+            }
         }
         UpdateDisplay();
     }

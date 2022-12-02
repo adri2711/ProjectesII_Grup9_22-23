@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-[Serializable, VolumeComponentMenuForRenderPipeline("Custom/CustomEffectComponent", typeof(UniversalRenderPipeline))]
-public class CustomEffectComponent : VolumeComponent, IPostProcessComponent
+[Serializable, VolumeComponentMenuForRenderPipeline("Custom/GlitchComponent", typeof(UniversalRenderPipeline))]
+public class GlitchComponent : VolumeComponent, IPostProcessComponent
 {
     // For example, an intensity parameter that goes from 0 to 1
     public ClampedFloatParameter intensity = new ClampedFloatParameter(value: 0, min: 0, max: 1, overrideState: true);

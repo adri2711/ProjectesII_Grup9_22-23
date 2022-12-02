@@ -56,6 +56,9 @@ TagManager:
   - name: Timer
     uniqueID: 1782722241
     locked: 0
+  - name: FX
+    uniqueID: 2100607289
+    locked: 0
   - name: Fade
     uniqueID: 978324899
     locked: 0
