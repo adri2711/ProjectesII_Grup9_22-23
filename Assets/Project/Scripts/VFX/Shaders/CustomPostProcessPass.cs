@@ -92,8 +92,6 @@ public class CustomPostProcessPass : ScriptableRenderPass
             BlitTo(material);
         }
 
-        // Add any other custom effect/component you want, in your preferred order
-        // Custom effect 2, 3 , ...
         //---Custom effect here---
         var wrongEffect = stack.GetComponent<WrongComponent>();
         // Only process if the effect is active
@@ -103,6 +101,19 @@ public class CustomPostProcessPass : ScriptableRenderPass
             // P.s. optimize by caching the property ID somewhere else
             material.SetFloat(Shader.PropertyToID("_Intensity"), wrongEffect.intensity.value);
             material.SetColor(Shader.PropertyToID("_OverlayColor"), wrongEffect.overlayColor.value);
+
+            BlitTo(material);
+        }
+
+        //---Custom effect here---
+        var speedEffect = stack.GetComponent<SpeedComponent>();
+        // Only process if the effect is active
+        if (speedEffect.IsActive())
+        {
+            var material = materials.customEffects[2];
+            // P.s. optimize by caching the property ID somewhere else
+            material.SetFloat(Shader.PropertyToID("_Intensity"), speedEffect.intensity.value);
+            material.SetColor(Shader.PropertyToID("_OverlayColor"), speedEffect.overlayColor.value);
 
             BlitTo(material);
         }
