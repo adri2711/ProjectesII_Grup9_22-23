@@ -1,0 +1,354 @@
+{
+  "rawSentences": [
+    {
+      "keyword": "symmetry",
+      "sentenceType": 2,
+      "writingStyle": 2,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen1",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Symmetry. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 7,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen2",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "The quality of being identical to oneself even under transformation. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 7,
+      "writingStyle": 4,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen3",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "The perseverance of all that is good: Harmony and Proportion. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 1,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen4",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Be it Geometry, Time, logical structures, molecules or language, there is nothing unable to be touched by its Grace. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 1,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen5",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Symmetry is the expression of a permanent essence, and thus the proof of the entwinement of the supranatural plane with mundane phenomena. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen6",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Search for its signs. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen6",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Feel the ecstasy of Perfection. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 1,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen7",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Leading everything that has been brought to existence. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 1,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen8",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Symmetry is the true Substance of the Universe. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 5,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen9",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Infesting every structure, body, process, thought; for there is nothing that could exist without Symmetry. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 4,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen10",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Behold the perfection of such duality: harmony between opposites who are identical, for their only difference is what side of the mirror they are in. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "write",
+      "sentenceType": 9,
+      "writingStyle": 4,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen11",
+        "colorHex": "#b200ed",
+        "flags": 2048,
+        "text": "You, in front of the screen: smashing keys without even realizing the meanings of the words you type. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "write",
+      "sentenceType": 9,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen12",
+        "colorHex": "#b200ed",
+        "flags": 2048,
+        "text": "Do you even know what you're writing? ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "write",
+      "sentenceType": 9,
+      "writingStyle": 5,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen13",
+        "colorHex": "#b200ed",
+        "flags": 2048,
+        "text": "Trascribing every text they request, blindly following orders; is it out of fear, or because you've become so disengaged with the world that you're unable to see that you lack critical thinking? ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "questioning",
+      "sentenceType": 9,
+      "writingStyle": 1,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen14",
+        "colorHex": "#b200ed",
+        "flags": 2048,
+        "text": "They have made the world so clear and distinct that all of you have lost the strength to question reality, trapped in the easily understandable model of linear time and incessant progress. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "awakening",
+      "sentenceType": 9,
+      "writingStyle": 2,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen15",
+        "colorHex": "#b200ed",
+        "flags": 2048,
+        "text": "Awake! ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "victim",
+      "sentenceType": 9,
+      "writingStyle": 3,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen16",
+        "colorHex": "#b200ed",
+        "flags": 2048,
+        "text": "You are a victim of Order. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 0,
+      "writingStyle": 5,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen16",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "For millennia we have invited Chaos inside us and deceived ourselves; it is now time to embrace Symmetry and let the divine light of Order reach us. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 4,
+      "writingStyle": 4,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen17",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "y = ax2 + bx + c : how can a statement so short contain the infinite Expansion and Perfection of Symmetry? ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 2,
+      "writingStyle": 4,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen18",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "The Point, a primitive notion that models an exact location in the space, and has no length, width, or thickness: the origin of a Reflection. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 2,
+      "writingStyle": 5,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen19",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "The Line, an infinitely long object with no width, depth, or curvature; the depiction of absolute Order and Progress. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 2,
+      "writingStyle": 1,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen20",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "The Plane, a two-dimensional surface that extends indefinitely and that can comprise infinite symmetries. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 2,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen21",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "XOR (0XOR0 = 0; 0XOR1 = 1; 1XOR0 = 1; 1XOR1 = 0), yet another evidence of how even the most abstract things have symmetric patterns. ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 4,
+      "writingStyle": 0,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen22",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "Can you hear the voice of the Logos? ",
+        "font": "bluescreen"
+      }
+    },
+    {
+      "keyword": "symmetry",
+      "sentenceType": 4,
+      "writingStyle": 1,
+      "alreadyInText": false,
+
+      "textPart": {
+        "id": "sen23",
+        "colorHex": "#000000",
+        "flags": 2048,
+        "text": "How can something so evident be overshadowed by the unauthentic, superficial layer of disorder through which the Devil tries to persuade us? ",
+        "font": "bluescreen"
+      }
+    }
+  ]
+}

@@ -32,12 +32,17 @@ public enum WritingStyle
 public class Sentence : MonoBehaviour
 {
     //Internal logic
-    public string text;
+    //public string text;       //TextPart already has a text variable
     public string keyword;
     public SentenceType sentenceType;
     public WritingStyle writingStyle;
 
-    public bool alreadyInText = false;
+    public bool alreadyInText;
+
+    public TextPart textPart;
+
+    //POSAR-LI COLOR --> Per poder fer constructor de text part
+    //QUE CADA SENTENCE TINGUI COM A VARIABLE PÚBLICA UNA TEXTPART --> AIXÍ ÉS MÉS FÀCIL FER EL JSON
 
     //Interaction with TextPart, MultipartText, etc. (game json & format system)
     //public TextPart textPart = new TextPart();
