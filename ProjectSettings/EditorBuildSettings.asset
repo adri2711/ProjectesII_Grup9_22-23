@@ -9,20 +9,20 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/Manager.unity
     guid: 89c540254fb1ddd4dbc2a438a173c2ea
   - enabled: 1
+    path: Assets/Project/Scenes/Level/Parser.unity
+    guid: 6b39e609b9f84884895b7354907539dd
+  - enabled: 1
+    path: Assets/Project/Scenes/Level/Timer.unity
+    guid: 4a13c09ac0172bc4f93c3da9f0d82b37
+  - enabled: 1
     path: Assets/Project/Scenes/Sound.unity
     guid: 6a0156dbbb73d324c96b845a4365cdb9
   - enabled: 1
     path: Assets/Project/Scenes/Fade.unity
     guid: e595712141f5a534e8a2476af7adc3db
   - enabled: 1
-    path: Assets/Project/Scenes/Level/Parser.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Project/Scenes/Level/Streak.unity
     guid: 76c117f83cc5a864e9eeb8ab9b1a6df3
-  - enabled: 1
-    path: Assets/Project/Scenes/Level/Timer.unity
-    guid: 60f89583aaac68149a69b701a60c09ac
   - enabled: 1
     path: Assets/Project/Scenes/Level/Interruptions.unity
     guid: 72d659f770a3a994894f8f1b3ada3f44

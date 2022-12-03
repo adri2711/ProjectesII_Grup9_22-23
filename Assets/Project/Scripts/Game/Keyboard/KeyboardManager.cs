@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -66,9 +67,41 @@ public class KeyboardManager : MonoBehaviour
         {
             return (int)(code - KeyCode.A);
         }
-        else if (code == KeyCode.Space)
+        else
         {
-            return 26;
+            switch (code)
+            {
+                case KeyCode.Space:
+                    return 26;
+                case KeyCode.KeypadEnter:
+                case KeyCode.Return:
+                    return 27;
+                case KeyCode.Plus:
+                case KeyCode.KeypadPlus:
+                    return 28;
+                case KeyCode.LeftCurlyBracket:
+                    return 29;
+                case KeyCode.RightCurlyBracket:
+                    return 30;
+                case KeyCode.Semicolon:
+                case KeyCode.Comma:
+                    return 31;
+                case KeyCode.Colon:
+                case KeyCode.Period:
+                case KeyCode.KeypadPeriod:
+                    return 32;
+                case KeyCode.LeftShift:
+                case KeyCode.RightShift:
+                    return 33;
+                case KeyCode.LeftControl:
+                case KeyCode.RightControl:
+                    return 34;
+                case KeyCode.LeftAlt:
+                case KeyCode.RightAlt:
+                    return 35;
+                case KeyCode.AltGr:
+                    return 36;
+            }
         }
         return -1;
     }
