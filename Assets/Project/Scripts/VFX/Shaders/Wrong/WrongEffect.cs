@@ -5,8 +5,7 @@ using UnityEngine.Rendering;
 
 public class WrongEffect : MonoBehaviour
 {
-    [SerializeField] private VolumeProfile on;
-    [SerializeField] private VolumeProfile off;
+    [SerializeField] private VolumeProfile vol;
     private float duration = 0.2f;
     public static WrongEffect instance { get; private set; }
     private void Awake()
@@ -23,11 +22,13 @@ public class WrongEffect : MonoBehaviour
     private void Start()
     {
         GameEvents.instance.enterWrongLetter += WrongLetter;
+        GetComponent<Volume>().profile = vol;
+        End();
     }
 
     public void Run(float dur = 0)
     {
-        GetComponent<Volume>().profile = on;
+        vol.components[0].SetAllOverridesTo(true);
         if (dur > 0)
         {
             StartCoroutine(RunForSeconds(dur));
@@ -35,7 +36,7 @@ public class WrongEffect : MonoBehaviour
     }
     public void End()
     {
-        GetComponent<Volume>().profile = off;
+        vol.components[0].SetAllOverridesTo(false);
     }
     private IEnumerator RunForSeconds(float dur)
     {
