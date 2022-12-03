@@ -153,7 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8a6f63b7dd8024aa5bfb4d9f81e09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vol: {fileID: 11400000, guid: 55b8664cb9e9c9441a9e342982060031, type: 2}
+  levels:
+  - {fileID: 11400000, guid: 55b8664cb9e9c9441a9e342982060031, type: 2}
+  dur: 0.2
 --- !u!114 &749571745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be441fcd56635d498619ac5a45a2949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vol: {fileID: 11400000, guid: b80ef0e9e7dd6ee45980481823a9b54a, type: 2}
+  levels:
+  - {fileID: 11400000, guid: b80ef0e9e7dd6ee45980481823a9b54a, type: 2}
+  lowTimeDur: 0.2
 --- !u!1 &1666106603
 GameObject:
   m_ObjectHideFlags: 0
