@@ -220,4 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aba4aa333ffaaf48aea4d6356c7ed38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeKey: 0
+  freeKeyMaterial: {fileID: 2100000, guid: ac88bb272e29c9f4a8f6f20b1126295c, type: 2}
   image: {fileID: 8484721371021162535}

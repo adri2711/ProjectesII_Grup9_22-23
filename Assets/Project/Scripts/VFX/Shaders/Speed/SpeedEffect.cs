@@ -26,7 +26,6 @@ public class SpeedEffect : MonoBehaviour
     public void Run(float percentage, float dur = 0)
     {
         GetComponent<Volume>().profile = levels[(int)(Mathf.Min(percentage, 1f) * (levels.Length - 1))];
-        Debug.Log((int)(percentage * (levels.Length - 1)));
         if (dur > 0)
         {
             StartCoroutine(RunForSeconds(dur));
