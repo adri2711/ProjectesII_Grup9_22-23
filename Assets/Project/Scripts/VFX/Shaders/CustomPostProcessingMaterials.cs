@@ -4,7 +4,8 @@ using UnityEngine;
 public class CustomPostProcessingMaterials : UnityEngine.ScriptableObject
 {
     //---Your Materials---
-    public Material[] customEffects;
+    [SerializeField] private Material[] postMaterials;
+    private CustomEffectMaterial[] customEffectMaterials;
 
     //---Accessing the data from the Pass---
     static CustomPostProcessingMaterials _instance;
@@ -19,6 +20,23 @@ public class CustomPostProcessingMaterials : UnityEngine.ScriptableObject
 
             _instance = UnityEngine.Resources.Load("CustomPostProcessingMaterials") as CustomPostProcessingMaterials;
             return _instance;
+        }
+    }
+
+    public CustomEffectMaterial[] GetCustomEffectMaterials()
+    {
+        if (customEffectMaterials == null)
+        {
+            SetupCustomEffectMaterials();
+        }
+        return customEffectMaterials;
+    }
+    private void SetupCustomEffectMaterials()
+    {
+        customEffectMaterials = new CustomEffectMaterial[postMaterials.Length];
+        for (int i = 0; i < customEffectMaterials.Length; i++)
+        {
+            customEffectMaterials[i] = new CustomEffectMaterial(postMaterials[i]);
         }
     }
 }

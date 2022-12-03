@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class CustomEffect<T> : MonoBehaviour where T : MonoBehaviour
 {
-    [SerializeField] protected VolumeProfile[] levels;
+    [SerializeField] protected VolumeProfile[] profiles;
     protected int index = 0;
     public static T instance { get; private set; }
     protected virtual void Awake()
@@ -20,14 +20,14 @@ public class CustomEffect<T> : MonoBehaviour where T : MonoBehaviour
     }
     protected virtual void Start()
     {
-        GetComponent<Volume>().profile = levels[index];
+        GetComponent<Volume>().profile = profiles[index];
         End();
     }
 
     public virtual void Run(float dur = 0)
     {
-        GetComponent<Volume>().profile = levels[index];
-        foreach (VolumeComponent component in levels[index].components)
+        GetComponent<Volume>().profile = profiles[index];
+        foreach (VolumeComponent component in profiles[index].components)
         {
             component.SetAllOverridesTo(true);
         }
@@ -39,8 +39,8 @@ public class CustomEffect<T> : MonoBehaviour where T : MonoBehaviour
     }
     public virtual void End()
     {
-        GetComponent<Volume>().profile = levels[index];
-        foreach (VolumeComponent component in levels[index].components)
+        GetComponent<Volume>().profile = profiles[index];
+        foreach (VolumeComponent component in profiles[index].components)
         {
             component.SetAllOverridesTo(false);
         }

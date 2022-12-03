@@ -7,11 +7,22 @@ public class SpeedEffect : CustomEffect<SpeedEffect>
 {
     protected override void Start()
     {
-        GameEvents.instance.finishLevel += End;
+        ResetAll();
+        GameEvents.instance.finishLevel += ResetAll;
     }
     public void Run(float percentage, float dur = 0)
     {
-        index = (int)(Mathf.Min(percentage, 1f) * (levels.Length - 1));
+        index = (int)(Mathf.Min(percentage, 1f) * (profiles.Length - 1));
         base.Run(dur);
+    }
+    private void ResetAll()
+    {
+        foreach (VolumeProfile p in profiles)
+        {
+            foreach (VolumeComponent component in p.components)
+            {
+                component.SetAllOverridesTo(false);
+            }
+        }
     }
 }
