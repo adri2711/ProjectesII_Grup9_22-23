@@ -84,7 +84,7 @@ public class CustomPostProcessPass : ScriptableRenderPass
         // Only process if the effect is active
         if (glitchEffect.IsActive())
         {
-            var material = materials.customEffects[0];
+            var material = materials.GetCustomEffectMaterials()[0].material;
             // P.s. optimize by caching the property ID somewhere else
             material.SetFloat(Shader.PropertyToID("_Intensity"), glitchEffect.intensity.value);
             material.SetColor(Shader.PropertyToID("_OverlayColor"), glitchEffect.overlayColor.value);
@@ -97,7 +97,7 @@ public class CustomPostProcessPass : ScriptableRenderPass
         // Only process if the effect is active
         if (wrongEffect.IsActive())
         {
-            var material = materials.customEffects[1];
+            var material = materials.GetCustomEffectMaterials()[1].material;
             // P.s. optimize by caching the property ID somewhere else
             material.SetFloat(Shader.PropertyToID("_Intensity"), wrongEffect.intensity.value);
             material.SetColor(Shader.PropertyToID("_OverlayColor"), wrongEffect.overlayColor.value);
@@ -110,7 +110,7 @@ public class CustomPostProcessPass : ScriptableRenderPass
         // Only process if the effect is active
         if (speedEffect.IsActive())
         {
-            var material = materials.customEffects[2];
+            var material = materials.GetCustomEffectMaterials()[2].material;
             // P.s. optimize by caching the property ID somewhere else
             material.SetFloat(Shader.PropertyToID("_Intensity"), speedEffect.intensity.value);
             material.SetColor(Shader.PropertyToID("_OverlayColor"), speedEffect.overlayColor.value);

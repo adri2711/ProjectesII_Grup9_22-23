@@ -3,41 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class SpeedEffect : MonoBehaviour
+public class SpeedEffect : CustomEffect<SpeedEffect>
 {
-    [SerializeField] private VolumeProfile[] levels;
-    [SerializeField] private VolumeProfile off;
-    public static SpeedEffect instance { get; private set; }
-    private void Awake()
+    protected override void Start()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        ResetAll();
+        GameEvents.instance.finishLevel += ResetAll;
     }
-    private void Start()
-    {
-    }
-
     public void Run(float percentage, float dur = 0)
     {
-        GetComponent<Volume>().profile = levels[(int)(Mathf.Min(percentage, 1f) * (levels.Length - 1))];
-        if (dur > 0)
+        index = (int)(Mathf.Min(percentage, 1f) * (profiles.Length - 1));
+        base.Run(dur);
+    }
+    private void ResetAll()
+    {
+        foreach (VolumeProfile p in profiles)
         {
-            StartCoroutine(RunForSeconds(dur));
+            foreach (VolumeComponent component in p.components)
+            {
+                component.SetAllOverridesTo(false);
+            }
         }
-    }
-    public void End()
-    {
-        GetComponent<Volume>().profile = off;
-    }
-    private IEnumerator RunForSeconds(float dur)
-    {
-        yield return new WaitForSeconds(dur);
-        End();
     }
 }
