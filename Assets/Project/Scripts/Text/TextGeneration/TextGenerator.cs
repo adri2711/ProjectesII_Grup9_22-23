@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.Windows;
+using System.IO;
 
 public class TextGenerator : MonoBehaviour
 {
@@ -23,6 +23,8 @@ public class TextGenerator : MonoBehaviour
     //"Texts"
     public List<Sentence> rawSentences = new List<Sentence>();
     public List<Sentence> completedText = new List<Sentence>();
+
+    public SentenceCollection rawCollection = new SentenceCollection();
 
     public static TextParts completeTextParts = new TextParts();
     public static string jsonObject;
@@ -78,15 +80,23 @@ public class TextGenerator : MonoBehaviour
 
 
     //Setup (receives rules values as parameters). EACH TYPE OF CHANCES MUST SUM TO 1. type & style chances order: Drive > Code Documentation > TextGenerator
-    public void Setup(string jsonString, int textSentenceCount, int keywordRep, List<float> sentenceTypeChances, List<float> writingStyleChances, bool allowSentenceRep)
+    public void Setup(string filePath, int textSentenceCount, int keywordRep, List<float> sentenceTypeChances, List<float> writingStyleChances, bool allowSentenceRep)
     {
         //GET RAW SENTENCES FROM JSON
-        //The json has a list of Sentences (has all the variables: type, style, etc.)
-        rawSentences = JsonUtility.FromJson<List<Sentence>>(jsonString);
+        string jsonString = File.ReadAllText(filePath);
+        Debug.Log(jsonString);
+        rawCollection = JsonUtility.FromJson<SentenceCollection>(jsonString);
+
+        //Falla la lectura de rawCollection
+        Debug.Log(rawCollection.sentenceArray[0].textPart.text);
+        rawCollection.value = rawCollection.sentenceArray.ToList();
+        rawSentences = rawCollection.value;
+        
 
         usedSentencesCount = textSentenceCount;
         totalSentencesCount = rawSentences.Count;
 
+        Debug.Log("R.S. Count: " + rawSentences.Count);
 
         //CLASSIFY RAW SENTENCES BY TYPE
         for (int i = 0; i < totalSentencesCount; i++)
@@ -401,6 +411,8 @@ public class TextGenerator : MonoBehaviour
             randomNumber = Random.Range(0, suitableSentences.Count);
 
             //5) Add the new sentence to completedText list
+            Debug.Log(suitableSentences.Count);
+            Debug.Log(randomNumber);
             completedText.Add(suitableSentences[randomNumber]);
 
             //6) Reset suitableSentences

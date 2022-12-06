@@ -132,18 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415590443}
-  - component: {fileID: 415590442}
-  - component: {fileID: 415590441}
   - component: {fileID: 415590444}
   - component: {fileID: 415590445}
-  - component: {fileID: 415590446}
-  - component: {fileID: 415590447}
-  - component: {fileID: 415590451}
-  - component: {fileID: 415590450}
-  - component: {fileID: 415590449}
-  - component: {fileID: 415590448}
-  - component: {fileID: 415590453}
-  - component: {fileID: 415590452}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -151,48 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &415590441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: Symmetry.
-  keyword: symmetry
-  sentenceType: 8
-  writingStyle: 2
-  alreadyInText: 0
---- !u!114 &415590442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c5b7af92ed9a1478a84d9082be0264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rawSentences:
-  - {fileID: 415590441}
-  - {fileID: 415590441}
-  - {fileID: 415590441}
-  - {fileID: 415590446}
-  - {fileID: 415590447}
-  - {fileID: 415590451}
-  - {fileID: 415590450}
-  - {fileID: 415590449}
-  - {fileID: 415590448}
-  - {fileID: 415590453}
-  completedText: []
-  usedSentencesCount: 0
 --- !u!4 &415590443
 Transform:
   m_ObjectHideFlags: 0
@@ -217,14 +165,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 415590440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 75c61855886504f46a081b609ab426d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: The quality of being identical to oneself even under transformation.
-  keyword: symmetry
-  sentenceType: 7
-  writingStyle: 0
-  alreadyInText: 0
 --- !u!114 &415590445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,154 +177,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 415590440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 60c5b7af92ed9a1478a84d9082be0264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: 'The perseverance of all that is good: Harmony and Proportion.'
-  keyword: symmetry
-  sentenceType: 7
-  writingStyle: 4
-  alreadyInText: 0
---- !u!114 &415590446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: 'Be it Geometry, Time, logical structures, molecules or language, there is
-    nothing unable to be touched by its Grace. '
-  keyword: symmetry
-  sentenceType: 0
-  writingStyle: 1
-  alreadyInText: 0
---- !u!114 &415590447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: Symmetry is the expression of a permanent essence, and thus the proof of
-    the entwinement of the supranatural plane with mundane phenomena.
-  keyword: symmetry
-  sentenceType: 0
-  writingStyle: 1
-  alreadyInText: 0
---- !u!114 &415590448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: "Lo obvio, como tal, se vuelve macizo, cerrado en s\xED mismo."
-  keyword: obvio
-  sentenceType: 0
-  writingStyle: 1
-  alreadyInText: 0
---- !u!114 &415590449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: "Es obvio todo aquello que forma parte de la cotidianeidad, que ha sido asimilado
-    a \xE9sta mediante su presencia recurrente."
-  keyword: obvio
-  sentenceType: 0
-  writingStyle: 1
-  alreadyInText: 0
---- !u!114 &415590450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: Feel the ecstasy of Perfection.
-  keyword: symmetry
-  sentenceType: 0
-  writingStyle: 0
-  alreadyInText: 0
---- !u!114 &415590451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: Search for its signs.
-  keyword: symmetry
-  sentenceType: 0
-  writingStyle: 0
-  alreadyInText: 0
---- !u!114 &415590452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: "Una totalidad formada por la fusi\xF3n de sus elementos; soldados, deshechos,
-    no pueden disociarse del objeto"
-  keyword: obvio
-  sentenceType: 2
-  writingStyle: 1
-  alreadyInText: 0
---- !u!114 &415590453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415590440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85d628f75d79848bf2c2b1bc7fa1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: "Est\xE1 tan integrado en la realidad que se presenta como incognoscible."
-  keyword: obvio
-  sentenceType: 1
-  writingStyle: 0
-  alreadyInText: 0
+  rawSentences: []
+  completedText: []
+  rawCollection:
+    sentenceArray: []
+    value: []
+  usedSentencesCount: 0
 --- !u!1 &1086092883
 GameObject:
   m_ObjectHideFlags: 0

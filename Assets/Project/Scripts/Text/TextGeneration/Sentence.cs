@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public enum SentenceType
 {
     COMPLETE,          //Subjecte + predicat 
@@ -16,6 +17,7 @@ public enum SentenceType
     PLAYER_ATTENTION    //Directly references the player in order to grab their attention
 }
 
+[System.Serializable]
 public enum WritingStyle
 {
     BASIC,                          //"Normal"/ basic Sentence
@@ -28,7 +30,14 @@ public enum WritingStyle
 
 }
 
+[System.Serializable]
+public class SentenceCollection
+{
+    public Sentence[] sentenceArray;
+    public List<Sentence> value = new List<Sentence>();
+}
 
+[System.Serializable]
 public class Sentence : MonoBehaviour
 {
     //Internal logic
