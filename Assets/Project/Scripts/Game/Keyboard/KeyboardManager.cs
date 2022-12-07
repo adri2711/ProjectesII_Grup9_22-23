@@ -1,56 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class KeyboardManager : MonoBehaviour
 {
-    private bool caps;
-    private bool control;
-    [SerializeField] List<Key> keys;
-    ParserManager pm;
-
-    private enum Keys
-    {
-        q,
-        w,
-        e,
-        r,
-        t,
-        y,
-        u,
-        i,
-        o,
-        p,
-        a,
-        s,
-        d,
-        f,
-        g,
-        h,
-        j,
-        k,
-        l,
-        z,
-        x,
-        c,
-        v,
-        b,
-        n,
-        m
-
-    }
+    [SerializeField] private List<Key> keys;
+    public static List<KeyRoot> keyRoots;
+    private ParserManager pm;
 
     void Start()
     {
         pm = transform.parent.parent.gameObject.GetComponentInChildren<ParserManager>();
 
-        caps = (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift));
-
         GameEvents.instance.enterCorrectLetter += HighlightNextKey;
         GameEvents.instance.streakFreeKeys += FreeKeys;
+
+        keyRoots = new List<KeyRoot>();
+        for (int i = 0; i < keys.Count; i++)
+        {
+            keyRoots[i].pos = keys[i].transform.parent.transform.position;
+            keyRoots[i].index = i;
+        }
 
         HighlightNextKey(-1);
     }
@@ -59,61 +31,6 @@ public class KeyboardManager : MonoBehaviour
     {
         GameEvents.instance.enterCorrectLetter -= HighlightNextKey;
         GameEvents.instance.streakFreeKeys -= FreeKeys;
-    }
-
-    int KeyCodeToKeyboardPos(KeyCode code)
-    {
-        if (code >= KeyCode.A && code <= KeyCode.Z)
-        {
-            return (int)(code - KeyCode.A);
-        }
-        else
-        {
-            switch (code)
-            {
-                case KeyCode.Space:
-                    return 26;
-                case KeyCode.KeypadEnter:
-                case KeyCode.Return:
-                    return 27;
-                case KeyCode.Plus:
-                case KeyCode.KeypadPlus:
-                    return 28;
-                case KeyCode.LeftCurlyBracket:
-                    return 29;
-                case KeyCode.RightCurlyBracket:
-                    return 30;
-                case KeyCode.Semicolon:
-                case KeyCode.Comma:
-                    return 31;
-                case KeyCode.Colon:
-                case KeyCode.Period:
-                case KeyCode.KeypadPeriod:
-                    return 32;
-                case KeyCode.LeftShift:
-                case KeyCode.RightShift:
-                    return 33;
-                case KeyCode.LeftControl:
-                case KeyCode.RightControl:
-                    return 34;
-                case KeyCode.LeftAlt:
-                case KeyCode.RightAlt:
-                    return 35;
-                case KeyCode.AltGr:
-                    return 36;
-            }
-        }
-        return -1;
-    }
-
-    string KeyCodesToString(Queue<KeyCode> input)
-    {
-        string ret = "";
-        foreach (KeyCode code in input)
-        {
-            ret += code.ToString();
-        }
-        return ret;
     }
 
     void HighlightNextKey(int pos)
@@ -126,21 +43,47 @@ public class KeyboardManager : MonoBehaviour
         if (pos < pm.GetTextSize() - 1)
         {
             string s = pm.GetChar(pos + 1).ToString().ToUpper();
-            int index = -1;
-            if (s[0] >= 'A' && s[0] <= 'Z')
-            {
-                index = s[0] - 'A';
-            }
-            else if (s[0] == ' ')
-            {
-                index = 26;
-            }
+            int index = KeyboardUtil.CharToKeyboardPos(s[0]);
             if (index >= 0)
             {
                 keys[index].NextLetter();
             }
         }
     }
+
+    void OnGUI()
+    {
+        if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
+        {
+            Event e = Event.current;
+            int keyPos = KeyboardUtil.KeyCodeToKeyboardPos(e.keyCode);
+            if (e.isKey && keyPos >= 0)
+            {
+                if (e.type == EventType.KeyDown)
+                {
+                    //Key pressed
+                    int keyInt = KeyboardUtil.ProcessInputCode(e.keyCode);
+                    if (keyInt >= 0)
+                    {
+                        if (pm.VerifyKey((char)keyInt))
+                        {
+                            keys[keyPos].PushCorrectLetter();
+                        }
+                        else
+                        {
+                            keys[keyPos].PushWrongLetter();
+                        }
+                    }
+                }
+                else if (e.type == EventType.KeyUp)
+                {
+                    //Key released
+                    keys[keyPos].ResetLetter();
+                }
+            }
+        }
+    }
+
     private void ResetKeyHighlight()
     {
         foreach (Key key in keys)
@@ -163,59 +106,5 @@ public class KeyboardManager : MonoBehaviour
             key.freeKey = false;
             key.UpdateKey();
         }
-    }
-
-    void OnGUI()
-    {
-        if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
-        {
-            Event e = Event.current;
-            if (e.isKey && KeyCodeToKeyboardPos(e.keyCode) >= 0)
-            {
-                ProcessModifierKeys(e);
-                if (e.type == EventType.KeyDown)
-                {
-                    //Key pressed
-                    int keyInt = ProcessInputCode(e.keyCode);
-                    if (keyInt >= 0)
-                    {
-                        if (pm.VerifyKey((char)keyInt))
-                        {
-                            keys[KeyCodeToKeyboardPos(e.keyCode)].PushCorrectLetter();
-                        }
-                        else
-                        {
-                            keys[KeyCodeToKeyboardPos(e.keyCode)].PushWrongLetter();
-                        }
-                    }
-                }
-                else if (e.type == EventType.KeyUp)
-                {
-                    //Key released
-                    keys[KeyCodeToKeyboardPos(e.keyCode)].ResetLetter();
-                }
-            }
-        }
-    }
-
-    public int ProcessInputCode(KeyCode code)
-    {
-        char codeChar = (char)code;
-        string input = Input.inputString;
-        string inputLower = input.ToLower();
-        for (int i = 0; i < inputLower.Length; i++)
-        {
-            if (inputLower[i] == codeChar)
-                return (int)input[i];
-        }
-        return -1;
-    }
-
-    void ProcessModifierKeys(Event e)
-    {
-        if (e.keyCode == KeyCode.LeftShift || e.keyCode == KeyCode.RightShift)
-            caps = !caps;
-        else if (e.keyCode == KeyCode.LeftControl || e.keyCode == KeyCode.RightControl)
-            control = !control;
     }
 }
