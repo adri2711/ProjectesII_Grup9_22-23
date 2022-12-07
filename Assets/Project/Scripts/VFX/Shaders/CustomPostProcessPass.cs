@@ -47,10 +47,9 @@ public class CustomPostProcessPass : ScriptableRenderPass
 
         // Here you get your materials from your custom class
         // (It's up to you! But here is how I did it)
-        var materials = CustomPostProcessingMaterials.Instance;
+        var materials = CustomMaterialManager.instance;
         if (materials == null)
         {
-            Debug.LogError("Custom Post Processing Materials instance is null");
             return;
         }
 
@@ -81,41 +80,35 @@ public class CustomPostProcessPass : ScriptableRenderPass
 
         //---Custom effect here---
         var glitchEffect = stack.GetComponent<GlitchComponent>();
-        // Only process if the effect is active
         if (glitchEffect.IsActive())
         {
-            var material = materials.GetCustomEffectMaterials()[0].material;
-            // P.s. optimize by caching the property ID somewhere else
-            material.SetFloat(Shader.PropertyToID("_Intensity"), glitchEffect.intensity.value);
-            material.SetColor(Shader.PropertyToID("_OverlayColor"), glitchEffect.overlayColor.value);
+            var customMaterial = materials.GetCustomEffectMaterials()[0];
+            customMaterial.material.SetFloat(customMaterial.propertyIds["_Intensity"], glitchEffect.intensity.value);
+            customMaterial.material.SetColor(customMaterial.propertyIds["_OverlayColor"], glitchEffect.overlayColor.value);
 
-            BlitTo(material);
+            BlitTo(customMaterial.material);
         }
 
         //---Custom effect here---
         var wrongEffect = stack.GetComponent<WrongComponent>();
-        // Only process if the effect is active
         if (wrongEffect.IsActive())
         {
-            var material = materials.GetCustomEffectMaterials()[1].material;
-            // P.s. optimize by caching the property ID somewhere else
-            material.SetFloat(Shader.PropertyToID("_Intensity"), wrongEffect.intensity.value);
-            material.SetColor(Shader.PropertyToID("_OverlayColor"), wrongEffect.overlayColor.value);
+            var customMaterial = materials.GetCustomEffectMaterials()[1];
+            customMaterial.material.SetFloat(customMaterial.propertyIds["_Intensity"], wrongEffect.intensity.value);
+            customMaterial.material.SetColor(customMaterial.propertyIds["_OverlayColor"], wrongEffect.overlayColor.value);
 
-            BlitTo(material);
+            BlitTo(customMaterial.material);
         }
 
         //---Custom effect here---
         var speedEffect = stack.GetComponent<SpeedComponent>();
-        // Only process if the effect is active
         if (speedEffect.IsActive())
         {
-            var material = materials.GetCustomEffectMaterials()[2].material;
-            // P.s. optimize by caching the property ID somewhere else
-            material.SetFloat(Shader.PropertyToID("_Intensity"), speedEffect.intensity.value);
-            material.SetColor(Shader.PropertyToID("_OverlayColor"), speedEffect.overlayColor.value);
+            var customMaterial = materials.GetCustomEffectMaterials()[2];
+            customMaterial.material.SetFloat(customMaterial.propertyIds["_Intensity"], speedEffect.intensity.value);
+            customMaterial.material.SetColor(customMaterial.propertyIds["_OverlayColor"], speedEffect.overlayColor.value);
 
-            BlitTo(material);
+            BlitTo(customMaterial.material);
         }
 
 

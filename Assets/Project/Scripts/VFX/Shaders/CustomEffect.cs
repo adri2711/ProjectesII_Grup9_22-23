@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -53,5 +55,16 @@ public class CustomEffect<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void PostRunForSeconds()
     {
         End();
+    }
+
+    protected void SetParameter<PT>(PT val, int paramIndex, int component = 0)
+    {
+        var param = profiles[index].components[component].parameters[paramIndex];
+        if (param != null)
+        {
+            VolumeParameter<PT> p = new VolumeParameter<PT>();
+            p.Override(val);
+            profiles[index].components[component].parameters[paramIndex].SetValue(p);
+        }
     }
 }
