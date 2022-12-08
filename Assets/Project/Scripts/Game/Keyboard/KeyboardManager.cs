@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class KeyboardManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class KeyboardManager : MonoBehaviour
 
     void Start()
     {
-        pm = transform.parent.parent.gameObject.GetComponentInChildren<ParserManager>();
+        pm = transform.parent.GetComponentInChildren<ParserManager>();
 
         GameEvents.instance.enterCorrectLetter += HighlightNextKey;
         GameEvents.instance.streakFreeKeys += FreeKeys;
