@@ -16,6 +16,8 @@ public class Key : MonoBehaviour
     KeyState currState = KeyState.NEUTRAL;
     KeyState prevState = KeyState.NEUTRAL;
     public bool freeKey = false;
+    public int index;
+    public int rootIndex;
 
     [SerializeField] private Material freeKeyMaterial;
     private Color32 neutral = new Color32(255,255,255,255);

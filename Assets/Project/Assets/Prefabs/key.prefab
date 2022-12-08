@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 8484721371021162532}
   - component: {fileID: 8484721371021162534}
   - component: {fileID: 8484721371021162535}
+  - component: {fileID: 6015376917716011824}
   m_Layer: 0
   m_Name: image
   m_TagString: Untagged
@@ -169,6 +170,83 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6015376917716011824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8484721371021162555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 5
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -5907935370673786022}
+          m_TargetAssemblyTypeName: KeyMovement, Assembly-CSharp
+          m_MethodName: Drag
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -5907935370673786022}
+          m_TargetAssemblyTypeName: KeyMovement, Assembly-CSharp
+          m_MethodName: DragEnd
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 13
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -5907935370673786022}
+          m_TargetAssemblyTypeName: KeyMovement, Assembly-CSharp
+          m_MethodName: DragStart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -5907935370673786022}
+          m_TargetAssemblyTypeName: KeyMovement, Assembly-CSharp
+          m_MethodName: RightClick
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8484721372150741933
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +258,7 @@ GameObject:
   - component: {fileID: 8484721372150741934}
   - component: {fileID: 8484721372150741935}
   - component: {fileID: -5907935370673786022}
+  - component: {fileID: -9158701794212167466}
   m_Layer: 5
   m_Name: key
   m_TagString: Untagged
@@ -222,6 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeKey: 0
+  index: 0
   freeKeyMaterial: {fileID: 2100000, guid: ac88bb272e29c9f4a8f6f20b1126295c, type: 2}
   image: {fileID: 8484721371021162535}
 --- !u!114 &-5907935370673786022
@@ -236,3 +316,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28847d15ed478e49be9091f273c6647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rootPos: {x: 0, y: 0}
+  inRoot: 0
+  held: 0
+  detachCounter: 0
+  clicksToDetach: 4
+--- !u!61 &-9158701794212167466
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8484721372150741933}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 35, y: 35}
+  m_EdgeRadius: 0

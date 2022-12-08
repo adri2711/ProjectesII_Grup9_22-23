@@ -1,14 +1,50 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class KeyRoot : MonoBehaviour
 {
-    public int index;
+    public int keyboardIndex { private set; get; }
+    public int currIndex { private set; get; }
     public Vector2 pos;
 
+    public KeyRoot Setup(int index)
+    {
+        name = "KeyRoot" + index;
+        keyboardIndex = currIndex = index;
+        pos = transform.localPosition;
+        return this;
+    }
+    public void DetachKey()
+    {
+        //Debug.Log("detach" + keyboardIndex + ": " + currIndex);
+        currIndex = -1;
+    }
+    public void AttachKey(int index)
+    {
+        currIndex = index;
+        //Debug.Log("attach" + keyboardIndex + ": " + currIndex);
+    }
     public bool HasKey()
     {
-        return index >= 0;
+        return currIndex >= 0;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!HasKey())
+        {
+            var key = collision.GetComponent<KeyMovement>();
+            if (key != null && !key.inRoot)
+            {
+                if (!key.held)
+                {
+                    key.rootPos = pos;
+                    AttachKey(key.GetComponent<Key>().index);
+                    key.AttachToRoot(keyboardIndex);
+                }
+            }
+        }
     }
 }

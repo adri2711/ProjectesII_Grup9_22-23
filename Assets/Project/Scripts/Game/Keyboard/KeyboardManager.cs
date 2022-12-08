@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class KeyboardManager : MonoBehaviour
 {
-    [SerializeField] private List<Key> keys;
-    public static List<KeyRoot> keyRoots;
+    [SerializeField] public List<Key> keys;
     private ParserManager pm;
 
     void Start()
@@ -16,13 +15,6 @@ public class KeyboardManager : MonoBehaviour
 
         GameEvents.instance.enterCorrectLetter += HighlightNextKey;
         GameEvents.instance.streakFreeKeys += FreeKeys;
-
-        keyRoots = new List<KeyRoot>();
-        for (int i = 0; i < keys.Count; i++)
-        {
-            keyRoots[i].pos = keys[i].transform.parent.transform.position;
-            keyRoots[i].index = i;
-        }
 
         HighlightNextKey(-1);
     }
