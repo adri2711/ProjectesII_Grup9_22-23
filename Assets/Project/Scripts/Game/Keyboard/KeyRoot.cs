@@ -43,13 +43,13 @@ public class KeyRoot : MonoBehaviour
     {
         if (!HasKey())
         {
-            var key = collision.GetComponent<KeyMovement>();
+            var key = collision.GetComponent<KeyPlacement>();
             if (key != null && !key.inRoot)
             {
                 if (!key.held)
                 {
                     key.rootPos = pos;
-                    AttachKey(key.GetComponent<Key>().index);
+                    AttachKey(key.index);
                     key.AttachToRoot(keyboardIndex);
                 }
             }

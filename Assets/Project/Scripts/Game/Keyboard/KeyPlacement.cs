@@ -4,8 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class KeyMovement : MonoBehaviour
-{   
+public class KeyPlacement : MonoBehaviour
+{
+    public int index;
+    public int rootIndex;
     public Vector2 rootPos;
     public bool detachable = true;
     public bool inRoot = true;
@@ -13,18 +15,18 @@ public class KeyMovement : MonoBehaviour
     public int detachCounter = 0;
     private int clicksToDetach = 3;
 
-    private Key key;
+    private KeyDisplay key;
     private Canvas canvas;
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
-        key = GetComponent<Key>();
+        key = GetComponent<KeyDisplay>();
         inRoot = true;
         rootPos = transform.parent.localPosition;
     }
-    public void AttachToRoot(int rootIndex)
+    public void AttachToRoot(int newRoot)
     {
-        key.rootIndex = rootIndex;
+        rootIndex = newRoot;
         transform.parent.localPosition = rootPos;
         inRoot = true;
     }
@@ -32,7 +34,7 @@ public class KeyMovement : MonoBehaviour
     {
         held = true;
         inRoot = false;
-        KeyboardRoots.keyRoots[key.rootIndex].DetachKey();
+        KeyboardRoots.keyRoots[rootIndex].DetachKey();
     }
     public void Drag(BaseEventData data)
     {

@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 public class KeyboardManager : MonoBehaviour
 {
-    [SerializeField] public List<Key> keys;
+    [SerializeField] public List<KeyDisplay> keys;
     private ParserManager pm;
 
     void Start()
@@ -79,14 +79,14 @@ public class KeyboardManager : MonoBehaviour
 
     private void ResetKeyHighlight()
     {
-        foreach (Key key in keys)
+        foreach (KeyDisplay key in keys)
         {
             key.UnhighlightKey();
         }
     }
     public void FreeKeys(int amount)
     {
-        foreach (Key key in keys)
+        foreach (KeyDisplay key in keys)
         {
             key.freeKey = true;
             key.UpdateKey();
@@ -94,7 +94,7 @@ public class KeyboardManager : MonoBehaviour
     }
     private void ResetFreeKeys()
     {
-        foreach (Key key in keys)
+        foreach (KeyDisplay key in keys)
         {
             key.freeKey = false;
             key.UpdateKey();

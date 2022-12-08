@@ -15,7 +15,7 @@ public class KeyboardRoots : MonoBehaviour
         keyRoots = new List<KeyRoot>();
         for (int i = 0; i < keyboard.keys.Count; i++)
         {
-            keyboard.keys[i].index = keyboard.keys[i].rootIndex = i;
+            keyboard.keys[i].GetComponent<KeyPlacement>().index = keyboard.keys[i].GetComponent<KeyPlacement>().rootIndex = i;
             keyRoots.Add(CreateRoot(i));
         }
     }
