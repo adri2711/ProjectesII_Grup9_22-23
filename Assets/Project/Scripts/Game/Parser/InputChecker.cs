@@ -39,17 +39,22 @@ public class InputChecker : MonoBehaviour
     }
     public void DisableKey(int target)
     {
-        RemoveOverrides((char)(target + 'a'));
-        RemoveOverrides((char)(target + 'A'));
-        AddOverride((char)(target + 'a'), (char)(0), false);
-        AddOverride((char)(target + 'A'), (char)(0), false);
+        var targetChar = KeyboardUtil.KeyboardPosToChar(target);
+        for (int i = 0; i < targetChar.Length; i++)
+        {
+            RemoveOverrides(targetChar[i]);
+            AddOverride(targetChar[i], (char)0, false);
+        }
     }
     public void AddKeyboardOverride(int target, int newOverride, bool additive = false)
     {
-        RemoveOverrides((char)(target + 'a'));
-        RemoveOverrides((char)(target + 'A'));
-        AddOverride((char)(target + 'a'), (char)(newOverride + 'a'), additive);
-        AddOverride((char)(target + 'A'), (char)(newOverride + 'A'), additive);
+        var targetChar = KeyboardUtil.KeyboardPosToChar(target);
+        var overrideChar = KeyboardUtil.KeyboardPosToChar(newOverride);
+        for (int i = 0; i < Mathf.Min(targetChar.Length,overrideChar.Length); i++)
+        {
+            RemoveOverrides(targetChar[i]);
+            AddOverride(targetChar[i], overrideChar[i], additive);
+        }
     }
     public void AddOverride(char target, char newOverride, bool additive = false)
     {

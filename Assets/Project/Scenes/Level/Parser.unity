@@ -443,6 +443,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -20.46307
       objectReference: {fileID: 0}
+    - target: {fileID: -5907935370673786022, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
+      propertyPath: detachable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3691383233560511868, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2271,6 +2275,10 @@ PrefabInstance:
     - target: {fileID: -9158701794212167466, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_Offset.x
       value: 8.670563
+      objectReference: {fileID: 0}
+    - target: {fileID: -5907935370673786022, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
+      propertyPath: detachable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 701221148903073178, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_LocalScale.x
@@ -4638,6 +4646,10 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: 30.885262
       objectReference: {fileID: 0}
+    - target: {fileID: -5907935370673786022, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
+      propertyPath: detachable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3691383233560511868, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4903,6 +4915,10 @@ PrefabInstance:
     - target: {fileID: -9158701794212167466, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_Offset.x
       value: 8.952217
+      objectReference: {fileID: 0}
+    - target: {fileID: -5907935370673786022, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
+      propertyPath: detachable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 701221148903073178, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_LocalScale.x
@@ -5589,6 +5605,10 @@ PrefabInstance:
     - target: {fileID: -9158701794212167466, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_Offset.x
       value: 9.154249
+      objectReference: {fileID: 0}
+    - target: {fileID: -5907935370673786022, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
+      propertyPath: detachable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 701221148903073178, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_LocalScale.x

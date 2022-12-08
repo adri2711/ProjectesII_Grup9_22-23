@@ -80,6 +80,34 @@ public class KeyboardUtil : MonoBehaviour
         }
         return -1;
     }
+    public static char[] KeyboardPosToChar(int i)
+    {
+        if (i >= 0)
+        {
+            if (i <= 25)
+            {
+                return new char[2] { (char)('a' + i), (char)('A' + i) };
+            }
+            else {
+                switch (i)
+                {
+                    case 26:
+                        return new char[1] { ' ' };
+                    case 28:
+                        return new char[1] { '+' };
+                    case 29:
+                        return new char[1] { '{' };
+                    case 30:
+                        return new char[1] { '}' };
+                    case 31:
+                        return new char[2] { ',', ';' };
+                    case 32:
+                        return new char[2] { ',', ';' };
+                }
+            }
+        }
+        return null;
+    }
     public static string KeyCodesToString(Queue<KeyCode> input)
     {
         string ret = "";

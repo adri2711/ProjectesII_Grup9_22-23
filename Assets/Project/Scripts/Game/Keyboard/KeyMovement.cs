@@ -7,10 +7,11 @@ using UnityEngine.EventSystems;
 public class KeyMovement : MonoBehaviour
 {   
     public Vector2 rootPos;
+    public bool detachable = true;
     public bool inRoot = true;
     public bool held = false;
     public int detachCounter = 0;
-    private int clicksToDetach = 4;
+    private int clicksToDetach = 3;
 
     private Key key;
     private Canvas canvas;
@@ -58,7 +59,7 @@ public class KeyMovement : MonoBehaviour
     }
     public void RightClick(BaseEventData data)
     {
-        if (inRoot)
+        if (inRoot && detachable)
         {
             detachCounter++;
             if (detachCounter > clicksToDetach)
