@@ -301,8 +301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeKey: 0
-  index: 0
   freeKeyMaterial: {fileID: 2100000, guid: ac88bb272e29c9f4a8f6f20b1126295c, type: 2}
+  heldMaterial: {fileID: 2100000, guid: 71e95950c797d3949a08390a84824ad7, type: 2}
   image: {fileID: 8484721371021162535}
 --- !u!114 &-5907935370673786022
 MonoBehaviour:
@@ -316,11 +316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28847d15ed478e49be9091f273c6647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 0
+  rootIndex: 0
   rootPos: {x: 0, y: 0}
+  detachable: 1
   inRoot: 0
   held: 0
   detachCounter: 0
-  clicksToDetach: 4
 --- !u!61 &-9158701794212167466
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -317,9 +317,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profiles:
   - {fileID: 11400000, guid: d18f8494f4a3f1442aa965db19c1e7b4, type: 2}
-  - {fileID: 11400000, guid: 2fb856464ac8eae4c8150cc3c7859ebf, type: 2}
-  - {fileID: 11400000, guid: ded2065086bdda2409048a7e564346bd, type: 2}
-  - {fileID: 11400000, guid: 2c4c7fb072b244e4f941f94ddec9a094, type: 2}
 --- !u!1 &2074265143
 GameObject:
   m_ObjectHideFlags: 0

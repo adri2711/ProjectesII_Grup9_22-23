@@ -23,6 +23,7 @@ public class KeyPlacement : MonoBehaviour
         key = GetComponent<KeyDisplay>();
         inRoot = true;
         rootPos = transform.parent.localPosition;
+        key.UpdateKey();
     }
     public void AttachToRoot(int newRoot)
     {
@@ -54,10 +55,12 @@ public class KeyPlacement : MonoBehaviour
     public void DragStart(BaseEventData data)
     {
         held = true;
+        key.UpdateKey();
     }
     public void DragEnd(BaseEventData data)
     {
         held = false;
+        key.UpdateKey();
     }
     public void RightClick(BaseEventData data)
     {
@@ -68,6 +71,7 @@ public class KeyPlacement : MonoBehaviour
             {
                 DetachFromRoot();
                 detachCounter = 0;
+                key.UpdateKey();
             }
         }
     }

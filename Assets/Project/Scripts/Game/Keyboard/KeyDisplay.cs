@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class KeyDisplay : MonoBehaviour
     public bool freeKey = false;
 
     [SerializeField] private Material freeKeyMaterial;
+    [SerializeField] private Material heldMaterial;
     private Color32 neutral = new Color32(255,255,255,255);
     private Color32 correct = new Color32(100,150,70,255);
     private Color32 wrong = new Color32(150,70,70,255);
@@ -81,6 +83,10 @@ public class KeyDisplay : MonoBehaviour
                 if (freeKey)
                 {
                     image.material = freeKeyMaterial;
+                }
+                else if (GetComponent<KeyPlacement>().inRoot == false)
+                {
+                    image.material = heldMaterial;
                 }
                 else
                 {
