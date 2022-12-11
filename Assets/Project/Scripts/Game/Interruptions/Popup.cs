@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Popup : Interruption
 {
+    public bool draggable = false;
+    protected bool held = false;
     public float baseSpeed = 0f;
     public float bounce = 1f;
     protected float addSpeed;
@@ -32,7 +36,7 @@ public class Popup : Interruption
 
     private void FixedUpdate()
     {
-        if (baseSpeed > 0f)
+        if (baseSpeed > 0f && !held)
         {
             MovementUpdate();
         }
@@ -68,5 +72,21 @@ public class Popup : Interruption
     protected void SetRandomDirection()
     {
         dir = new Vector2(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)).normalized;
+    }
+    public void Drag(BaseEventData data)
+    {
+        if (held && draggable)
+        {
+            PointerEventData pointerData = (PointerEventData)data;
+            MoveCanvasComponent.Drag(GetComponentInChildren<Image>().transform, pointerData.position, GetComponentInChildren<Canvas>());
+        }
+    }
+    public void DragStart(BaseEventData data)
+    {
+        held = true;
+    }
+    public void DragEnd(BaseEventData data)
+    {
+        held = false;
     }
 }

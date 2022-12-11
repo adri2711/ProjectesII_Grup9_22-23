@@ -41,15 +41,8 @@ public class KeyPlacement : MonoBehaviour
     {
         if (!inRoot && held)
         {
-            Vector2 position;
             PointerEventData pointerData = (PointerEventData)data;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                (RectTransform)canvas.transform,
-                pointerData.position,
-                GameObject.Find("Main Camera").GetComponent<Camera>(),
-                out position
-                );
-            transform.parent.position = canvas.transform.TransformPoint(position);
+            MoveCanvasComponent.Drag(transform.parent , pointerData.position, canvas);
         }
     }
     public void DragStart(BaseEventData data)
