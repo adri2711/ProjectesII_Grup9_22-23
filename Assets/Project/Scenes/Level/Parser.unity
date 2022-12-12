@@ -1269,6 +1269,7 @@ GameObject:
   - component: {fileID: 329777471}
   - component: {fileID: 329777476}
   - component: {fileID: 329777475}
+  - component: {fileID: 329777477}
   m_Layer: 5
   m_Name: KeyboardCanvas
   m_TagString: Untagged
@@ -1421,6 +1422,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyRootObject: {fileID: 4143641051591973841, guid: f52b96a9ed43609418f17a1ede260fe0, type: 3}
+--- !u!114 &329777477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329777470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e90ba8287a7fe1469672c6ab68546f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  correctKeyLaunchChance: 10
+  wrongKeyLaunchChance: 2
 --- !u!1 &347196242
 GameObject:
   m_ObjectHideFlags: 0
