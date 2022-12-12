@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
     private void LevelLose()
     {
         queueLoadLevel = true;
-        GlitchEffect.instance.Run(levelFadeoutTime);
+        GlitchEffect.instance.Run(levelFadeoutTime, 1f);
     }
     private void LevelFinish()
     {

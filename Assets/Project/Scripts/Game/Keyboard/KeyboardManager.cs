@@ -9,10 +9,12 @@ public class KeyboardManager : MonoBehaviour
 {
     [SerializeField] public List<KeyDisplay> keys;
     private ParserManager pm;
+    private KeyboardEvents keyboardEvents;
 
     void Start()
     {
         pm = transform.parent.GetComponentInChildren<ParserManager>();
+        keyboardEvents = GetComponent<KeyboardEvents>();
 
         GameEvents.instance.enterCorrectLetter += HighlightNextKey;
         GameEvents.instance.streakFreeKeys += FreeKeys;
@@ -61,10 +63,12 @@ public class KeyboardManager : MonoBehaviour
                         if (pm.VerifyKey((char)keyInt))
                         {
                             keys[keyPos].PushCorrectLetter();
+                            keyboardEvents.PressLetter(keyPos, true);
                         }
                         else
                         {
                             keys[keyPos].PushWrongLetter();
+                            keyboardEvents.PressLetter(keyPos, false);
                         }
                     }
                 }

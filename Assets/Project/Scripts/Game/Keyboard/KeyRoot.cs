@@ -26,7 +26,7 @@ public class KeyRoot : MonoBehaviour
         //Debug.Log("detach" + keyboardIndex + ": " + currIndex);
         currIndex = -1;
 
-
+        inputChecker.DisableKey(keyboardIndex);
     }
     public void AttachKey(int index)
     {
