@@ -38,10 +38,10 @@ public class KeyboardManager : MonoBehaviour
         if (pos < pm.GetTextSize() - 1)
         {
             string s = pm.GetChar(pos + 1).ToString().ToUpper();
-            int index = KeyboardUtil.CharToKeyboardPos(s[0]);
-            if (index >= 0)
+            int indexInput = KeyboardUtil.CharToKeyboardPos(s[0]);
+            if (indexInput >= 0)
             {
-                keys[index].NextLetter();
+                keys[indexInput].NextLetter();
             }
         }
     }
@@ -51,31 +51,32 @@ public class KeyboardManager : MonoBehaviour
         if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
         {
             Event e = Event.current;
-            int keyPos = KeyboardUtil.KeyCodeToKeyboardPos(e.keyCode);
-            if (e.isKey && keyPos >= 0)
+            int indexInput = KeyboardUtil.KeyCodeToKeyboardPos(e.keyCode);
+            int indexRoot = KeyboardRoots.FindRoot(indexInput);
+            if (e.isKey && indexRoot >= 0)
             {
                 if (e.type == EventType.KeyDown)
                 {
                     //Key pressed
-                    int keyInt = KeyboardUtil.ProcessInputCode(e.keyCode);
-                    if (keyInt >= 0)
+                    int indexChecked = KeyboardUtil.ProcessInputCode(e.keyCode);
+                    if (indexChecked >= 0)
                     {
-                        if (pm.VerifyKey((char)keyInt))
+                        if (pm.VerifyKey((char)indexChecked))
                         {
-                            keys[keyPos].PushCorrectLetter();
-                            keyboardEvents.PressLetter(keyPos, true);
+                            keys[indexRoot].PushCorrectLetter();
+                            keyboardEvents.PressLetter(indexRoot, true);
                         }
                         else
                         {
-                            keys[keyPos].PushWrongLetter();
-                            keyboardEvents.PressLetter(keyPos, false);
+                            keys[indexRoot].PushWrongLetter();
+                            keyboardEvents.PressLetter(indexRoot, false);
                         }
                     }
                 }
                 else if (e.type == EventType.KeyUp)
                 {
                     //Key released
-                    keys[keyPos].ResetLetter();
+                    keys[indexRoot].ResetLetter();
                 }
             }
         }

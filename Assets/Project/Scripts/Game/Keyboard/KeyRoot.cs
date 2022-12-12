@@ -46,7 +46,7 @@ public class KeyRoot : MonoBehaviour
             var key = collision.GetComponent<KeyPlacement>();
             if (key != null && !key.inRoot)
             {
-                if (!key.held)
+                if (!key.held && key.movementTime <= 0)
                 {
                     key.rootPos = pos;
                     AttachKey(key.index);

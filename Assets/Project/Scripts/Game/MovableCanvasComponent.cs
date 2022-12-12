@@ -33,20 +33,23 @@ public class MovableCanvasComponent : MonoBehaviour
             addSpeed = 0;
         }
 
-        Vector2 edges = new Vector2(canvasRect.rect.width / 2, canvasRect.rect.height / 2);
-        Vector2 popupPos = targetTransform.localPosition;
-        Vector2 popupSize = new Vector2(targetRect.rect.width, targetRect.rect.height);
-        if (Mathf.Abs(popupPos.x) + (popupSize.x / 2) >= edges.x && Mathf.Ceil(dir.normalized.x) == Mathf.Ceil(popupPos.normalized.x))
+        if (bouncing)
         {
-            dir.x = -dir.x;
-            addSpeed += bounce;
-            GameEvents.instance.PopupBounce();
-        }
-        else if (Mathf.Abs(popupPos.y) + (popupSize.y / 2) >= edges.y && Mathf.Ceil(dir.normalized.y) == Mathf.Ceil(popupPos.normalized.y))
-        {
-            dir.y = -dir.y;
-            addSpeed += bounce;
-            GameEvents.instance.PopupBounce();
+            Vector2 edges = new Vector2(canvasRect.rect.width / 2, canvasRect.rect.height / 2);
+            Vector2 popupPos = targetTransform.localPosition;
+            Vector2 popupSize = new Vector2(targetRect.rect.width, targetRect.rect.height);
+            if (Mathf.Abs(popupPos.x) + (popupSize.x / 2) >= edges.x && Mathf.Ceil(dir.normalized.x) == Mathf.Ceil(popupPos.normalized.x))
+            {
+                dir.x = -dir.x;
+                addSpeed += bounce;
+                GameEvents.instance.PopupBounce();
+            }
+            else if (Mathf.Abs(popupPos.y) + (popupSize.y / 2) >= edges.y && Mathf.Ceil(dir.normalized.y) == Mathf.Ceil(popupPos.normalized.y))
+            {
+                dir.y = -dir.y;
+                addSpeed += bounce;
+                GameEvents.instance.PopupBounce();
+            }
         }
 
         targetTransform.localPosition += movement;

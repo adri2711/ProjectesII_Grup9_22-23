@@ -16,7 +16,7 @@ public class KeyboardEvents : MonoBehaviour
     {
         float chance = correct ? correctKeyLaunchChance : wrongKeyLaunchChance;
         if (RandomUtil.Roll(chance))
-        {
+        {   
             StartCoroutine(LaunchDelay(index));
         }
     }
@@ -25,17 +25,13 @@ public class KeyboardEvents : MonoBehaviour
         yield return new WaitForEndOfFrame();
         LaunchKey(index);
     }
-    private void LaunchKey(int rootIndex)
+    private void LaunchKey(int index)
     {
-        KeyRoot root = KeyboardRoots.keyRoots[rootIndex];
-        int index = root.currIndex;
         if (index >= 0)
         {
             KeyPlacement key = keyboard.keys[index].GetComponent<KeyPlacement>();
-            if (key.detachable)
-            {
-                key.DetachFromRoot();
-            }
+            key.DetachFromRoot();
+            key.Launch();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class KeyPlacement : MovableCanvasComponent
 {
@@ -14,6 +15,11 @@ public class KeyPlacement : MovableCanvasComponent
     [NonSerialized] public bool inRoot = true;
     [NonSerialized] public int detachCounter = 0;
     private int clicksToDetach = 3;
+
+    [SerializeField] private AnimationCurve launchSpeedCurve;
+    [SerializeField] private float minLaunchDuration;
+    [SerializeField] private float maxLaunchDuration;
+    [NonSerialized] public float movementTime = 0f;
 
     private KeyDisplay key;
     private Canvas canvas;
@@ -63,7 +69,25 @@ public class KeyPlacement : MovableCanvasComponent
                 DetachFromRoot();
                 detachCounter = 0;
                 key.UpdateKey();
+                Launch();
             }
+        }
+    }
+    public void Launch()
+    {
+        if (detachable)
+        {
+            SetRandomDirection();
+            movementTime = UnityEngine.Random.Range(minLaunchDuration, maxLaunchDuration);
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (movementTime > 0)
+        {
+            baseSpeed = launchSpeedCurve.Evaluate(movementTime / maxLaunchDuration);
+            MovementUpdate(transform.parent, canvas);
+            movementTime -= Time.deltaTime;
         }
     }
 }

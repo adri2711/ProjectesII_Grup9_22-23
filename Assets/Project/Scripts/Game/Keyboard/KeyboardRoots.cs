@@ -27,4 +27,12 @@ public class KeyboardRoots : MonoBehaviour
         Transform newRootTransform = Instantiate(keyRootObject.transform, keyboard.keys[i].transform.position, Quaternion.identity, GameObject.Find("KeyRoots").transform);
         return newRootTransform.AddComponent<KeyRoot>().Setup(i);
     }
+    public static int FindRoot(int currIndex)
+    {
+        if (currIndex >= 0 && currIndex < keyRoots.Count)
+        {
+            return keyRoots[currIndex].currIndex;
+        }
+        return -1;
+    }
 }
