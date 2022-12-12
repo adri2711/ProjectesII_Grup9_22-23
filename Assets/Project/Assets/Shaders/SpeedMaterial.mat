@@ -51,7 +51,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Intensity: 0.11000001
+    - _Intensity: 0.030000001
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

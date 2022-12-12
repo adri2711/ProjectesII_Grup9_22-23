@@ -316,12 +316,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28847d15ed478e49be9091f273c6647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggable: 1
+  held: 0
+  baseSpeed: 0
+  bounce: 1
   index: 0
   rootIndex: 0
   rootPos: {x: 0, y: 0}
   detachable: 1
   inRoot: 0
-  held: 0
   detachCounter: 0
 --- !u!61 &-9158701794212167466
 BoxCollider2D:

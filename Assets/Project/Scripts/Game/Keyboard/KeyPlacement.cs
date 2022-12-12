@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class KeyPlacement : MonoBehaviour
+public class KeyPlacement : MovableCanvasComponent
 {
-    public int index;
-    public int rootIndex;
-    public Vector2 rootPos;
+    [NonSerialized] public int index;
+    [NonSerialized] public int rootIndex;
+    [NonSerialized] public Vector2 rootPos;
     public bool detachable = true;
-    public bool inRoot = true;
-    public bool held = false;
-    public int detachCounter = 0;
+    [NonSerialized] public bool inRoot = true;
+    [NonSerialized] public int detachCounter = 0;
     private int clicksToDetach = 3;
 
     private KeyDisplay key;
@@ -33,26 +33,24 @@ public class KeyPlacement : MonoBehaviour
     }
     public void DetachFromRoot()
     {
-        held = true;
         inRoot = false;
         KeyboardRoots.keyRoots[rootIndex].DetachKey();
     }
     public void Drag(BaseEventData data)
     {
-        if (!inRoot && held)
+        if (!inRoot)
         {
-            PointerEventData pointerData = (PointerEventData)data;
-            MoveCanvasComponent.Drag(transform.parent , pointerData.position, canvas);
+            DragMove(data, transform.parent, canvas);
         }
     }
-    public void DragStart(BaseEventData data)
+    public override void DragStart(BaseEventData data)
     {
-        held = true;
+        base.DragStart(data);
         key.UpdateKey();
     }
-    public void DragEnd(BaseEventData data)
+    public override void DragEnd(BaseEventData data)
     {
-        held = false;
+        base.DragEnd(data);
         key.UpdateKey();
     }
     public void RightClick(BaseEventData data)
