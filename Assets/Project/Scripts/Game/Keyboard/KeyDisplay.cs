@@ -11,7 +11,8 @@ public class KeyDisplay : MonoBehaviour
         NEUTRAL,
         WRONG,
         CORRECT,
-        NEXT
+        NEXT,
+        DETACHED
     }
 
     KeyState currState = KeyState.NEUTRAL;
@@ -76,6 +77,15 @@ public class KeyDisplay : MonoBehaviour
     }
     public void UpdateKey()
     {
+        bool inRoot = GetComponent<KeyPlacement>().inRoot;
+        if (!inRoot)
+        {
+            currState = KeyState.DETACHED;
+        }
+        else if (currState == KeyState.DETACHED)
+        {
+            currState = KeyState.NEUTRAL;
+        }
         switch (currState)
         {
             case KeyState.NEUTRAL:
@@ -84,14 +94,14 @@ public class KeyDisplay : MonoBehaviour
                 {
                     image.material = freeKeyMaterial;
                 }
-                else if (GetComponent<KeyPlacement>().inRoot == false)
-                {
-                    image.material = heldMaterial;
-                }
                 else
                 {
                     image.material = null;
                 }
+                break;
+            case KeyState.DETACHED:
+                image.color = neutral;
+                image.material = heldMaterial;
                 break;
             case KeyState.WRONG:
                 image.color = wrong;

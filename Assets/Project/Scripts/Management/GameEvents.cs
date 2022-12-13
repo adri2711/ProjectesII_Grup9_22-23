@@ -34,6 +34,8 @@ public class GameEvents : MonoBehaviour
     public event Action popupSpawn;
     public event Action popupClose;
     public event Action popupBounce;
+
+    public event Action lowTimeTick;
     public event Action lowTimeEffect;
 
     public void AttachKey(int index)
@@ -132,6 +134,13 @@ public class GameEvents : MonoBehaviour
         if (lowTimeEffect != null)
         {
             lowTimeEffect();
+        }
+    }
+    public void LowTimeTick()
+    {
+        if (lowTimeTick != null)
+        {
+            lowTimeTick();
         }
     }
 }

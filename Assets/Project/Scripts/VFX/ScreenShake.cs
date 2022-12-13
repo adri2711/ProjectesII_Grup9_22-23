@@ -6,7 +6,8 @@ public class ScreenShake : MonoBehaviour
 {
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private float dur = 0.3f;
-    private bool active = false;
+    [SerializeField] private float lowTimeEffectDur = 0.4f;
+    private float shakeTimer = 0;
     Vector3 startPos;
     private void Start()
     {
@@ -15,15 +16,20 @@ public class ScreenShake : MonoBehaviour
     }
     private void Update()
     {
-        if (TimerManager.instance != null && TimerManager.instance.IsActive() && TimerManager.instance.GetCurrTime() < TimerManager.instance.GetMaxTime() / 3)
+        if (TimerManager.instance != null && TimerManager.instance.IsActive() && TimerManager.instance.GetCurrTime() < TimerManager.instance.GetMaxTime() / 2)
         {
-            if (!active)
+            shakeTimer += Time.deltaTime;
+            if (shakeTimer >= dur)
             {
-                StartCoroutine(ShakeCoroutine(1f, 0.2f));
-                if (Random.Range(0,9) < 2)
+                shakeTimer = 0;
+                if (RandomUtil.Roll(15f))
                 {
                     GameEvents.instance.LowTimeEffect();
-                    StartCoroutine(ShakeCoroutine(0.4f, 2f));
+                    StartCoroutine(ShakeTransformUtil.ShakeCoroutine(transform, lowTimeEffectDur, 0.5f, startPos, curve));
+                }
+                if (TimerManager.instance.GetCurrTime() < TimerManager.instance.GetMaxTime() / 3)
+                {
+                    GameEvents.instance.LowTimeTick();
                 }
             }
         }
@@ -31,23 +37,6 @@ public class ScreenShake : MonoBehaviour
 
     private void Shake(int c)
     {
-        StartCoroutine(ShakeCoroutine(dur, 1f));
-    }
-
-    private IEnumerator ShakeCoroutine(float dur, float intensity)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < dur)
-        {
-            active = true;
-            elapsedTime += Time.deltaTime;
-            float strength = curve.Evaluate(elapsedTime / dur);
-            transform.position = startPos + Random.insideUnitSphere * strength * intensity;
-            yield return null;
-        }
-
-        transform.position = startPos;
-        active = false;
+        StartCoroutine(ShakeTransformUtil.ShakeCoroutine(transform, dur, 2f, startPos, curve));
     }
 }

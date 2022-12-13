@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,11 +37,13 @@ public class KeyPlacement : MovableCanvasComponent
         rootIndex = newRoot;
         transform.parent.localPosition = rootPos;
         inRoot = true;
+        key.UpdateKey();
     }
     public void DetachFromRoot()
     {
         inRoot = false;
         KeyboardRoots.keyRoots[rootIndex].DetachKey();
+        key.UpdateKey();
     }
     public void Drag(BaseEventData data)
     {
@@ -63,6 +66,7 @@ public class KeyPlacement : MovableCanvasComponent
     {
         if (inRoot && detachable)
         {
+            StartCoroutine(ShakeTransformUtil.ShakeCoroutine(transform.parent, 0.1f, 20f, rootPos));
             detachCounter++;
             if (detachCounter > clicksToDetach)
             {
