@@ -50,6 +50,9 @@ TagManager:
   - name: Streak
     uniqueID: 1859016287
     locked: 0
+  - name: Key
+    uniqueID: 2989077761
+    locked: 0
   - name: Popup
     uniqueID: 2959148647
     locked: 0

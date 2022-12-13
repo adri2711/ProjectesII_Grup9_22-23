@@ -78,7 +78,7 @@ public class CustomPostProcessPass : ScriptableRenderPass
         // Starts with the camera source
         latestDest = source;
 
-        //---Custom effect here---
+        // 1 ------- Screen Glitch
         var glitchEffect = stack.GetComponent<GlitchComponent>();
         if (glitchEffect.IsActive())
         {
@@ -89,7 +89,7 @@ public class CustomPostProcessPass : ScriptableRenderPass
             BlitTo(customMaterial.material);
         }
 
-        //---Custom effect here---
+        // 2 ------- Wrong Letter
         var wrongEffect = stack.GetComponent<WrongComponent>();
         if (wrongEffect.IsActive())
         {
@@ -100,15 +100,28 @@ public class CustomPostProcessPass : ScriptableRenderPass
             BlitTo(customMaterial.material);
         }
 
-        //---Custom effect here---
+        // 3 ------- Streak Glow
         var speedEffect = stack.GetComponent<SpeedComponent>();
         if (speedEffect.IsActive())
         {
-            var customMaterial = materials.GetCustomEffectMaterials()[2];
-            customMaterial.material.SetFloat(customMaterial.propertyIds["_Intensity"], speedEffect.intensity.value);
-            customMaterial.material.SetColor(customMaterial.propertyIds["_OverlayColor"], speedEffect.overlayColor.value);
+            var customMaterial1 = materials.GetCustomEffectMaterials()[2];
+            customMaterial1.material.SetFloat(customMaterial1.propertyIds["_Intensity"], speedEffect.intensity.value);
+            customMaterial1.material.SetColor(customMaterial1.propertyIds["_OverlayColor"], speedEffect.overlayColor.value);
 
-            BlitTo(customMaterial.material);
+            BlitTo(customMaterial1.material);
+        }
+
+        // 4 ------- Speed Lines
+        var linesEffect = stack.GetComponent<LinesComponent>();
+        if (linesEffect.IsActive())
+        {
+            var customMaterial1 = materials.GetCustomEffectMaterials()[3];
+            customMaterial1.material.SetFloat(customMaterial1.propertyIds["_Intensity"], linesEffect.intensity.value);
+            customMaterial1.material.SetColor(customMaterial1.propertyIds["_OverlayColor"], linesEffect.overlayColor.value);
+            customMaterial1.material.SetFloat(customMaterial1.propertyIds["_Speed"], linesEffect.speed.value);
+            customMaterial1.material.SetFloat(customMaterial1.propertyIds["_Density"], linesEffect.density.value);
+
+            BlitTo(customMaterial1.material);
         }
 
 

@@ -37,7 +37,26 @@ public class InputChecker : MonoBehaviour
             freeKeys--;
         }
     }
-    public void AddOverride(char target, char newOverride, bool additive = true)
+    public void DisableKey(int target)
+    {
+        var targetChar = KeyboardUtil.KeyboardPosToChar(target);
+        for (int i = 0; i < targetChar.Length; i++)
+        {
+            RemoveOverrides(targetChar[i]);
+            AddOverride(targetChar[i], (char)0, false);
+        }
+    }
+    public void AddKeyboardOverride(int target, int newOverride, bool additive = false)
+    {
+        var targetChar = KeyboardUtil.KeyboardPosToChar(target);
+        var overrideChar = KeyboardUtil.KeyboardPosToChar(newOverride);
+        for (int i = 0; i < Mathf.Min(targetChar.Length,overrideChar.Length); i++)
+        {
+            RemoveOverrides(targetChar[i]);
+            AddOverride(targetChar[i], overrideChar[i], additive);
+        }
+    }
+    public void AddOverride(char target, char newOverride, bool additive = false)
     {
         if (!overrides.ContainsKey(target))
         {

@@ -1,16 +1,18 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Key : MonoBehaviour
+public class KeyDisplay : MonoBehaviour
 {
     enum KeyState
     {
         NEUTRAL,
         WRONG,
         CORRECT,
-        NEXT
+        NEXT,
+        DETACHED
     }
 
     KeyState currState = KeyState.NEUTRAL;
@@ -18,6 +20,7 @@ public class Key : MonoBehaviour
     public bool freeKey = false;
 
     [SerializeField] private Material freeKeyMaterial;
+    [SerializeField] private Material heldMaterial;
     private Color32 neutral = new Color32(255,255,255,255);
     private Color32 correct = new Color32(100,150,70,255);
     private Color32 wrong = new Color32(150,70,70,255);
@@ -74,6 +77,15 @@ public class Key : MonoBehaviour
     }
     public void UpdateKey()
     {
+        bool inRoot = GetComponent<KeyPlacement>().inRoot;
+        if (!inRoot)
+        {
+            currState = KeyState.DETACHED;
+        }
+        else if (currState == KeyState.DETACHED)
+        {
+            currState = KeyState.NEUTRAL;
+        }
         switch (currState)
         {
             case KeyState.NEUTRAL:
@@ -86,6 +98,10 @@ public class Key : MonoBehaviour
                 {
                     image.material = null;
                 }
+                break;
+            case KeyState.DETACHED:
+                image.color = neutral;
+                image.material = heldMaterial;
                 break;
             case KeyState.WRONG:
                 image.color = wrong;
