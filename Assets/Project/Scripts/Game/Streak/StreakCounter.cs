@@ -37,6 +37,10 @@ public class StreakCounter : MonoBehaviour
             {
                 increaseAmount = (int)incraseCurve.Evaluate(score);
             }
+            if(streak % 10 == 0)
+            {
+                GameEvents.instance.StreakIncrease();
+            }
             if (streak % 50 == 0)
             {
                 GameEvents.instance.StreakFreeKeys(10);
@@ -63,6 +67,10 @@ public class StreakCounter : MonoBehaviour
     }
     private void End(int p)
     {
+        if (streak >= 40)
+        {
+            GameEvents.instance.BrokenStreak();
+        }
         streak = score = 0;
         display.UpdateScore(score);
         spriteChanger.None();

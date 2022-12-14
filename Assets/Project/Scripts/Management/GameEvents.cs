@@ -28,6 +28,8 @@ public class GameEvents : MonoBehaviour
     public event Action activateLevel;
 
     public event Action<int> streakFreeKeys;    
+    public event Action streakIncrease;
+    public event Action brokenStreak;
 
     public event Action popupSpawn;
     public event Action popupClose;
@@ -116,6 +118,22 @@ public class GameEvents : MonoBehaviour
         if (lowTimeEffect != null)
         {
             lowTimeEffect();
+        }
+    }
+
+    public void StreakIncrease() 
+    { 
+        if(streakIncrease != null)
+        {
+            streakIncrease();
+        }
+    }
+
+    public void BrokenStreak()
+    {
+        if (brokenStreak != null)
+        {
+            brokenStreak();
         }
     }
 }
