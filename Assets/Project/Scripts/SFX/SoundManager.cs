@@ -16,6 +16,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip finishLevelClip;
     public AudioClip gainExtraTimeClip;
 
+    public AudioClip goodStreakClip;
+    public AudioClip brokenStreakClip;
+
     public AudioClip[] popupSpawnClip;
     public AudioClip popupCloseClip;
     public AudioClip popupBounceClip;
@@ -45,6 +48,9 @@ public class SoundManager : MonoBehaviour
         GameEvents.instance.lose += LoseSound;
         GameEvents.instance.finishLevel += FinishLevelSound;
         GameEvents.instance.gainExtraTime += GainExtraTimeSound;
+
+        GameEvents.instance.streakIncrease += StreakIncreaseSound;
+        GameEvents.instance.brokenStreak += BrokenStreakSound;
 
         GameEvents.instance.popupBounce += PopupBounceSound;
         GameEvents.instance.popupClose += PopupCloseSound;
@@ -96,5 +102,15 @@ public class SoundManager : MonoBehaviour
     public void LowTimeEffectSound()
     {
         
+    }
+
+    public void StreakIncreaseSound()
+    {
+        audioSource.PlayOneShot(goodStreakClip, 0.5f);
+    }
+
+    public void BrokenStreakSound()
+    {
+        audioSource.PlayOneShot(brokenStreakClip, 1f);
     }
 }
