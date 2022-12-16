@@ -27,11 +27,12 @@ public class KeyboardEvents : MonoBehaviour
     }
     private void LaunchKey(int index)
     {
-        if (index >= 0)
-        {
-            KeyPlacement key = keyboard.keys[index].GetComponent<KeyPlacement>();
-            key.DetachFromRoot();
-            key.Launch();
-        }
+        if (index < 0) return;
+
+        KeyPlacement key = keyboard.keys[index].GetComponent<KeyPlacement>();
+        if (!key.detachable) return;
+            
+        key.DetachFromRoot();
+        key.Launch();
     }
 }
