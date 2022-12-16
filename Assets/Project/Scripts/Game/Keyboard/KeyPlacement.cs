@@ -64,17 +64,16 @@ public class KeyPlacement : MovableCanvasComponent
     }
     public void RightClick(BaseEventData data)
     {
-        if (inRoot && detachable)
+        if (!(inRoot && detachable)) return; 
+        GameEvents.instance.NudgeKey();
+        StartCoroutine(ShakeTransformUtil.ShakeCoroutine(transform.parent, 0.1f, 20f, rootPos));
+        detachCounter++;
+        if (detachCounter > clicksToDetach)
         {
-            StartCoroutine(ShakeTransformUtil.ShakeCoroutine(transform.parent, 0.1f, 20f, rootPos));
-            detachCounter++;
-            if (detachCounter > clicksToDetach)
-            {
-                DetachFromRoot();
-                detachCounter = 0;
-                key.UpdateKey();
-                Launch();
-            }
+            DetachFromRoot();
+            detachCounter = 0;
+            key.UpdateKey();
+            Launch();
         }
     }
     public void Launch()
