@@ -23,8 +23,16 @@ public class SoundManager : MonoBehaviour
     public AudioClip popupCloseClip;
     public AudioClip popupBounceClip;
 
+    public AudioClip popUpGrab;
+    public AudioClip lowTime;
+
     public AudioSource bgAudioSource;
     public AudioClip backgroundMusic;
+
+    public AudioClip nudgeKey;
+    public AudioClip detatchKey;
+    public AudioClip attachKey;
+    
 
     private void Awake()
     {
@@ -106,11 +114,11 @@ public class SoundManager : MonoBehaviour
     }
     public void PopupGrabSound()
     {
-        
+        audioSource.PlayOneShot(popUpGrab);
     }
     public void LowTimeEffectSound()
     {
-        
+        audioSource.PlayOneShot(lowTime);
     }
     public void StreakIncreaseSound()
     {
@@ -122,14 +130,14 @@ public class SoundManager : MonoBehaviour
     }
     public void DetachKeySound(int k)
     {
-
+        audioSource.PlayOneShot(detatchKey);
     }
     public void AttachKeySound(int k)
     {
-
+        audioSource.PlayOneShot(attachKey, 0.7f);
     }
     public void NudgeKeySound()
     {
-
+        audioSource.PlayOneShot(nudgeKey);
     }
 }
