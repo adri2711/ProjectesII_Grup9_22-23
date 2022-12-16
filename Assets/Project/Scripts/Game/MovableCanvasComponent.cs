@@ -75,6 +75,7 @@ public class MovableCanvasComponent : MonoBehaviour
     }
     public virtual void DragStart(BaseEventData data)
     {
+        GameEvents.instance.PopupGrab();
         held = true;
     }
     public virtual void DragEnd(BaseEventData data)

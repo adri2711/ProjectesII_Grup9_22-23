@@ -52,9 +52,14 @@ public class SoundManager : MonoBehaviour
         GameEvents.instance.streakIncrease += StreakIncreaseSound;
         GameEvents.instance.brokenStreak += BrokenStreakSound;
 
+        GameEvents.instance.detachKey += DetachKeySound;
+        GameEvents.instance.attachKey += AttachKeySound;
+        GameEvents.instance.nudgeKey += NudgeKeySound;
+
         GameEvents.instance.popupBounce += PopupBounceSound;
         GameEvents.instance.popupClose += PopupCloseSound;
         GameEvents.instance.popupSpawn += PopupSpawnSound;
+        GameEvents.instance.popupGrab += PopupGrabSound;
         GameEvents.instance.lowTimeEffect += LowTimeEffectSound;
         
         bgAudioSource.clip = backgroundMusic;
@@ -99,18 +104,32 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.PlayOneShot(popupSpawnClip[Random.Range(0,popupSpawnClip.Length)], 0.8f);
     }
+    public void PopupGrabSound()
+    {
+        
+    }
     public void LowTimeEffectSound()
     {
         
     }
-
     public void StreakIncreaseSound()
     {
         audioSource.PlayOneShot(goodStreakClip, 0.5f);
     }
-
     public void BrokenStreakSound()
     {
         audioSource.PlayOneShot(brokenStreakClip, 1f);
+    }
+    public void DetachKeySound(int k)
+    {
+
+    }
+    public void AttachKeySound(int k)
+    {
+
+    }
+    public void NudgeKeySound()
+    {
+
     }
 }

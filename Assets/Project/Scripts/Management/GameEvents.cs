@@ -27,15 +27,18 @@ public class GameEvents : MonoBehaviour
     public event Action lose;
     public event Action activateLevel;
 
-    public event Action<int> streakFreeKeys;
     public event Action<int> detachKey;
-    public event Action<int> attachKey; 
+    public event Action<int> attachKey;
+    public event Action nudgeKey;
+
+    public event Action<int> streakFreeKeys;
     public event Action streakIncrease;
     public event Action brokenStreak;
 
     public event Action popupSpawn;
     public event Action popupClose;
     public event Action popupBounce;
+    public event Action popupGrab;
 
     public event Action lowTimeTick;
     public event Action lowTimeEffect;
@@ -52,6 +55,13 @@ public class GameEvents : MonoBehaviour
         if (detachKey != null)
         {
             detachKey(index);
+        }
+    }
+    public void NudgeKey()
+    {
+        if (nudgeKey != null)
+        {
+            nudgeKey();
         }
     }
     public void StreakFreeKeys(int amount)
@@ -129,6 +139,13 @@ public class GameEvents : MonoBehaviour
         if (popupBounce != null)
         {
             popupBounce();
+        }
+    }
+    public void PopupGrab()
+    {
+        if (popupGrab != null)
+        {
+            popupGrab();
         }
     }
     public void LowTimeEffect()

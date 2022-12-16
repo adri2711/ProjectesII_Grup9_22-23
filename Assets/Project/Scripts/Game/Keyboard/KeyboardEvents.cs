@@ -6,6 +6,7 @@ using UnityEngine;
 public class KeyboardEvents : MonoBehaviour
 {
     private KeyboardManager keyboard;
+    [SerializeField] private Transform explosionParticles;
     [SerializeField] private float correctKeyLaunchChance = 10;
     [SerializeField] private float wrongKeyLaunchChance = 2;
     void Start()
@@ -27,11 +28,15 @@ public class KeyboardEvents : MonoBehaviour
     }
     private void LaunchKey(int index)
     {
-        if (index >= 0)
-        {
-            KeyPlacement key = keyboard.keys[index].GetComponent<KeyPlacement>();
-            key.DetachFromRoot();
-            key.Launch();
-        }
+        if (index < 0) return;
+
+        KeyPlacement key = keyboard.keys[index].GetComponent<KeyPlacement>();
+        if (!key.detachable) return;
+            
+        key.DetachFromRoot();
+        key.Launch();
+
+        Transform p = Instantiate(explosionParticles, key.transform.position, Quaternion.identity, transform);
+        Destroy(p.gameObject, 1);
     }
 }

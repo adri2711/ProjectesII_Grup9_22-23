@@ -1442,6 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e90ba8287a7fe1469672c6ab68546f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionParticles: {fileID: 735103062029693356, guid: b8cc602681778e9418d2d222cf8ab1fc, type: 3}
   correctKeyLaunchChance: 3
   wrongKeyLaunchChance: 6
 --- !u!1 &347196242
@@ -2950,6 +2951,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1141875623}
     m_Modifications:
+    - target: {fileID: -5907935370673786022, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
+      propertyPath: detachable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 701221148903073178, guid: 00f079d0185dd4b4c807c539a261145d, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.6966307
