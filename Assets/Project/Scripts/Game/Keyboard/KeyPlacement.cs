@@ -38,6 +38,7 @@ public class KeyPlacement : MovableCanvasComponent
         transform.parent.localPosition = rootPos;
         inRoot = true;
         key.UpdateKey();
+        GameEvents.instance.AttachKey(newRoot);
     }
     public void DetachFromRoot()
     {

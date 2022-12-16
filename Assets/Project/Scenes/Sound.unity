@@ -177,8 +177,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 40ce21089f898e4488de2f1da902e9e2, type: 3}
   popupCloseClip: {fileID: 8300000, guid: b0a50267d917dd4449d51e0fc2eeb821, type: 3}
   popupBounceClip: {fileID: 8300000, guid: 71dc6d945ff14c243a5e3c834a931a0d, type: 3}
+  popUpGrab: {fileID: 8300000, guid: ee548fd5db56efb4f8e5e48569d34573, type: 3}
+  lowTime: {fileID: 8300000, guid: bb57e369715e6d64196b7f120042923c, type: 3}
   bgAudioSource: {fileID: 1630537252}
   backgroundMusic: {fileID: 8300000, guid: 7fefcede0c4ed0440bc4a45884192df8, type: 3}
+  nudgeKey: {fileID: 8300000, guid: 5156c15296421ec48b9d880d38c9d44d, type: 3}
+  detatchKey: {fileID: 8300000, guid: 3191a542c6d08f44594c3a1663f7dd09, type: 3}
+  attachKey: {fileID: 8300000, guid: f6920637886413d44a651362e1e2767b, type: 3}
 --- !u!4 &1630537251
 Transform:
   m_ObjectHideFlags: 0
