@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.IO;
-
+using Newtonsoft.Json;
 public class TextGenerator : MonoBehaviour
 {
     public static TextGenerator instance { get; private set; }
@@ -85,7 +85,10 @@ public class TextGenerator : MonoBehaviour
         //GET RAW SENTENCES FROM JSON
         string jsonString = File.ReadAllText(filePath);
         Debug.Log(jsonString);
-        rawCollection = JsonUtility.FromJson<SentenceCollection>(jsonString);
+        //rawCollection = JsonUtility.FromJson<SentenceCollection>(jsonString);
+        //jsonObject jsonObj = jsonObject.Parse(File.ReadAllText(@filePath));
+        
+        rawCollection = JsonConvert.DeserializeObject<SentenceCollection>(jsonString);
 
         //Falla la lectura de rawCollection
         Debug.Log(rawCollection.sentenceArray[0].textPart.text);
