@@ -31,7 +31,7 @@ public class TextGenTester : MonoBehaviour
         writingStyleChances.Add(0.2f);
         writingStyleChances.Add(0.0f);
 
-        TextGenerator.instance.Setup(Application.dataPath + pathPart2, 10, 1, sentenceTypeChances, writingStyleChances, true);
+        TextGenerator.instance.Setup(Application.dataPath + pathPart2, 1, 1, sentenceTypeChances, writingStyleChances, true);
         TextGenerator.instance.GenerateListOfSentences("4");
     }
 }

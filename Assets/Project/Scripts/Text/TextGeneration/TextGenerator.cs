@@ -85,12 +85,8 @@ public class TextGenerator : MonoBehaviour
         //GET RAW SENTENCES FROM JSON
         string jsonString = File.ReadAllText(filePath);
         Debug.Log(jsonString);
-        //rawCollection = JsonUtility.FromJson<SentenceCollection>(jsonString);
-        //jsonObject jsonObj = jsonObject.Parse(File.ReadAllText(@filePath));
-        
         rawCollection = JsonConvert.DeserializeObject<SentenceCollection>(jsonString);
 
-        //Falla la lectura de rawCollection
         Debug.Log(rawCollection.sentenceArray[0].textPart.text);
         rawCollection.value = rawCollection.sentenceArray.ToList();
         rawSentences = rawCollection.value;
@@ -201,6 +197,7 @@ public class TextGenerator : MonoBehaviour
         }
 
         sentenceKeywords = sentenceKeywordsWithDupes.Distinct().ToList();   //Discard all duplicate keywords
+        Debug.Log("Sentence keywords: " + sentenceKeywords.Count);
 
         keywordRepetition = keywordRep;                                     //Set up how many consecutive sentences with the same keyword
 
@@ -414,14 +411,21 @@ public class TextGenerator : MonoBehaviour
             randomNumber = Random.Range(0, suitableSentences.Count);
 
             //5) Add the new sentence to completedText list
-            Debug.Log(suitableSentences.Count);
-            Debug.Log(randomNumber);
+            Debug.Log("Suitable sentences: " + suitableSentences.Count);
+            Debug.Log("Random number: " + randomNumber);
             completedText.Add(suitableSentences[randomNumber]);
+            Debug.Log("Added sentence: " + suitableSentences[randomNumber].textPart.text);
 
             //6) Reset suitableSentences
             suitableSentences.Clear();
         }
 
+        Debug.Log("CompletedText count: " + completedText.Count);
+        Debug.Log("CompletedText[0] text: " + completedText[0].textPart.text);
+
+        //To avoid NullReferenceException because of trying to assign something to an array position that doesn't exist
+        Debug.Log("Used sentences count: " + usedSentencesCount);
+        completeTextParts.partArray = new TextPart[usedSentencesCount];
 
         //7) Save each Sentence's TextPart to a general TextParts
         for (int i = 0; i < completedText.Count; i++)
@@ -430,13 +434,33 @@ public class TextGenerator : MonoBehaviour
         }
 
         //8) Write to JSON
-        JsonUtility.ToJson(jsonObject);
-        System.IO.File.WriteAllText(Application.dataPath + "/StreamingAssets/Data/GeneratedTexts/generatedTextLevel" + level + ".json", jsonObject);
+        string completedTextJson = JsonConvert.SerializeObject(completeTextParts, Formatting.Indented, new JsonSerializerSettings
+        {
+            //To avoid self-referencing loop JsonSerializationException
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        });
+        Debug.Log(completedTextJson);
+        System.IO.File.WriteAllText(Application.dataPath + "/StreamingAssets/Data/GeneratedTexts/generatedTextLevel" + level + ".json", completedTextJson);
+        Debug.Log("Wrote text to json file");
+
+
+        //JsonUtility.ToJson(jsonObject);
+        //System.IO.File.WriteAllText(Application.dataPath + "/StreamingAssets/Data/GeneratedTexts/generatedTextLevel" + level + ".json", jsonObject);
 
         //WRITE COMPLETED TEXT TO JSON
         //ONLY has the sentences and the basic info that not-random files have
         //This file can be read by the existent system --> only change the path/name of the file in the scripts that get level data from json
 
+
+        //Read test
+        string jsonPath = Application.dataPath + "/StreamingAssets/Data/GeneratedTexts/generatedTextLevel" + level + ".json";
+        string testTextJson = File.ReadAllText(jsonPath);
+        ParserMultipartText testParserMultipartText = new ParserMultipartText();
+        testParserMultipartText.Setup(testTextJson);
+
+        Debug.Log(testParserMultipartText.parts.value.Count);
+        for(int i = 0; i < testParserMultipartText.parts.value.Count; i++)
+            Debug.Log(testParserMultipartText.parts.value[i].text);
     }
 
 }

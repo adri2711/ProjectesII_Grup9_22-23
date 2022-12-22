@@ -1,0 +1,21 @@
+{
+  "partArray": [
+    {
+      "id": "sen2",
+      "text": "The quality of being identical to oneself even under transformation. ",
+      "colorHex": "#000000",
+      "color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0,
+        "grayscale": 0.0,
+        "maxColorComponent": 0.0
+      },
+      "flags": 2048,
+      "font": "bluescreen",
+      "material": null
+    }
+  ],
+  "value": []
+}
