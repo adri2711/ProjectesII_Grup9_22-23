@@ -30,8 +30,8 @@ public class ParserEvents : MonoBehaviour
     }
     public void WrongLetter(int p)
     {
-        if (GameManager.instance.GetCurrentLevelNum() != 3) return;
-        RectTransform parserRect = GetComponentInChildren<Image>().rectTransform;
-        parserRect.rotation = new Quaternion(0, 1f - parserRect.rotation.y, 0, 0);
+        //if (GameManager.instance.GetCurrentLevelNum() != 3) return;
+        //RectTransform parserRect = GetComponentInChildren<Image>().rectTransform;
+        //parserRect.rotation = new Quaternion(0, 1f - parserRect.rotation.y, 0, 0);
     }
 }
