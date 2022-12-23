@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour
         {
             if (!SceneManager.GetSceneByName("Streak").isLoaded)
                 SceneManager.LoadSceneAsync("Streak", LoadSceneMode.Additive);
+            if (!SceneManager.GetSceneByName("Overlay").isLoaded)
+                SceneManager.LoadSceneAsync("Overlay", LoadSceneMode.Additive);
             if (!SceneManager.GetSceneByName("Parser").isLoaded)
                 SceneManager.LoadScene("Parser", LoadSceneMode.Additive);
             levels[currLevel].LevelStart();
@@ -154,10 +156,12 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetSceneByName("Parser").isLoaded)
             SceneManager.UnloadSceneAsync("Parser");
+        if (SceneManager.GetSceneByName("Overlay").isLoaded)
+            SceneManager.UnloadSceneAsync("Overlay");
         if (SceneManager.GetSceneByName("Streak").isLoaded)
             SceneManager.UnloadSceneAsync("Streak");
 
-        while (SceneManager.GetSceneByName("Parser").isLoaded || SceneManager.GetSceneByName("Streak").isLoaded) { }
+        while (SceneManager.GetSceneByName("Parser").isLoaded || SceneManager.GetSceneByName("Streak").isLoaded || SceneManager.GetSceneByName("Overlay").isLoaded) { }
     }
 
     public int GetCurrentLevelNum()

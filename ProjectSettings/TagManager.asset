@@ -50,21 +50,24 @@ TagManager:
   - name: Streak
     uniqueID: 1859016287
     locked: 0
-  - name: Key
-    uniqueID: 2989077761
-    locked: 0
   - name: Popup
     uniqueID: 2959148647
     locked: 0
   - name: Timer
     uniqueID: 1782722241
     locked: 0
-  - name: FX
-    uniqueID: 2100607289
+  - name: PauseMenu
+    uniqueID: 1897871639
+    locked: 0
+  - name: Overlay
+    uniqueID: 50171925
+    locked: 0
+  - name: Key
+    uniqueID: 2989077761
     locked: 0
   - name: Fade
     uniqueID: 978324899
     locked: 0
-  - name: PauseMenu
-    uniqueID: 1897871639
+  - name: FX
+    uniqueID: 2100607289
     locked: 0
