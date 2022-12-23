@@ -50,9 +50,6 @@ TagManager:
   - name: Streak
     uniqueID: 1859016287
     locked: 0
-  - name: Key
-    uniqueID: 2989077761
-    locked: 0
   - name: Popup
     uniqueID: 2959148647
     locked: 0
@@ -67,4 +64,10 @@ TagManager:
     locked: 0
   - name: PauseMenu
     uniqueID: 1897871639
+    locked: 0
+  - name: Overlay
+    uniqueID: 50171925
+    locked: 0
+  - name: Key
+    uniqueID: 2989077761
     locked: 0
