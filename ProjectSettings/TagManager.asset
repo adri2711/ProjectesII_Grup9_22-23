@@ -56,12 +56,6 @@ TagManager:
   - name: Timer
     uniqueID: 1782722241
     locked: 0
-  - name: FX
-    uniqueID: 2100607289
-    locked: 0
-  - name: Fade
-    uniqueID: 978324899
-    locked: 0
   - name: PauseMenu
     uniqueID: 1897871639
     locked: 0
@@ -70,4 +64,10 @@ TagManager:
     locked: 0
   - name: Key
     uniqueID: 2989077761
+    locked: 0
+  - name: Fade
+    uniqueID: 978324899
+    locked: 0
+  - name: FX
+    uniqueID: 2100607289
     locked: 0
