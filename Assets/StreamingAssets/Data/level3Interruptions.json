@@ -3,17 +3,25 @@
         {
             "objectName": "StaticPopup",
             "objectGroup": "popup",
-            "minSpawnTime": 8,
-            "maxSpawnTime": 13,
+            "minSpawnTime": 5,
+            "maxSpawnTime": 30,
             "spawnPos": {"x": 0, "y": 0},
             "spawnVariance": 200
         },
         {
-            "objectName": "BouncingPopup",
+            "objectName": "EscapingPopup",
             "objectGroup": "popup",
-            "minSpawnTime": 15,
-            "maxSpawnTime": 15,
-            "spawnPos": {"x": 0, "y": -50},
+            "minSpawnTime": 10,
+            "maxSpawnTime": 30,
+            "spawnPos": {"x": 0, "y": 0},
+            "spawnVariance": 100
+        },
+        {
+            "objectName": "FlippingPopup",
+            "objectGroup": "popup",
+            "minSpawnTime": 10,
+            "maxSpawnTime": 30,
+            "spawnPos": {"x": 0, "y": 0},
             "spawnVariance": 100
         }
     ]

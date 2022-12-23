@@ -1531,8 +1531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticles: {fileID: 735103062029693356, guid: b8cc602681778e9418d2d222cf8ab1fc, type: 3}
-  correctKeyLaunchChance: 3
-  wrongKeyLaunchChance: 6
+  correctKeyLaunchChance: 1
+  wrongKeyLaunchChance: 2
 --- !u!1 &347196242
 GameObject:
   m_ObjectHideFlags: 0

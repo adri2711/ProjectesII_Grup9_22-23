@@ -183,11 +183,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
-  held: 0
+  bouncing: 1
   baseSpeed: 5
   bounce: 2
-  animator: {fileID: 0}
   closeTime: 0.06250006
+  closeCharges: 0
+  escapeOnClose: 0
+  escapeSpeed: 10
+  escapeDuration: 0.3
+  growOnClose: 0
+  growFactor: {x: 1.3, y: 1.3}
+  flipOnClose: 0
+  flipAxis: {x: 0, y: 0}
 --- !u!222 &7437981453223078506
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -494,7 +501,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000015258789, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7437981454235069939
 CanvasRenderer:

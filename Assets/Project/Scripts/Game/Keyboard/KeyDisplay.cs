@@ -70,10 +70,7 @@ public class KeyDisplay : MonoBehaviour
 
     private void UpdateState()
     {
-        if (prevState != currState)
-        {
-            prevState = currState;
-        }
+        prevState = currState;
     }
     public void UpdateKey()
     {
