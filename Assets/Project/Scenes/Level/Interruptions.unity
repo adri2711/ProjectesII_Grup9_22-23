@@ -221,6 +221,9 @@ MonoBehaviour:
   interruptions:
   - {fileID: 3798909566558514344, guid: 4196b6d454e982142b0a0a85366b1b0a, type: 3}
   - {fileID: 3999290813832876439, guid: 987fcafad30692e4a841619379b86040, type: 3}
+  - {fileID: 3798909566558514344, guid: c6f6b7a6ac6737a469f8d4ff6210deb7, type: 3}
+  - {fileID: 3798909566558514344, guid: 06420f637222e344eb8d552fefa1dc85, type: 3}
+  - {fileID: 3798909566558514344, guid: c11c0fbf6491a0243a041199e81cafd9, type: 3}
 --- !u!4 &746004629
 Transform:
   m_ObjectHideFlags: 0

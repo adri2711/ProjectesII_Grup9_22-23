@@ -19,7 +19,7 @@ public abstract class Interruption : MovableCanvasComponent
         targetTransform = GetComponentInChildren<Image>().transform;
         targetCanvas = GetComponentInChildren<Canvas>();
         targetCanvas.sortingOrder = IntManager.instance.GetIntCount();
-        animator = this.GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         animator.Play("open");
     }
     public virtual void Close() {
@@ -40,6 +40,10 @@ public abstract class Interruption : MovableCanvasComponent
     public void SetPosition(Vector3 newPos)
     {
         SetPosition(GetComponentInChildren<Image>().transform, newPos);
+    }
+    public override Vector2 GetPosition()
+    {
+        return GetComponentInChildren<Image>().transform.position;
     }
     public void Drag(BaseEventData data)
     {
