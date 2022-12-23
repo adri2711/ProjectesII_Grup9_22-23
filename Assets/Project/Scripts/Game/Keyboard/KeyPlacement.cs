@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 public class KeyPlacement : MovableCanvasComponent
 {
@@ -43,12 +43,14 @@ public class KeyPlacement : MovableCanvasComponent
         inRoot = true;
         key.UpdateKey();
         GameEvents.instance.AttachKey(newRoot);
+        GetComponent<SortingGroup>().sortingOrder = 0;
     }
     public void DetachFromRoot()
     {
         inRoot = false;
         KeyboardRoots.keyRoots[rootIndex].DetachKey();
         key.UpdateKey();
+        GetComponent<SortingGroup>().sortingOrder = 200;
     }
     public void Drag(BaseEventData data)
     {
