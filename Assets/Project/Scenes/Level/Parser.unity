@@ -1431,7 +1431,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -1305889535
+  m_SortingLayerID: 1873572471
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &329777474
@@ -1531,8 +1531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticles: {fileID: 735103062029693356, guid: b8cc602681778e9418d2d222cf8ab1fc, type: 3}
-  correctKeyLaunchChance: 1
-  wrongKeyLaunchChance: 2
+  correctKeyLaunchChance: 0
+  wrongKeyLaunchChance: 4
 --- !u!1 &347196242
 GameObject:
   m_ObjectHideFlags: 0
