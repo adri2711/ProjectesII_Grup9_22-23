@@ -49,6 +49,8 @@ public class KeyPlacement : MovableCanvasComponent
         inRoot = false;
         KeyboardRoots.keyRoots[rootIndex].DetachKey();
         key.UpdateKey();
+
+        transform.parent.SetAsLastSibling();
     }
     public void Drag(BaseEventData data)
     {
