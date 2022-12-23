@@ -41,6 +41,10 @@ public abstract class Interruption : MovableCanvasComponent
     {
         SetPosition(GetComponentInChildren<Image>().transform, newPos);
     }
+    public override Vector2 GetPosition()
+    {
+        return GetComponentInChildren<Image>().transform.position;
+    }
     public void Drag(BaseEventData data)
     {
         DragMove(data, targetTransform, targetCanvas);

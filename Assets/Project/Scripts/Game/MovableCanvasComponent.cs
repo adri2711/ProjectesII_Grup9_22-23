@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MovableCanvasComponent : MonoBehaviour
+public abstract class MovableCanvasComponent : MonoBehaviour
 {
     public bool draggable = false;
     public bool bouncing = true;
@@ -16,10 +16,11 @@ public class MovableCanvasComponent : MonoBehaviour
     protected Vector2 dir;
     private bool speedTimerLock;
 
-    protected void SetPosition(Transform targetTransform, Vector3 newPos)
+    public void SetPosition(Transform targetTransform, Vector3 newPos)
     {
         targetTransform.localPosition += newPos;
     }
+    public abstract Vector2 GetPosition();
     protected virtual void MovementUpdate(Transform targetTransform, Canvas targetCanvas)
     {
         RectTransform targetRect = (RectTransform)targetTransform;

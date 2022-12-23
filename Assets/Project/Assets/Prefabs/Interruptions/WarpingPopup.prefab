@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7437981453223078505}
   - component: {fileID: 7437981453223078506}
   m_Layer: 0
-  m_Name: EscapingPopup
+  m_Name: WarpingPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,11 +187,11 @@ MonoBehaviour:
   bounce: 0
   closeTime: 0.06250006
   closeCharges: 2
-  escapeOnClose: 1
+  escapeOnClose: 0
   escapeSpeed: 100
   escapeDuration: 0.1
-  growOnClose: 0
-  growFactor: {x: 1.3, y: 1.3}
+  growOnClose: 1
+  growFactor: {x: 1.35, y: 0.85}
   flipOnClose: 0
   flipAxis: {x: 0, y: 0}
 --- !u!222 &7437981453223078506
@@ -240,8 +240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000095367, y: 0.0000019073}
-  m_SizeDelta: {x: 251.79, y: 364.74}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 343.64, y: 279.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7437981453883690959
 CanvasRenderer:
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.70597327, g: 0.5701673, b: 0.8584906, a: 1}
+  m_Color: {r: 0.6130434, g: 0.85882354, b: 0.5686275, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

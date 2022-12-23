@@ -32,6 +32,10 @@ public class KeyPlacement : MovableCanvasComponent
         rootPos = transform.parent.localPosition;
         key.UpdateKey();
     }
+    public override Vector2 GetPosition()
+    {
+        return transform.parent.position;
+    }
     public void AttachToRoot(int newRoot)
     {
         rootIndex = newRoot;
