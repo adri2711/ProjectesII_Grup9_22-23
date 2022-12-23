@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class Popup : Interruption
 {
+    [SerializeField] private int closeEvents = 0;
+    [SerializeField] private bool escapeOnClose = false;
+    [SerializeField] private float escapeSpeed = 10f;
+    [SerializeField] private float escapeDuration = 0.3f;
+
     protected void Start()
     {
         Spawn();
@@ -22,8 +27,25 @@ public class Popup : Interruption
 
     public override void Close()
     {
-        animator.Play("close");
-        GameEvents.instance.PopupClose();
-        base.Close();
+        if (closeEvents > 0)
+        {
+            closeEvents--;
+            if (escapeOnClose)
+            {
+                Escape();
+            }
+        }
+        else
+        {
+            animator.Play("close");
+            GameEvents.instance.PopupClose();
+            base.Close();
+        }
+    }
+
+    protected virtual void Escape()
+    {
+        SetRandomDirection();
+        SetSpeedForDuration(escapeSpeed, escapeDuration);
     }
 }

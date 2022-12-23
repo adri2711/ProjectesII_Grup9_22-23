@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class MovableCanvasComponent : MonoBehaviour
 {
@@ -16,6 +14,7 @@ public class MovableCanvasComponent : MonoBehaviour
     public float bounce = 1f;
     protected float addSpeed;
     protected Vector2 dir;
+    private bool speedTimerLock;
 
     protected void SetPosition(Transform targetTransform, Vector3 newPos)
     {
@@ -58,6 +57,21 @@ public class MovableCanvasComponent : MonoBehaviour
     {
         dir = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
     }
+    protected void SetSpeedForDuration(float speed, float dur)
+    {
+        if (speedTimerLock) return;
+        StartCoroutine(SetSpeedTimer(speed, dur));
+    }
+    private IEnumerator SetSpeedTimer(float speed, float dur)
+    {
+        speedTimerLock = true;
+        float prevSpeed = baseSpeed;
+        baseSpeed = speed;
+        yield return new WaitForSeconds(dur);
+        baseSpeed = prevSpeed;
+        speedTimerLock = false;
+    }
+
     public virtual void DragMove(BaseEventData data, Transform targetTransform, Canvas targetCanvas, string mainCameraName = "Main Camera")
     {
         if (held && draggable)

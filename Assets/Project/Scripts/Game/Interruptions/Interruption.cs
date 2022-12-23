@@ -19,7 +19,7 @@ public abstract class Interruption : MovableCanvasComponent
         targetTransform = GetComponentInChildren<Image>().transform;
         targetCanvas = GetComponentInChildren<Canvas>();
         targetCanvas.sortingOrder = IntManager.instance.GetIntCount();
-        animator = this.GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         animator.Play("open");
     }
     public virtual void Close() {
