@@ -34,7 +34,7 @@ public class KeyRoot : MonoBehaviour
         currIndex = index;
         //Debug.Log("attach" + keyboardIndex + ": " + currIndex);
 
-        inputChecker.AddKeyboardOverride(keyboardIndex, currIndex, false);
+        inputChecker.AddKeyboardOverride(currIndex, keyboardIndex, false);
     }
     public bool HasKey()
     {
