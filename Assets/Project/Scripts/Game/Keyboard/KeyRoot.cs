@@ -24,9 +24,8 @@ public class KeyRoot : MonoBehaviour
     public void DetachKey()
     {
         //Debug.Log("detach" + keyboardIndex + ": " + currIndex);
+        inputChecker.DisableKey(currIndex);
         currIndex = -1;
-
-        inputChecker.DisableKey(keyboardIndex);
         GameEvents.instance.DetachKey(3);
     }
     public void AttachKey(int index)
