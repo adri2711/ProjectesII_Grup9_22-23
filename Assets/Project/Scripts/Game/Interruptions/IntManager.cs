@@ -65,7 +65,7 @@ public class IntManager : MonoBehaviour
         if (GameManager.instance.GetCurrentLevelNum() == 2 || GameManager.instance.GetCurrentLevelNum() == 3)
         {
             Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("popup").transform);
-            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector3(-70, 90, 0));
+            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector2(15, 120));
         }
     }
     private Transform GetSpawnObject(string name)
