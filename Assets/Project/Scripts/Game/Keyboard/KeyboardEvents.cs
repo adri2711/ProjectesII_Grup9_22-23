@@ -26,7 +26,7 @@ public class KeyboardEvents : MonoBehaviour
         yield return new WaitForEndOfFrame();
         LaunchKey(index);
     }
-    private void LaunchKey(int index)
+    private void LaunchKey(int index, bool particles = true)
     {
         if (index < 0) return;
 
@@ -36,7 +36,17 @@ public class KeyboardEvents : MonoBehaviour
         key.DetachFromRoot();
         key.Launch();
 
-        Transform p = Instantiate(explosionParticles, key.transform.position, Quaternion.identity, transform);
-        Destroy(p.gameObject, 1);
+        if (particles)
+        {
+            Transform p = Instantiate(explosionParticles, key.transform.position, Quaternion.identity, transform);
+            Destroy(p.gameObject, 1);
+        }
+    }
+    public void ScrambleKeys(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            LaunchKey(UnityEngine.Random.Range(0, keyboard.keys.Count), false);
+        }
     }
 }

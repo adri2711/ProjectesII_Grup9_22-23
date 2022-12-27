@@ -52,6 +52,8 @@ public class InputChecker : MonoBehaviour
     public void DisableKey(int target)
     {
         var targetChar = KeyboardUtil.KeyboardPosToChar(target);
+        if (targetChar == null) return;
+
         for (int i = 0; i < targetChar.Length; i++)
         {
             RemoveOverrides(targetChar[i]);
