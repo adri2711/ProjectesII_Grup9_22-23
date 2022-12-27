@@ -34,7 +34,7 @@ public abstract class Interruption : MovableCanvasComponent
     {
         if (baseSpeed > 0f && !held)
         {
-            MovementUpdate(targetTransform, targetCanvas);
+            MovementUpdate(targetTransform, targetCanvas, GameConstants.screenBottomLeftCorner, GameConstants.screenTopRightCorner);
         }
     }
     public void SetPosition(Vector3 newPos)

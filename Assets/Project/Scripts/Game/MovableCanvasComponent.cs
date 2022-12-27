@@ -21,7 +21,15 @@ public abstract class MovableCanvasComponent : MonoBehaviour
         targetTransform.localPosition += newPos;
     }
     public abstract Vector2 GetPosition();
-    protected virtual void MovementUpdate(Transform targetTransform, Canvas targetCanvas)
+
+    protected void MovementUpdate(Transform targetTransform, Canvas targetCanvas)
+    {
+        RectTransform canvasRect = targetCanvas.GetComponent<RectTransform>();
+        Vector2 topRight = new Vector2(canvasRect.rect.width / 2, canvasRect.rect.height / 2);
+        Vector2 bottomLeft = new Vector2(-canvasRect.rect.width / 2, -canvasRect.rect.height / 2);
+        MovementUpdate(targetTransform, targetCanvas, bottomLeft, topRight);
+    }
+    protected virtual void MovementUpdate(Transform targetTransform, Canvas targetCanvas, Vector2 bottomLeftLimit, Vector2 topRightLimit)
     {
         RectTransform targetRect = (RectTransform)targetTransform;
         RectTransform canvasRect = targetCanvas.GetComponent<RectTransform>();
@@ -35,16 +43,15 @@ public abstract class MovableCanvasComponent : MonoBehaviour
 
         if (bouncing)
         {
-            Vector2 edges = new Vector2(canvasRect.rect.width / 2, canvasRect.rect.height / 2);
             Vector2 popupPos = targetTransform.localPosition;
             Vector2 popupSize = new Vector2(targetRect.rect.width, targetRect.rect.height);
-            if (Mathf.Abs(popupPos.x) + (popupSize.x / 2) >= edges.x && Mathf.Ceil(dir.normalized.x) == Mathf.Ceil(popupPos.normalized.x))
+            if ((popupPos.x + popupSize.x / 2 > topRightLimit.x || popupPos.x - popupSize.x / 2 < bottomLeftLimit.x) && Mathf.Ceil(dir.normalized.x) == Mathf.Ceil(popupPos.normalized.x))
             {
                 dir.x = -dir.x;
                 addSpeed += bounce;
                 GameEvents.instance.PopupBounce();
             }
-            else if (Mathf.Abs(popupPos.y) + (popupSize.y / 2) >= edges.y && Mathf.Ceil(dir.normalized.y) == Mathf.Ceil(popupPos.normalized.y))
+            else if ((popupPos.y + popupSize.y / 2 > topRightLimit.y || popupPos.y - popupSize.y / 2 < bottomLeftLimit.y) && Mathf.Ceil(dir.normalized.y) == Mathf.Ceil(popupPos.normalized.y))
             {
                 dir.y = -dir.y;
                 addSpeed += bounce;
