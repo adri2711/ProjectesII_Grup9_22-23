@@ -14,7 +14,7 @@ public class SpeedEffect : CustomEffect<SpeedEffect>
     public void Run(float percentage, float dur = 0)
     {
         //Glow Intensity
-        SetParameter<float>(Mathf.Min(percentage, 1f) * (0.4f), 0, 0);
+        SetParameter<float>(Mathf.Min(percentage, 1f), 0, 0);
         //Lines Speed
         SetParameter<float>(Mathf.Min(percentage, 1f) * (0.6f) + 0.2f, 2, 1);
         //Lines Density
