@@ -22,10 +22,10 @@ MonoBehaviour:
     hdr: 0
   speed:
     m_OverrideState: 0
-    m_Value: 0.8
+    m_Value: 0.57500005
   density:
     m_OverrideState: 0
-    m_Value: 0.72
+    m_Value: 0.65000004
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,9 +39,9 @@ MonoBehaviour:
   m_Name: speed
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 409435621102075879}
+  - {fileID: 545377499179843372}
   - {fileID: -4364233184842405518}
---- !u!114 &409435621102075879
+--- !u!114 &545377499179843372
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,17 +50,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8bab68c0c2ec6d4bb4860b04a783a98, type: 3}
-  m_Name: SpeedComponent
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
   active: 1
   intensity:
     m_OverrideState: 0
-    m_Value: 0.4
-  overlayColor:
-    m_OverrideState: 0
-    m_Value: {r: 0.9411765, g: 1, b: 0, a: 1}
-    hdr: 0
+    m_Value: 0.625
 --- !u!114 &8170042915332381684
 MonoBehaviour:
   m_ObjectHideFlags: 3

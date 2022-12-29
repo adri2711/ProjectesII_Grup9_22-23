@@ -33,7 +33,7 @@ public class ParserEffects : MonoBehaviour
     {
         Transform p = Instantiate(correctParticles, charPos, Quaternion.identity, transform);
         Destroy(p.gameObject, 1);
-        charPos.x += 0.33f;
+        charPos.x += 0.16f;
     }
     public void ChangeRenderSegment()
     {
