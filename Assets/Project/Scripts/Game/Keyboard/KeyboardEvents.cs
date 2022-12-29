@@ -12,6 +12,11 @@ public class KeyboardEvents : MonoBehaviour
     void Start()
     {
         keyboard = GetComponent<KeyboardManager>();
+
+        if (GameManager.instance.GetCurrentLevelNum() == 1)
+        {
+            StartCoroutine(ScrambleKeysDelay(10));
+        }
     }
     public void PressLetter(int index, bool correct)
     {
@@ -26,17 +31,32 @@ public class KeyboardEvents : MonoBehaviour
         yield return new WaitForEndOfFrame();
         LaunchKey(index);
     }
-    private void LaunchKey(int index)
+    private void LaunchKey(int index, bool particles = true)
     {
         if (index < 0) return;
 
         KeyPlacement key = keyboard.keys[index].GetComponent<KeyPlacement>();
-        if (!key.detachable) return;
+        if (!key.detachable || !key.inRoot) return;
             
         key.DetachFromRoot();
         key.Launch();
 
-        Transform p = Instantiate(explosionParticles, key.transform.position, Quaternion.identity, transform);
-        Destroy(p.gameObject, 1);
+        if (particles)
+        {
+            Transform p = Instantiate(explosionParticles, key.transform.position, Quaternion.identity, transform);
+            Destroy(p.gameObject, 1);
+        }
+    }
+    private IEnumerator ScrambleKeysDelay(int amount)
+    {
+        yield return new WaitForEndOfFrame();
+        ScrambleKeys(amount);
+    }
+    public void ScrambleKeys(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            LaunchKey(UnityEngine.Random.Range(0, 26), false);
+        }
     }
 }

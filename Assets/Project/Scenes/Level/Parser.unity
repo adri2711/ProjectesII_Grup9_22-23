@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionParticles: {fileID: 735103062029693356, guid: b8cc602681778e9418d2d222cf8ab1fc, type: 3}
   correctKeyLaunchChance: 0
-  wrongKeyLaunchChance: 4
+  wrongKeyLaunchChance: 5
 --- !u!1 &347196242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
