@@ -18,7 +18,6 @@ public class CustomEffect<T> : MonoBehaviour where T : MonoBehaviour
             return;
         }
         instance = this as T;
-        DontDestroyOnLoad(this.gameObject);
     }
     protected virtual void Start()
     {
