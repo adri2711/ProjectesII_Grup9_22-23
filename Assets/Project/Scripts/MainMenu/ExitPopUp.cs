@@ -6,6 +6,7 @@ public class ExitPopUp : MonoBehaviour
 {
     public bool showAgain = true;
     public GameObject exitPopUp;
+    public AudioSource exitSound;
 
     public void DontShowAgain()
     {
@@ -15,13 +16,22 @@ public class ExitPopUp : MonoBehaviour
     public void SetActive()
     {
         if (showAgain)
-            exitPopUp.SetActive(true);
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            //exitPopUp.SetActive(true);
+        }
         else
             QuitGame();
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        StartCoroutine(ApplicationQuit());
+    }
+
+    private IEnumerator ApplicationQuit()
+    {
+        exitSound.Play();
+        yield return new WaitWhile(() => exitSound.isPlaying);
     }
 }

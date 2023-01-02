@@ -11,6 +11,7 @@ public class LoginInputField : MonoBehaviour
     public string correctPasswordText;
 
     public GameObject wrongPasswordPopUp;
+    public AudioSource wrongSound;
     
     void Start()
     {
@@ -33,6 +34,7 @@ public class LoginInputField : MonoBehaviour
         else
         {
             Debug.Log("wrong password");
+            wrongSound.Play();
             wrongPasswordPopUp.SetActive(true);
             password.text = "";
         }
