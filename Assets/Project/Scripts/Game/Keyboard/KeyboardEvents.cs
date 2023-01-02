@@ -13,7 +13,7 @@ public class KeyboardEvents : MonoBehaviour
     {
         keyboard = GetComponent<KeyboardManager>();
 
-        if (GameManager.instance.GetCurrentLevelNum() == 1)
+        if (LevelState.currLevel == 1)
         {
             StartCoroutine(ScrambleKeysDelay(10));
         }

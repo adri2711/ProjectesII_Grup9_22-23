@@ -47,7 +47,7 @@ public class IntManager : MonoBehaviour
         spawners.value = new IntSpawner[0];
 
         //Read spawners from json
-        string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Interruptions.json";
+        string jsonPath = Application.streamingAssetsPath + "/Data/level" + LevelState.currLevel + "Interruptions.json";
         string jsonText = File.ReadAllText(jsonPath);
         spawners = JsonUtility.FromJson<IntSpawnerArray>(jsonText);
 
@@ -62,7 +62,7 @@ public class IntManager : MonoBehaviour
         }
 
         //Special cases
-        if (GameManager.instance.GetCurrentLevelNum() == 2 || GameManager.instance.GetCurrentLevelNum() == 3)
+        if (LevelState.currLevel == 2 || LevelState.currLevel == 3)
         {
             Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("popup").transform);
             intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector2(15, 120));

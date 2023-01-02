@@ -9,7 +9,6 @@ public abstract class Level : MonoBehaviour
     [SerializeField] protected float correctLetterReward = 0.3f;
     [SerializeField] protected float wrongLetterPenalty = 0.2f;
     [SerializeField] protected float closePopupReward = 1f;
-    protected bool parserActive = false;
     public virtual void LevelStart()
     {
         GameEvents.instance.lose += LevelFinish;
@@ -24,7 +23,7 @@ public abstract class Level : MonoBehaviour
     }
     public virtual void LevelFinish()
     {
-        parserActive = false;
+        LevelState.parserActive = false;
     }
     protected abstract void ActivateLevel();
     public float GetLevelTime()
@@ -33,6 +32,6 @@ public abstract class Level : MonoBehaviour
     }
     public bool isParserActive()
     {
-        return parserActive;
+        return LevelState.parserActive;
     }
 }
