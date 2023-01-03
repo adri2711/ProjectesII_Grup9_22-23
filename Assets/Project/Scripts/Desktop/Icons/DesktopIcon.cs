@@ -35,4 +35,14 @@ public class DesktopIcon : MovableCanvasComponent
     {
         DragMove(data, transform, transform.parent.GetComponent<Canvas>());
     }
+    public override void DragStart(BaseEventData data)
+    {
+        base.DragStart(data);
+        Deselect();
+    }
+    public override void DragEnd(BaseEventData data)
+    {
+        base.DragEnd(data);
+        Deselect();
+    }
 }
