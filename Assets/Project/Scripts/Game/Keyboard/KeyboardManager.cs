@@ -48,7 +48,7 @@ public class KeyboardManager : MonoBehaviour
 
     void OnGUI()
     {
-        if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
+        if (LevelState.parserActive && !PauseMenu.gameIsPaused)
         {
             Event e = Event.current;
             int indexInput = KeyboardUtil.KeyCodeToKeyboardPos(e.keyCode);

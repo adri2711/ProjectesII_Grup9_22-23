@@ -24,7 +24,7 @@ public class Level3 : Level
     }
     protected override void ActivateLevel()
     {
-        parserActive = true;
+        LevelState.parserActive = true;
         TimerManager.instance.Activate();
         IntManager.instance.Activate();
         GameEvents.instance.popupClose -= ActivateLevel;

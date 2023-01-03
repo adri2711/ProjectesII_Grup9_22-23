@@ -79,7 +79,7 @@ public abstract class MovableCanvasComponent : MonoBehaviour
         baseSpeed = prevSpeed;
         speedTimerLock = false;
     }
-
+    
     public virtual void DragMove(BaseEventData data, Transform targetTransform, Canvas targetCanvas, string mainCameraName = "Main Camera")
     {
         if (held && draggable)

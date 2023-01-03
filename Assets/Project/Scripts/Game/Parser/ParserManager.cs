@@ -24,7 +24,7 @@ public class ParserManager : MonoBehaviour
         inputChecker = GetComponent<InputChecker>();
         parserEffects = GetComponent<ParserEffects>();
 
-        string jsonPath = Application.streamingAssetsPath + "/Data/level" + GameManager.instance.GetCurrentLevelNum() + "Text.json";
+        string jsonPath = Application.streamingAssetsPath + "/Data/level" + LevelState.currLevel + "Text.json";
         textJSON = File.ReadAllText(jsonPath);
         parserText = new ParserMultipartText();
         parserText.Setup(textJSON);
@@ -35,7 +35,7 @@ public class ParserManager : MonoBehaviour
     void Update()
     {
         ParserLoop();
-        if (GameManager.instance.GetCurrentLevel().isParserActive() && !PauseMenu.gameIsPaused)
+        if (LevelState.parserActive && !PauseMenu.gameIsPaused)
         {
             InputLoop();
         }
