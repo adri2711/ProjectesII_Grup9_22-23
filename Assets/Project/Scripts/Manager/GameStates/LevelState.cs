@@ -25,6 +25,7 @@ public class LevelState : GameState
     {
         GameEvents.instance.finishLevel -= LevelFinish;
         GameEvents.instance.lose -= LevelLose;
+        UnloadLevel();
     }
 
     public override void UpdateState()
@@ -32,7 +33,7 @@ public class LevelState : GameState
         //Level change
         if (!loading && (currLevel != prevLevel || queueLoadLevel))
         {
-            StartCoroutine(LoadLevelThread(levelFadeoutTime));
+            StartCoroutine(LoadLevelThread(0));
             queueLoadLevel = false;
             prevLevel = currLevel;
         }
@@ -45,57 +46,49 @@ public class LevelState : GameState
 
     private void LevelLose()
     {
-        queueLoadLevel = true;
+        StartCoroutine(ExitLevelThread(levelFadeoutTime));
         GlitchEffect.instance.Run(levelFadeoutTime, 1f);
     }
     private void LevelFinish()
     {
-        currLevel++;
+        StartCoroutine(ExitLevelThread(levelFadeoutTime));
     }
 
     private void LoadLevel()
     {
-        if (currLevel < GetLevelCount())
-        {
-            if (!SceneManager.GetSceneByName("Streak").isLoaded)
-                SceneManager.LoadSceneAsync("Streak", LoadSceneMode.Additive);
-            if (!SceneManager.GetSceneByName("Overlay").isLoaded)
-                SceneManager.LoadSceneAsync("Overlay", LoadSceneMode.Additive);
-            if (!SceneManager.GetSceneByName("Parser").isLoaded)
-                SceneManager.LoadScene("Parser", LoadSceneMode.Additive);
-            levels[currLevel].LevelStart();
-        }
-        else
-        {
-            Application.Quit();
-        }
+        levels[currLevel].LevelStart();
     }
     private IEnumerator LoadLevelThread(float t)
     {
         loading = true;
         yield return new WaitForSeconds(t);
-        Fade.instance.FadeOutIn();
+        if (!SceneManager.GetSceneByName("Streak").isLoaded)
+            SceneManager.LoadSceneAsync("Streak", LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName("Parser").isLoaded)
+            SceneManager.LoadScene("Parser", LoadSceneMode.Additive);
         yield return new WaitForSeconds(0.4f);
 
         while (TimerManager.instance == null || IntManager.instance == null) { }
-
-        UnloadLevel();
-
         LoadLevel();
 
         loading = false;
     }
+    private IEnumerator ExitLevelThread(float t)
+    {
+        yield return new WaitForSeconds(t);
+        GameManager.instance.SetGameState("Desktop");
+    }
+
+
 
     private void UnloadLevel()
     {
         if (SceneManager.GetSceneByName("Parser").isLoaded)
             SceneManager.UnloadSceneAsync("Parser");
-        if (SceneManager.GetSceneByName("Overlay").isLoaded)
-            SceneManager.UnloadSceneAsync("Overlay");
         if (SceneManager.GetSceneByName("Streak").isLoaded)
             SceneManager.UnloadSceneAsync("Streak");
 
-        while (SceneManager.GetSceneByName("Parser").isLoaded || SceneManager.GetSceneByName("Streak").isLoaded || SceneManager.GetSceneByName("Overlay").isLoaded) { }
+        while (SceneManager.GetSceneByName("Parser").isLoaded || SceneManager.GetSceneByName("Streak").isLoaded) { }
     }
 
     public int GetCurrentLevelNum()

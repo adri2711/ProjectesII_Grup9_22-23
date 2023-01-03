@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 756331159}
   - component: {fileID: 756331158}
   - component: {fileID: 756331161}
-  - component: {fileID: 756331160}
+  - component: {fileID: 756331162}
   m_Layer: 5
   m_Name: DesktopIcon
   m_TagString: Untagged
@@ -315,22 +315,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756331156}
   m_CullTransparentMesh: 1
---- !u!114 &756331160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756331156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea10a6075e7ece48a5b0e338a254a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  draggable: 1
-  bouncing: 0
-  baseSpeed: 0
-  bounce: 1
 --- !u!114 &756331161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +332,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 756331160}
+        - m_Target: {fileID: 756331162}
           m_TargetAssemblyTypeName: DesktopIcon, Assembly-CSharp
           m_MethodName: Drag
           m_Mode: 0
@@ -364,7 +348,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 756331160}
+        - m_Target: {fileID: 756331162}
           m_TargetAssemblyTypeName: MovableCanvasComponent, Assembly-CSharp
           m_MethodName: DragStart
           m_Mode: 0
@@ -380,7 +364,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 756331160}
+        - m_Target: {fileID: 756331162}
           m_TargetAssemblyTypeName: MovableCanvasComponent, Assembly-CSharp
           m_MethodName: DragEnd
           m_Mode: 0
@@ -396,7 +380,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 756331160}
+        - m_Target: {fileID: 756331162}
           m_TargetAssemblyTypeName: DesktopIcon, Assembly-CSharp
           m_MethodName: OnClick
           m_Mode: 0
@@ -408,3 +392,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &756331162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756331156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3aef30779345be4cb8db5a17e82e14d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggable: 1
+  bouncing: 1
+  baseSpeed: 0
+  bounce: 1
+  level: 0

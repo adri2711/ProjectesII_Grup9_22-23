@@ -9,6 +9,8 @@ public abstract class Level : MonoBehaviour
     [SerializeField] protected float correctLetterReward = 0.3f;
     [SerializeField] protected float wrongLetterPenalty = 0.2f;
     [SerializeField] protected float closePopupReward = 1f;
+    public bool completed { get; private set; } = false;
+
     public virtual void LevelStart()
     {
         GameEvents.instance.lose += LevelFinish;
@@ -23,6 +25,7 @@ public abstract class Level : MonoBehaviour
     }
     public virtual void LevelFinish()
     {
+        completed = true;
         LevelState.parserActive = false;
     }
     protected abstract void ActivateLevel();
