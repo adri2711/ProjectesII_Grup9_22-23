@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DesktopState : GameState
+public class StartState : GameState
 {
-    public DesktopState()
+    public StartState()
     {
-        scenes.Add("Desktop");
+        scenes.Add("MainMenu");
     }
 
     public override void Enter()

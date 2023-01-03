@@ -7,33 +7,25 @@ using UnityEngine.SceneManagement;
 
 public class LoginInputField : MonoBehaviour
 {
-    public TMP_InputField password;
-    public string correctPasswordText;
-
-    public GameObject wrongPasswordPopUp;
-    public AudioSource wrongSound;
+    private TMP_InputField password;
+    [SerializeField] private string correctPasswordText;
+    [SerializeField] private GameObject wrongPasswordPopUp;
+    [SerializeField] private AudioSource wrongSound;
     
     void Start()
     {
+        password = GetComponent<TMP_InputField>();
         password.contentType = TMP_InputField.ContentType.Password;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void TryToLogin()
     {
-        if(password.text == correctPasswordText)
+        if (password.text == correctPasswordText)
         {
-            Debug.Log("login successful");
-            SceneManager.LoadScene("Manager");
+            GameManager.instance.SetGameState("Desktop");
         }
-        else
+        else if (password.text != "")
         {
-            Debug.Log("wrong password");
             wrongSound.Play();
             wrongPasswordPopUp.SetActive(true);
             password.text = "";
