@@ -28,12 +28,10 @@ public class LoginInputField : MonoBehaviour
     {
         if(password.text == correctPasswordText)
         {
-            Debug.Log("login successful");
-            SceneManager.LoadScene("Manager");
+            GameManager.instance.SetGameState("Desktop");
         }
         else
         {
-            Debug.Log("wrong password");
             wrongSound.Play();
             wrongPasswordPopUp.SetActive(true);
             password.text = "";

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,12 @@ public class LevelState : GameState
     private bool loading = false;
     private float levelFadeoutTime = 3f;
     [SerializeField] private Level[] levels;
+
+    public LevelState()
+    {
+        scenes.Add("Parser");
+        scenes.Add("Streak");
+    }
 
     public override void Enter()
     {
@@ -33,7 +40,7 @@ public class LevelState : GameState
         //Level change
         if (!loading && (currLevel != prevLevel || queueLoadLevel))
         {
-            StartCoroutine(LoadLevelThread(0));
+            LoadLevel();
             queueLoadLevel = false;
             prevLevel = currLevel;
         }
@@ -56,19 +63,15 @@ public class LevelState : GameState
 
     private void LoadLevel()
     {
+        LoadScenes();
         levels[currLevel].LevelStart();
     }
     private IEnumerator LoadLevelThread(float t)
     {
         loading = true;
         yield return new WaitForSeconds(t);
-        if (!SceneManager.GetSceneByName("Streak").isLoaded)
-            SceneManager.LoadSceneAsync("Streak", LoadSceneMode.Additive);
-        if (!SceneManager.GetSceneByName("Parser").isLoaded)
-            SceneManager.LoadScene("Parser", LoadSceneMode.Additive);
+        
         yield return new WaitForSeconds(0.4f);
-
-        while (TimerManager.instance == null || IntManager.instance == null) { }
         LoadLevel();
 
         loading = false;
@@ -83,12 +86,7 @@ public class LevelState : GameState
 
     private void UnloadLevel()
     {
-        if (SceneManager.GetSceneByName("Parser").isLoaded)
-            SceneManager.UnloadSceneAsync("Parser");
-        if (SceneManager.GetSceneByName("Streak").isLoaded)
-            SceneManager.UnloadSceneAsync("Streak");
-
-        while (SceneManager.GetSceneByName("Parser").isLoaded || SceneManager.GetSceneByName("Streak").isLoaded) { }
+        UnloadScenes();
     }
 
     public int GetCurrentLevelNum()

@@ -20,7 +20,6 @@ public class Startup : MonoBehaviour
 
     public IEnumerator StartGame()
     {
-        Debug.Log("Coroutine start");
         startupAudio.Play();
 
         yield return new WaitForSeconds(0.5f);
@@ -33,7 +32,6 @@ public class Startup : MonoBehaviour
         bootScreen.sprite = bootScreenFinished;
 
         yield return new WaitForSeconds(2.0f);
-        Debug.Log("Show menu");
         menu.SetActive(true);
     }
 }

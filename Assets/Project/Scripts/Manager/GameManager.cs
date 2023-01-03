@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             states.Add(state.name, state);
         }
-        SetGameState("Desktop");
+        SetGameState("Start");
     }
 
     void Update()
@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         return currState;
     }
+
     public void SetGameState(string newState)
     {
         if (currState != null)
