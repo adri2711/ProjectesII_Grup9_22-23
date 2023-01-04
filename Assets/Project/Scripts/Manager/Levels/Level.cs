@@ -13,8 +13,8 @@ public abstract class Level : MonoBehaviour
 
     public virtual void LevelStart()
     {
-        GameEvents.instance.lose += LevelFinish;
-        GameEvents.instance.finishLevel += LevelFinish;
+        GameEvents.instance.lose += LevelExit;
+        GameEvents.instance.finishLevel += LevelWin;
 
         TimerManager.instance.Setup(levelTime, correctLetterReward, wrongLetterPenalty, closePopupReward);
         IntManager.instance.Setup();
@@ -23,9 +23,13 @@ public abstract class Level : MonoBehaviour
     {
 
     }
-    public virtual void LevelFinish()
+    public virtual void LevelWin()
     {
         completed = true;
+        LevelExit();
+    }
+    public virtual void LevelExit()
+    {
         LevelState.parserActive = false;
     }
     protected abstract void ActivateLevel();

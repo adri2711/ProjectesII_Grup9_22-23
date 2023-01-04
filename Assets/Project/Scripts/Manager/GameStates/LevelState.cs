@@ -23,7 +23,6 @@ public class LevelState : GameState
     {
         GameEvents.instance.finishLevel += LevelFinish;
         GameEvents.instance.lose += LevelLose;
-
         queueLoadLevel = true;
     }
 
@@ -31,6 +30,8 @@ public class LevelState : GameState
     {
         GameEvents.instance.finishLevel -= LevelFinish;
         GameEvents.instance.lose -= LevelLose;
+        levels[currLevel].LevelExit();
+        TimerManager.instance.Deactivate();
         UnloadLevel();
     }
 
@@ -80,8 +81,6 @@ public class LevelState : GameState
         yield return new WaitForSeconds(t);
         GameManager.instance.SetGameState("Desktop");
     }
-
-
 
     private void UnloadLevel()
     {

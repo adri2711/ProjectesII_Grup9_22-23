@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI;
+    private GameObject pauseMenuUI;
     public static bool gameIsPaused;
 
     void Start()
@@ -14,7 +15,7 @@ public class PauseMenu : MonoBehaviour
 
      void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GameManager.instance.currState == "Level" && Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameIsPaused)
             {
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour
 
     void InitialSetup()
     {
+        pauseMenuUI = GetComponentInChildren<Image>().gameObject;
         gameIsPaused = false;
         pauseMenuUI.SetActive(false);
     }
