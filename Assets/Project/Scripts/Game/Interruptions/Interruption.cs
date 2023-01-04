@@ -47,7 +47,7 @@ public abstract class Interruption : MovableCanvasComponent
     }
     public void Drag(BaseEventData data)
     {
-        DragMove(data, targetTransform, targetCanvas);
+        DragMove(data, targetTransform, targetCanvas, GameConstants.displayBottomLeftCorner, GameConstants.displayTopRightCorner);
     }
     public override void DragStart(BaseEventData data)
     {
