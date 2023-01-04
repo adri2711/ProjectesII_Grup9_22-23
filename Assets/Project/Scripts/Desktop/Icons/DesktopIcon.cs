@@ -33,7 +33,7 @@ public class DesktopIcon : MovableCanvasComponent
     }
     public virtual void Drag(BaseEventData data)
     {
-        DragMove(data, transform, transform.parent.GetComponent<Canvas>());
+        DragMove(data, transform, transform.parent.GetComponent<Canvas>(), GameConstants.screenBottomLeftCorner, GameConstants.screenTopRightCorner);
     }
     public override void DragStart(BaseEventData data)
     {

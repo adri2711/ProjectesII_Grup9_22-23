@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             states.Add(state.name, state);
         }
-        SetGameState("Start");
+        SetGameState(gameStates[0].name);
     }
 
     void Update()

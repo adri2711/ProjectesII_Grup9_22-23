@@ -32,7 +32,6 @@ public abstract class MovableCanvasComponent : MonoBehaviour
     protected virtual void MovementUpdate(Transform targetTransform, Canvas targetCanvas, Vector2 bottomLeftLimit, Vector2 topRightLimit)
     {
         RectTransform targetRect = (RectTransform)targetTransform;
-        RectTransform canvasRect = targetCanvas.GetComponent<RectTransform>();
         Vector3 movement = dir * (baseSpeed + addSpeed);
 
         addSpeed -= 0.1f;
@@ -43,15 +42,15 @@ public abstract class MovableCanvasComponent : MonoBehaviour
 
         if (bouncing)
         {
-            Vector2 popupPos = targetTransform.localPosition;
-            Vector2 popupSize = new Vector2(targetRect.rect.width, targetRect.rect.height);
-            if ((popupPos.x + popupSize.x / 2 > topRightLimit.x || popupPos.x - popupSize.x / 2 < bottomLeftLimit.x) && Mathf.Ceil(dir.normalized.x) == Mathf.Ceil(popupPos.normalized.x))
+            Vector2 position = targetTransform.localPosition;
+            Vector2 compSize = new Vector2(targetRect.rect.width, targetRect.rect.height);
+            if ((position.x + compSize.x / 2 > topRightLimit.x || position.x - compSize.x / 2 < bottomLeftLimit.x) && Mathf.Ceil(dir.normalized.x) == Mathf.Ceil(position.normalized.x))
             {
                 dir.x = -dir.x;
                 addSpeed += bounce;
                 GameEvents.instance.PopupBounce();
             }
-            else if ((popupPos.y + popupSize.y / 2 > topRightLimit.y || popupPos.y - popupSize.y / 2 < bottomLeftLimit.y) && Mathf.Ceil(dir.normalized.y) == Mathf.Ceil(popupPos.normalized.y))
+            else if ((position.y + compSize.y / 2 > topRightLimit.y || position.y - compSize.y / 2 < bottomLeftLimit.y) && Mathf.Ceil(dir.normalized.y) == Mathf.Ceil(position.normalized.y))
             {
                 dir.y = -dir.y;
                 addSpeed += bounce;
@@ -79,21 +78,51 @@ public abstract class MovableCanvasComponent : MonoBehaviour
         baseSpeed = prevSpeed;
         speedTimerLock = false;
     }
-    
     public virtual void DragMove(BaseEventData data, Transform targetTransform, Canvas targetCanvas, string mainCameraName = "Main Camera")
     {
-        if (held && draggable)
+        RectTransform canvasRect = targetCanvas.GetComponent<RectTransform>();
+        Vector2 topRight = new Vector2(canvasRect.rect.width / 2, canvasRect.rect.height / 2);
+        Vector2 bottomLeft = new Vector2(-canvasRect.rect.width / 2, -canvasRect.rect.height / 2);
+        DragMove(data, targetTransform, targetCanvas, bottomLeft, topRight, mainCameraName);
+    }
+    public virtual void DragMove(BaseEventData data, Transform targetTransform, Canvas targetCanvas, Vector2 bottomLeftLimit, Vector2 topRightLimit, string mainCameraName = "Main Camera")
+    {
+        if (!held || !draggable) return;
+
+        RectTransform targetRect = (RectTransform)targetTransform;
+        PointerEventData pointerData = (PointerEventData)data;
+
+        Vector2 position;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)targetCanvas.transform,
+            pointerData.position,
+            GameObject.Find(mainCameraName).GetComponent<Camera>(),
+            out position
+            );
+        
+        Vector2 compSize = new Vector2(targetRect.rect.width, targetRect.rect.height);
+        if (position.x > topRightLimit.x)
         {
-            PointerEventData pointerData = (PointerEventData)data;
-            Vector2 position;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                (RectTransform)targetCanvas.transform,
-                pointerData.position,
-                GameObject.Find(mainCameraName).GetComponent<Camera>(),
-                out position
-                );
-            targetTransform.position = targetCanvas.transform.TransformPoint(position);
+            Vector2 edgePos = new Vector2(topRightLimit.x, position.y);
+            position = edgePos;
         }
+        else if (position.x < bottomLeftLimit.x)
+        {
+            Vector2 edgePos = new Vector2(bottomLeftLimit.x, position.y);
+            position = edgePos;
+        }
+        if (position.y > topRightLimit.y)
+        {
+            Vector2 edgePos = new Vector2(position.x, topRightLimit.y);
+            position = edgePos;
+        }
+        else if (position.y < bottomLeftLimit.y)
+        {
+            Vector2 edgePos = new Vector2(position.x, bottomLeftLimit.y);
+            position = edgePos;
+        }
+
+        targetTransform.position = targetCanvas.transform.TransformPoint(position);
     }
     public virtual void DragStart(BaseEventData data)
     {
