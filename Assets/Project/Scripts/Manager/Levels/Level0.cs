@@ -16,9 +16,9 @@ public class Level0 : Level
     {
         base.LevelUpdate();
     }
-    public override void LevelFinish()
+    public override void LevelExit()
     {
-        base.LevelFinish();
+        base.LevelExit();
     }
     private void CorrectLetter(int p)
     {

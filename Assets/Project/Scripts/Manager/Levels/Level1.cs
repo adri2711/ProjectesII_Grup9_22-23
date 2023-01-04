@@ -16,10 +16,10 @@ public class Level1 : Level
     {
         base.LevelUpdate();
     }
-    public override void LevelFinish()
+    public override void LevelExit()
     {
         TimerManager.instance.Pause();
-        base.LevelFinish();
+        base.LevelExit();
     }
     private void CorrectLetter(int p)
     {

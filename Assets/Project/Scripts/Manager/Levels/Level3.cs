@@ -15,12 +15,12 @@ public class Level3 : Level
     {
         base.LevelUpdate();
     }
-    public override void LevelFinish()
+    public override void LevelExit()
     {
         TimerManager.instance.Pause();
         IntManager.instance.Deactivate();
         IntManager.instance.DestroyAllInterruptions();
-        base.LevelFinish();
+        base.LevelExit();
     }
     protected override void ActivateLevel()
     {

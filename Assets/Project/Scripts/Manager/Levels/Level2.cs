@@ -15,11 +15,11 @@ public class Level2 : Level
     {
         base.LevelUpdate();
     }
-    public override void LevelFinish()
+    public override void LevelExit()
     {
         IntManager.instance.Deactivate();
         IntManager.instance.DestroyAllInterruptions();
-        base.LevelFinish();
+        base.LevelExit();
     }
     protected override void ActivateLevel()
     {
