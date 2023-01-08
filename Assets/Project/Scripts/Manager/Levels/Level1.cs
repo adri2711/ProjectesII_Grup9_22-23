@@ -8,9 +8,9 @@ public class Level1 : Level
     public override void LevelStart()
     {
         base.LevelStart();
-        LevelState.parserActive = true;
         GameEvents.instance.enterCorrectLetter += CorrectLetter;
-        TimerManager.instance.MakeVisible();
+        TimerManager.instance.Deactivate();
+        LevelState.parserActive = true;
     }
     public override void LevelUpdate()
     {
@@ -19,7 +19,6 @@ public class Level1 : Level
     public override void LevelExit()
     {
         GameEvents.instance.enterCorrectLetter -= CorrectLetter;
-        TimerManager.instance.Pause();
         base.LevelExit();
     }
     private void CorrectLetter(int p)
@@ -29,6 +28,5 @@ public class Level1 : Level
     }
     protected override void ActivateLevel()
     {
-        TimerManager.instance.Activate();
     }
 }

@@ -94,6 +94,9 @@ MonoBehaviour:
   bouncing: 1
   baseSpeed: 0
   bounce: 1
+  unlocked: 0
+  completed: 0
+  grayscaleMaterial: {fileID: 2100000, guid: cca67080f43fcec43ad11684665e2e57, type: 2}
   level: 0
 --- !u!114 &3585262610147248346
 MonoBehaviour:
