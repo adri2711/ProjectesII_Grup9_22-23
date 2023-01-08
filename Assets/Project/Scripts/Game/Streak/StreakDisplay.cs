@@ -35,7 +35,7 @@ public class StreakDisplay : MonoBehaviour
         if (root != null)
         {
             Transform scoreTransform = Instantiate(scoreDisplay, new Vector2(0, 0), Quaternion.identity, root.transform);
-            scoreTransform.gameObject.GetComponent<PointText>().Setup(add, Random.Range(1.5f - sizeVariance, 1.5f + sizeVariance), Random.Range(2f - lifeTimeVariance, 2f + lifeTimeVariance));
+            scoreTransform.gameObject.GetComponent<PointText>().Setup(add, Random.Range(1f - sizeVariance, 1f + sizeVariance), Random.Range(2f - lifeTimeVariance, 2f + lifeTimeVariance));
 
             Vector2 scorePos = root.transform.position;
             scorePos += new Vector2(Random.Range(-spawnVariance.x, spawnVariance.x), Random.Range(-spawnVariance.y, spawnVariance.y));

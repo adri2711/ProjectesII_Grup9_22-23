@@ -18,16 +18,17 @@ public class Level1 : Level
     }
     public override void LevelExit()
     {
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
         TimerManager.instance.Pause();
         base.LevelExit();
     }
     private void CorrectLetter(int p)
     {
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
         ActivateLevel();
     }
     protected override void ActivateLevel()
     {
         TimerManager.instance.Activate();
-        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
     }
 }

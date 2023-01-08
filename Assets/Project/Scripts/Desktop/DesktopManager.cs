@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class DesktopManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private LevelIcon[] icons;
+    private LevelState levelState;
     void Start()
     {
-        
+        levelState = GameObject.Find("GameStates").GetComponentInChildren<LevelState>();
+        UpdateLevelIcons();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void UpdateLevelIcons()
     {
-        
+        icons = GetComponentsInChildren<LevelIcon>();
+        for (int i = 0; i < levelState.levels.Length; i++)
+        {
+            if (levelState.levels[i].completed)
+            {
+                icons[i].SetCompleted();
+            }
+            else if (levelState.levels[i].unlocked)
+            {
+                icons[i].SetUnlocked();
+            }
+            else
+            {
+                icons[i].SetLocked();
+            }
+        }
     }
 }

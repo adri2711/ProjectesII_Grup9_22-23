@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,14 +77,15 @@ public class GameManager : MonoBehaviour
         Event e = Event.current;
         if (e.isKey && e.type == EventType.KeyDown)
         {
-            LevelState level = states["Level"] as LevelState;
+            
             if (e.keyCode == KeyCode.F1)
             {
-                LevelState.currLevel = (level.GetLevelCount() + LevelState.currLevel - 1) % level.GetLevelCount();
-            }
-            else if (e.keyCode == KeyCode.F2)
-            {
-                LevelState.currLevel = (level.GetLevelCount() + LevelState.currLevel + 1) % level.GetLevelCount();
+                var levels = GameObject.Find("GameStates").GetComponentInChildren<LevelState>().levels;
+                foreach (var l in levels)
+                {
+                    l.unlocked = true;
+                }
+                GameObject.Find("DesktopCanvas").GetComponent<DesktopManager>().UpdateLevelIcons();
             }
             else if (e.keyCode == KeyCode.F3)
             {

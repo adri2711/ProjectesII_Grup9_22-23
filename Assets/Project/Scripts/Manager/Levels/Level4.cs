@@ -18,6 +18,7 @@ public class Level4 : Level
     }
     public override void LevelExit()
     {
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
         TimerManager.instance.Pause();
         IntManager.instance.Deactivate();
         IntManager.instance.DestroyAllInterruptions();
@@ -25,12 +26,12 @@ public class Level4 : Level
     }
     private void CorrectLetter(int p)
     {
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
         ActivateLevel();
     }
     protected override void ActivateLevel()
     {
         TimerManager.instance.Activate();
         IntManager.instance.Activate();
-        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
     }
 }

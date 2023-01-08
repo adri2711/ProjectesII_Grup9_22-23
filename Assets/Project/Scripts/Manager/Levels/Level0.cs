@@ -18,6 +18,7 @@ public class Level0 : Level
     }
     public override void LevelExit()
     {
+        GameEvents.instance.enterCorrectLetter -= CorrectLetter;
         base.LevelExit();
     }
     private void CorrectLetter(int p)

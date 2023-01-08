@@ -17,6 +17,7 @@ public class Level3 : Level
     }
     public override void LevelExit()
     {
+        GameEvents.instance.popupClose -= ActivateLevel;
         TimerManager.instance.Pause();
         IntManager.instance.Deactivate();
         IntManager.instance.DestroyAllInterruptions();
