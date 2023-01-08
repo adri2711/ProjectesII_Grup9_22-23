@@ -9,8 +9,11 @@ public class DesktopManager : MonoBehaviour
     void Start()
     {
         levelState = GameObject.Find("GameStates").GetComponentInChildren<LevelState>();
+        UpdateLevelIcons();
+    }
+    public void UpdateLevelIcons()
+    {
         icons = GetComponentsInChildren<LevelIcon>();
-
         for (int i = 0; i < levelState.levels.Length; i++)
         {
             if (levelState.levels[i].completed)
