@@ -1,23 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Popup : Interruption
 {
-    public float baseSpeed = 0f;
-    public float bounce = 1f;
-    protected float addSpeed;
-    protected Vector2 dir;
+    [Space(10)] [Header("Escape Events")]
+    [SerializeField] private int closeCharges = 0;
+    [Space(10)] [Header("Close:")]
+    [SerializeField] private bool escapeOnClose = false;
+    [SerializeField] private float escapeSpeed = 10f;
+    [SerializeField] private float escapeDuration = 0.3f;
+    [Space(10)] [Header("Grow:")]
+    [SerializeField] private bool growOnClose = false;
+    [SerializeField] private Vector2 growFactor = new Vector2(1.3f,1.3f);
+    [Space(10)] [Header("Flip:")]
+    [SerializeField] private bool flipOnClose = false;
+    [SerializeField] private Vector2 flipAxis = Vector2.zero;
 
-    private void Start()
-    {   
+    protected void Start()
+    {
         Spawn();
     }
     public override void Spawn()
     {
-        id = "Popup";
+        id = "popup";
         base.Spawn();
         SetRandomDirection();
         GameEvents.instance.PopupSpawn();
@@ -25,48 +37,45 @@ public class Popup : Interruption
 
     public override void Close()
     {
-        animator.Play("close");
-        GameEvents.instance.PopupClose();
-        base.Close();
-    }
-
-    private void FixedUpdate()
-    {
-        if (baseSpeed > 0f)
+        if (closeCharges > 0)
         {
-            MovementUpdate();
+            closeCharges--;
+            if (escapeOnClose)
+            {
+                Escape(escapeSpeed, escapeDuration);
+            }
+            if (growOnClose)
+            {
+                Grow(growFactor);
+            }
+            if (flipOnClose)
+            {
+                Flip(flipAxis);
+            }
+        }
+        else
+        {
+            animator.Play("close");
+            GameEvents.instance.PopupClose();
+            base.Close();
         }
     }
-    protected void MovementUpdate()
+
+    protected virtual void Escape(float speed, float duration)
     {
-        Vector3 movement = dir * (baseSpeed + addSpeed);
-
-        addSpeed -= 0.1f;
-        if (addSpeed < 0)
-        {
-            addSpeed = 0;
-        }
-
-        Vector2 edges = new Vector2(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
-        Vector2 popupPos = GetComponentInChildren<Image>().transform.localPosition;
-        Vector2 popupSize = new Vector2(GetComponentInChildren<Image>().rectTransform.rect.x, GetComponentInChildren<Image>().rectTransform.rect.y);
-        if (Math.Abs(popupPos.x) + popupSize.x >= edges.x && Math.Ceiling(dir.normalized.x) == Math.Ceiling(popupPos.normalized.x))
-        {
-            dir.x = -dir.x;
-            addSpeed += bounce;
-            GameEvents.instance.PopupBounce();
-        }
-        else if (Math.Abs(popupPos.y) + popupSize.y >= edges.y && Math.Ceiling(dir.normalized.y) == Math.Ceiling(popupPos.normalized.y))
-        {
-            dir.y = -dir.y;
-            addSpeed += bounce;
-            GameEvents.instance.PopupBounce();
-        }
-
-        GetComponentInChildren<Image>().transform.localPosition += movement;
+        SetRandomDirection();
+        SetSpeedForDuration(speed, duration);
     }
-    protected void SetRandomDirection()
+    protected virtual void Grow(Vector2 factor)
     {
-        dir = new Vector2(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)).normalized;
+        GetComponentInChildren<Image>().rectTransform.sizeDelta *= factor;
+    }
+    protected virtual void Flip(Vector2 axis)
+    {
+        RectTransform buttonRect = GetComponentInChildren<Button>().GetComponent<Image>().rectTransform;
+        SetPosition(GetPosition() + new Vector2(GetComponentInChildren<Image>().rectTransform.rect.width, GetComponentInChildren<Image>().rectTransform.rect.height) * (buttonRect.pivot * 2 - new Vector2(1,1)) * axis);
+        buttonRect.anchorMin += axis * ((Vector2.one - buttonRect.anchorMin) * 2 - Vector2.one);
+        buttonRect.anchorMax += axis * ((Vector2.one - buttonRect.anchorMax) * 2 - Vector2.one);
+        buttonRect.pivot += axis * ((Vector2.one - buttonRect.pivot) * 2 - Vector2.one);
     }
 }

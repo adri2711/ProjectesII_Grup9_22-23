@@ -1,19 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public abstract class Interruption : MonoBehaviour
+public abstract class Interruption : MovableCanvasComponent
 {
-    public Animator animator;
+    protected Transform targetTransform;
+    protected Canvas targetCanvas;
+    [NonSerialized] public Animator animator;
     protected string id = "invalid";
     public float closeTime = 0f;
     public virtual void Spawn()
     {
-        GetComponentInChildren<Canvas>().sortingOrder = IntManager.instance.GetIntCount();
-        animator = this.GetComponentInChildren<Animator>();
+        targetTransform = GetComponentInChildren<Image>().transform;
+        targetCanvas = GetComponentInChildren<Canvas>();
+        targetCanvas.sortingOrder = IntManager.instance.GetIntCount();
+        animator = GetComponentInChildren<Animator>();
         animator.Play("open");
     }
     public virtual void Close() {
@@ -24,8 +30,31 @@ public abstract class Interruption : MonoBehaviour
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
+    private void FixedUpdate()
+    {
+        if (baseSpeed > 0f && !held)
+        {
+            MovementUpdate(targetTransform, targetCanvas, GameConstants.screenBottomLeftCorner, GameConstants.screenTopRightCorner);
+        }
+    }
     public void SetPosition(Vector3 newPos)
     {
-        GetComponentInChildren<Image>().transform.localPosition += newPos;
+        SetPosition(GetComponentInChildren<Image>().transform, newPos);
+    }
+    public override Vector2 GetPosition()
+    {
+        return GetComponentInChildren<Image>().transform.position;
+    }
+    public void Drag(BaseEventData data)
+    {
+        DragMove(data, targetTransform, targetCanvas, GameConstants.displayBottomLeftCorner, GameConstants.displayTopRightCorner);
+    }
+    public override void DragStart(BaseEventData data)
+    {
+        base.DragStart(data);
+    }
+    public override void DragEnd(BaseEventData data)
+    {
+        base.DragEnd(data);
     }
 }

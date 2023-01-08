@@ -1,7 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using System.IO;
+
+[System.Serializable]
+public class IntSpawnerArray
+{
+    public IntSpawner[] value;
+}
 
 public class IntManager : MonoBehaviour
 {
@@ -17,36 +25,77 @@ public class IntManager : MonoBehaviour
         {
             instance = this;
         }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private bool active = false;
     [SerializeField] private Transform staticPopup;
     [SerializeField] private Transform bouncingPopup;
-    private IntSpawner[] spawners = new IntSpawner[0];
+
+    [SerializeField] private List<Transform> interruptions = new List<Transform>();
+    private IntSpawnerArray spawners = new IntSpawnerArray();
 
     void Start()
     {
-        Array.Resize(ref spawners, 2);
-        IntSpawner staticPopupSpawner = new IntSpawner(staticPopup, 10, 15, new Vector2(0,0), 200);
-        spawners.SetValue(staticPopupSpawner, 0);
-        IntSpawner bouncingPopupSpawner = new IntSpawner(bouncingPopup, 20, 20, new Vector2(0, 0), 0);
-        spawners.SetValue(bouncingPopupSpawner, 1);
-        if (GameManager.instance.GetCurrentLevel() == 1)
+
+    }
+    public void Setup()
+    {
+        //Reset
+        DestroyAllInterruptions();
+        intCount = 0;
+        spawners.value = new IntSpawner[0];
+
+        //Read spawners from json
+        string jsonPath = Application.streamingAssetsPath + "/Data/level" + LevelState.currLevel + "Interruptions.json";
+        string jsonText = File.ReadAllText(jsonPath);
+        spawners = JsonUtility.FromJson<IntSpawnerArray>(jsonText);
+
+        //Set up read spawners
+        foreach (IntSpawner readSpawner in spawners.value)
         {
-            Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("IntManager").transform);
-            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector3(-70,90,0));
+            Transform intTransform = GetSpawnObject(readSpawner.objectName);
+            if (intTransform != null)
+            {
+                readSpawner.spawnedObject = intTransform;
+            }
+        }
+
+        //Special cases
+        if (LevelState.currLevel == 2 || LevelState.currLevel == 3)
+        {
+            Transform intTransform = GameObject.Instantiate(staticPopup, new Vector2(0, 0), Quaternion.identity, GameObject.Find("popup").transform);
+            intTransform.gameObject.GetComponent<Interruption>().SetPosition(new Vector2(15, 120));
+        }
+    }
+    private Transform GetSpawnObject(string name)
+    {
+        foreach (Transform intTransform in interruptions)
+        {
+            if (intTransform.gameObject.name == name)
+            {
+                return intTransform;
+            }
+        }
+        return null;
+    }
+    public void DestroyAllInterruptions()
+    {
+        foreach (Interruption obj in GetComponentsInChildren<Interruption>())
+        {
+            Destroy(obj.gameObject);
         }
     }
     void Update()
     {
-        intCount = this.transform.childCount;
         if (active)
         {
-            foreach (IntSpawner intSpawner in spawners)
+            foreach (IntSpawner intSpawner in spawners.value)
             {
                 if (!intSpawner.running)
                 {
                     StartCoroutine(intSpawner.SpawnThread());
+                    intCount++;
                 }
             }
         }
@@ -54,7 +103,7 @@ public class IntManager : MonoBehaviour
     public void Activate()
     {
         active = true;
-        foreach (IntSpawner intSpawner in spawners)
+        foreach (IntSpawner intSpawner in spawners.value)
         {
             intSpawner.Activate();
         }
@@ -62,7 +111,7 @@ public class IntManager : MonoBehaviour
     public void Deactivate()
     {
         active = false;
-        foreach (IntSpawner intSpawner in spawners)
+        foreach (IntSpawner intSpawner in spawners.value)
         {
             intSpawner.Deactivate();
         }

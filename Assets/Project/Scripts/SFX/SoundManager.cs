@@ -16,12 +16,23 @@ public class SoundManager : MonoBehaviour
     public AudioClip finishLevelClip;
     public AudioClip gainExtraTimeClip;
 
+    public AudioClip goodStreakClip;
+    public AudioClip brokenStreakClip;
+
     public AudioClip[] popupSpawnClip;
     public AudioClip popupCloseClip;
     public AudioClip popupBounceClip;
 
+    public AudioClip popUpGrab;
+    public AudioClip lowTime;
+
     public AudioSource bgAudioSource;
     public AudioClip backgroundMusic;
+
+    public AudioClip nudgeKey;
+    public AudioClip detatchKey;
+    public AudioClip attachKey;
+    
 
     private void Awake()
     {
@@ -46,9 +57,17 @@ public class SoundManager : MonoBehaviour
         GameEvents.instance.finishLevel += FinishLevelSound;
         GameEvents.instance.gainExtraTime += GainExtraTimeSound;
 
+        GameEvents.instance.streakIncrease += StreakIncreaseSound;
+        GameEvents.instance.brokenStreak += BrokenStreakSound;
+
+        GameEvents.instance.detachKey += DetachKeySound;
+        GameEvents.instance.attachKey += AttachKeySound;
+        GameEvents.instance.nudgeKey += NudgeKeySound;
+
         GameEvents.instance.popupBounce += PopupBounceSound;
         GameEvents.instance.popupClose += PopupCloseSound;
         GameEvents.instance.popupSpawn += PopupSpawnSound;
+        GameEvents.instance.popupGrab += PopupGrabSound;
         GameEvents.instance.lowTimeEffect += LowTimeEffectSound;
         
         bgAudioSource.clip = backgroundMusic;
@@ -93,8 +112,32 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.PlayOneShot(popupSpawnClip[Random.Range(0,popupSpawnClip.Length)], 0.8f);
     }
+    public void PopupGrabSound()
+    {
+        audioSource.PlayOneShot(popUpGrab);
+    }
     public void LowTimeEffectSound()
     {
-        
+        audioSource.PlayOneShot(lowTime);
+    }
+    public void StreakIncreaseSound()
+    {
+        audioSource.PlayOneShot(goodStreakClip, 0.5f);
+    }
+    public void BrokenStreakSound()
+    {
+        audioSource.PlayOneShot(brokenStreakClip, 1f);
+    }
+    public void DetachKeySound(int k)
+    {
+        audioSource.PlayOneShot(detatchKey);
+    }
+    public void AttachKeySound(int k)
+    {
+        audioSource.PlayOneShot(attachKey, 0.7f);
+    }
+    public void NudgeKeySound()
+    {
+        audioSource.PlayOneShot(nudgeKey);
     }
 }
