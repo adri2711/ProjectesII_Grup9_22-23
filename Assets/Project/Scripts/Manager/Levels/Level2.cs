@@ -17,6 +17,7 @@ public class Level2 : Level
     }
     public override void LevelExit()
     {
+        GameEvents.instance.popupClose -= ActivateLevel;
         IntManager.instance.Deactivate();
         IntManager.instance.DestroyAllInterruptions();
         base.LevelExit();

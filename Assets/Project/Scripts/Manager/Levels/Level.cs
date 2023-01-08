@@ -28,10 +28,12 @@ public abstract class Level : MonoBehaviour
     }
     public virtual void LevelWin()
     {
+        GameEvents.instance.finishLevel -= LevelWin;
         LevelExit();
     }
     public virtual void LevelExit()
     {
+        GameEvents.instance.lose -= LevelExit;
         LevelState.parserActive = false;
     }
     protected abstract void ActivateLevel();
