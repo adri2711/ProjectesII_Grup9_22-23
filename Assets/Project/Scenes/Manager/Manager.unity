@@ -563,10 +563,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completed: 0
   unlocked: 0
-  levelTime: 6
-  correctLetterReward: 5
-  wrongLetterPenalty: 0.5
-  closePopupReward: 1
+  levelTime: 9
+  correctLetterReward: 0.5
+  wrongLetterPenalty: 0.3
+  closePopupReward: 2
 --- !u!1 &890064378
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,3 +874,4 @@ MonoBehaviour:
   - {fileID: 927153579}
   - {fileID: 293622513}
   - {fileID: 640010211}
+  - {fileID: 783613805}
