@@ -52,10 +52,20 @@ public class DesktopIcon : MovableCanvasComponent
     public virtual void Select()
     {
         selected = true;
+        ToggleHighlight(true);
     }
     public virtual void Deselect()
     {
         selected = false;
+        ToggleHighlight(false);
+    }
+    public virtual void ToggleHighlight(bool active)
+    {
+        var highlight = transform.Find("highlight");
+        if (highlight != null)
+        {
+            highlight.gameObject.SetActive(active);
+        }
     }
     public virtual void Drag(BaseEventData data)
     {
