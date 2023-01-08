@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,7 @@ public class LevelState : GameState
     private bool queueLoadLevel = false;
     private bool loading = false;
     private float levelFadeoutTime = 3f;
-    [SerializeField] private Level[] levels;
+    public Level[] levels;
 
     public LevelState()
     {
@@ -58,6 +59,11 @@ public class LevelState : GameState
     }
     private void LevelFinish()
     {
+        levels[currLevel].completed = true;
+        if (currLevel < levels.Length - 1)
+        {
+            levels[currLevel + 1].unlocked = true;
+        }
         StartCoroutine(ExitLevelThread(levelFadeoutTime));
     }
 
@@ -94,5 +100,13 @@ public class LevelState : GameState
     public int GetLevelCount()
     {
         return levels.Length;
+    }
+    public bool IsCompleted(int index)
+    {
+        return levels[index].completed;
+    }
+    public bool IsUnlocked(int index)
+    {
+        return levels[index].unlocked;
     }
 }
